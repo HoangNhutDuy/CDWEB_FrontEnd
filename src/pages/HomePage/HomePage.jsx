@@ -12,7 +12,10 @@ const HomePage = () => {
       <Header />
       <section className="category__section section" id="category">
         <div className="tab__list">
-          <div className="title__container tabs">
+          <div
+            className="title__container tabs"
+            style={{ backgroundColor: "red" }}
+          >
             <div className="section__titles category__titles ">
               <div
                 className="section__title filter-btn active"

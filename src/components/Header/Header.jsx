@@ -14,6 +14,7 @@ import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout"
 
 import sacDuphong1 from "../../images/sacduphong1.png"
 import taiNghe6 from "../../images/tainghe6.png"
+import { Link } from "react-router-dom"
 const Header = () => {
   return (
     <>
@@ -104,9 +105,9 @@ const Header = () => {
                   <ShoppingCartCheckoutIcon sx={{ color: "black" }} />
                   <span id="cart__total">4</span>
                 </a>
-                <a href="/login.html" className="nav__link_giohang">
+                <Link to="/cart" className="nav__link_giohang">
                   Giỏ Hàng
-                </a>
+                </Link>
               </div>
             </nav>
           </div>
@@ -259,63 +260,6 @@ const Header = () => {
           </div>
         </div>
       </header>
-      <div class="hero">
-        <div class="glide" id="glide_1">
-          <div class="glide__track" data-glide-el="track">
-            <ul class="glide__slides">
-              <li class="glide__slide">
-                <div class="hero__center">
-                  <div class="hero__left">
-                    <span class="">Nguồn cảm hứng năm 2022</span>
-                    <h1 class="">PIN DỰ PHÒNG DÀNH CHO BẠN!</h1>
-                    <p>Mẫu Sạc Dự Phòng Bán Chạy nhất của năm</p>
-                    <a href="/phone_chuong/product.html">
-                      <button class="hero__btn">MUA NGAY</button>
-                    </a>
-                  </div>
-                  <div class="hero__right">
-                    <div class="hero__img-container">
-                      <img class="banner_01" src={sacDuphong1} alt="banner2" />
-                    </div>
-                  </div>
-                </div>
-              </li>
-              <li class="glide__slide">
-                <div class="hero__center">
-                  <div class="hero__left">
-                    <span>Nguồn cảm hứng năm 2022</span>
-                    <h1>ARIPODS 2 CHÍNH HÃNG APPLE</h1>
-                    <p>Giảm Ngay 30% Khi Mua Hàng Trước Ngày 22/12/2022</p>
-                    <a href="/phone_chuong/product.html">
-                      <button class="hero__btn">MUA NGAY</button>
-                    </a>
-                  </div>
-                  <div class="hero__right">
-                    <img class="banner_02" src={taiNghe6} alt="banner2" />
-                  </div>
-                </div>
-              </li>
-            </ul>
-          </div>
-          <div class="glide__bullets" data-glide-el="controls[nav]">
-            <button class="glide__bullet" data-glide-dir="=0"></button>
-            <button class="glide__bullet" data-glide-dir="=1"></button>
-          </div>
-
-          <div class="glide__arrows" data-glide-el="controls">
-            <button class="glide__arrow glide__arrow--left" data-glide-dir="<">
-              {/* <svg>
-                <use xlink:href="./images/sprite.svg#icon-arrow-left2"></use>
-              </svg> */}
-            </button>
-            <button class="glide__arrow glide__arrow--right" data-glide-dir=">">
-              {/* <svg>
-                <use xlink:href="./images/sprite.svg#icon-arrow-right2"></use>
-              </svg> */}
-            </button>
-          </div>
-        </div>
-      </div>
     </>
   )
 }

@@ -83,7 +83,7 @@ h4 {
 .navigation {
   position: relative;
   height: 7rem;
-  background: #BE1E2D;
+  background: #be1e2d;
   color: white;
 }
 
@@ -103,7 +103,7 @@ h4 {
   width: 100%;
   background-color: var(--white);
   z-index: 1200;
-  background: #BE1E2D;
+  background: #be1e2d;
   color: white;
   transition: opacity 150ms ease, border 300ms ease-in-out;
   transform: translateY(0%);
@@ -138,7 +138,6 @@ h4 {
   display: flex;
   align-items: center;
   height: 100%;
-
 }
 
 .nav__item:not(:last-child) {
@@ -163,7 +162,7 @@ h4 {
 }
 
 .scroll-linkDANHMUC:hover {
-  color: #BE1E2D;
+  color: #be1e2d;
 }
 
 .scroll-link,
@@ -255,12 +254,6 @@ h4 {
   top: 0;
   left: -1rem;
 }
-
-
-
-
-
-
 
 /*
   ======================
@@ -507,9 +500,6 @@ h4 {
   }
 }
 
-
-
-
 /*
   ======================
   Cart Area Media Query
@@ -517,7 +507,6 @@ h4 {
   */
 
 @media only screen and (max-width: 1200px) {
-
   .minus-btn,
   .plus-btn {
     padding: 0.6rem 0.8rem;
@@ -593,16 +582,13 @@ h4 {
   font-weight: 400;
 }
 
-header>li {
+header > li {
   color: white;
 }
 
 .icon__item {
   background: white;
 }
-
-
-
 
 .nav__icons_danhmuc {
   position: relative;
@@ -671,15 +657,12 @@ header>li {
 }
 
 .block-breadcrumbs {
-
   width: 100%;
 
   height: 30px;
-
 }
 
 .prefix {
-
   width: 1214.09px;
 
   height: 30px;
@@ -687,17 +670,16 @@ header>li {
   margin: auto;
 }
 
-.prefix>ul>li {
-
+.prefix > ul > li {
   display: inline-block;
 
   margin-top: 5px;
 }
 
 .item::after {
-
-  content: '';
-  background: url(https://didongviet.vn/pub/static/frontend/ddv/default/vi_VN/images/arrow-right-line.png) no-repeat;
+  content: "";
+  background: url(https://didongviet.vn/pub/static/frontend/ddv/default/vi_VN/images/arrow-right-line.png)
+    no-repeat;
   margin: 0 5px;
   width: 10px;
   height: 14px;
@@ -707,51 +689,35 @@ header>li {
 }
 
 #section-detailsProduct {
-
   width: 100%;
 
   height: 800px;
-
-
   display: flex;
   justify-content: center;
-
-
-
 }
 
 .section__container__product {
-
   width: 90%;
 
   padding: 20px 0 0 0;
 
   position: relative;
-
-
-
-
-
 }
 
-.product-detail__center:last-child>p {
-
+.product-detail__center:last-child > p {
   margin-bottom: 10px;
 }
 
 .section__container__product hr {
-
   margin-bottom: 20px;
 
   background-color: #f5f5f5;
   border: none;
   display: block;
   height: 2px;
-
 }
 
 .product-detail__left {
-
   width: 359.33px;
 
   height: 632px;
@@ -759,12 +725,9 @@ header>li {
   border-radius: 5px;
 
   position: relative;
-
-
 }
 
 #image__detail__product {
-
   width: 168.69px;
 
   height: 150px;
@@ -776,15 +739,9 @@ header>li {
 
   padding: 10px;
   background: #fff;
-
-
-
-
 }
 
 .container--image {
-
-
   width: 398px;
   height: 398px;
   border-radius: 12px;
@@ -792,37 +749,27 @@ header>li {
 
   text-align: center;
 
-
-
   padding-top: 25px;
 
   margin-bottom: 30px;
-
-
-
-
 }
 
-.container--image>h1 {
+.container--image > h1 {
   color: white;
 
   margin-top: 20px;
 }
 
 .container--image .desktop {
-
   color: white;
 
   font-size: 14px;
 
   padding: 15px 0;
   line-height: 1.45;
-
-
 }
 
 .swiper-wrapper {
-
   width: 399.8px;
   height: 52px;
 
@@ -831,11 +778,9 @@ header>li {
   align-items: center;
 
   margin-top: 30px;
-
 }
 
 .swiper-wrapper .swiper-slide {
-
   width: 52px;
 
   height: 52px;
@@ -847,38 +792,28 @@ header>li {
   text-align: center;
 
   margin: 0 5px;
-
-
 }
 
 #swiper-slide-visible1__image {
-
   width: 25.19px;
   height: 23.99px;
-
 }
 
 .swiper-slide-visible1 {
-
   font-size: 10px;
 }
 
 #swiper-slide-visible2__image {
-
   width: 52px;
   height: 44px;
-
 }
 
 #swiper-slide-visible3__image {
-
   width: 52px;
   height: 48px;
-
 }
 
 .product-detail__center {
-
   width: 439px;
 
   height: 503px;
@@ -888,17 +823,11 @@ header>li {
   right: 350px;
 
   line-height: 1.5;
-
-
-
 }
 
 .product-detail__center .product__bonus {
-
   width: 100%;
   height: 300px;
-
-
 
   border: 0.5px solid #8282827a;
 
@@ -913,17 +842,13 @@ header>li {
   line-height: 1.45;
 }
 
-.product__bonus>li {
-
+.product__bonus > li {
   margin-top: 20px;
 
   margin-left: 15px;
-
-
 }
 
-.product__bonus>hr {
-
+.product__bonus > hr {
   width: 90%;
   margin-bottom: 20px;
 
@@ -932,12 +857,10 @@ header>li {
   display: block;
   height: 2px;
 
-
   margin: 20px 0 0 20px;
 }
 
 .button {
-
   width: 100%;
   display: flex;
   justify-content: center;
@@ -945,7 +868,6 @@ header>li {
 }
 
 .product-detail__center .button__pay {
-
   min-width: 220px;
 
   height: 58px;
@@ -964,39 +886,28 @@ header>li {
 
   font-weight: 200;
 
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
 }
 
 .product-detail__center .button__pay:hover {
-
   background-color: #ce1e2f;
 
   color: white;
 
-  transition: .5s ease;
-
-
+  transition: 0.5s ease;
 }
 
 #section__title__product {
-
   margin-top: 30px;
   margin-left: 60px;
 
   font-size: 18px;
 }
 
-
 .product-detail__right {
-
-
   width: 239px;
 
   height: 239px;
-
-
-
 
   position: absolute;
   top: 0px;
@@ -1006,15 +917,12 @@ header>li {
   border: 1px solid #e5e7eb;
   border-radius: 10px;
   background: #fff;
-
 }
 
 .product__item {
-
   width: 133px;
 
   height: 48px;
-
 
   border: 1px solid #d70018;
   border-radius: 12px;
@@ -1026,10 +934,6 @@ header>li {
   justify-content: center;
 
   align-items: center;
-
-
-
-
 }
 
 /*
@@ -1476,7 +1380,6 @@ span.dot::before {
 }
 
 @media only screen and (max-width: 768px) {
-
   .latest__products .glide__arrow--left,
   .related__products .glide__arrow--left {
     left: 70%;
@@ -2512,18 +2415,15 @@ span.dot::before {
   align-items: center;
 
   margin-top: 25px;
-
 }
 
 .title {
-
   margin-top: 20px;
 
   line-height: 1.7;
 }
 
-.title>li {
-
+.title > li {
   list-style: none;
 }
 
@@ -2934,6 +2834,8 @@ span.dot::before {
   border: 1px solid var(--primaryColor);
   padding: 1.4rem 0.5rem;
   position: relative;
+  display: flex;
+  justify-content: space-between;
 }
 
 .cart__totals li:not(:last-child) {
@@ -2972,7 +2874,6 @@ span.dot::before {
   */
 
 @media only screen and (max-width: 1200px) {
-
   .minus-btn,
   .plus-btn {
     padding: 0.6rem 0.8rem;
