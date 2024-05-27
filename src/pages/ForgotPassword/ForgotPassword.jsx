@@ -2,6 +2,7 @@ import React from "react"
 import back7 from "../../icon/back7.png"
 import jcphone from "../../images/jcphone.png"
 import "./quenmatkhau.css"
+import { Link } from "react-router-dom"
 const ForgotPassword = () => {
   return (
     <>
@@ -18,9 +19,9 @@ const ForgotPassword = () => {
         }}
       >
         <div className="container">
-          <a href="/login">
+          <Link to="/login">
             <img class="homelogin" src={back7} alt="" />
-          </a>
+          </Link>
         </div>
         <div className="total">
           <div className="image-text">
@@ -86,9 +87,9 @@ const ForgotPassword = () => {
                     <p className="left" href="">
                       Chưa có mã xác nhận
                     </p>
-                    <a className="right" href="">
+                    <Link className="right" to="/">
                       Gửi mã
-                    </a>
+                    </Link>
                   </div>
                 </form>
               </div>

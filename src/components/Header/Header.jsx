@@ -11,7 +11,7 @@ import phukienkhacImg from "../../icon/khac.jpg"
 
 import PersonIcon from "@mui/icons-material/Person"
 import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout"
-
+import SearchIcon from "@mui/icons-material/Search"
 import sacDuphong1 from "../../images/sacduphong1.png"
 import taiNghe6 from "../../images/tainghe6.png"
 import { Link } from "react-router-dom"
@@ -27,9 +27,9 @@ const Header = () => {
               </div>
 
               <div className="nav__logo">
-                <a href="/index.html" classNameName="scroll-link">
+                <Link to="/" classNameName="scroll-link">
                   JC SHOP
-                </a>
+                </Link>
               </div>
 
               <div className="nav__menu">
@@ -43,68 +43,80 @@ const Header = () => {
                 </div>
                 <ul className="nav__list">
                   <li className="nav__item">
-                    <a href="#header" className="nav__link scroll-link">
+                    <Link to="/" className="nav__link scroll-link">
                       Trang chủ
-                    </a>
+                    </Link>
                   </li>
                   <li className="nav__item">
-                    <a href="#category" className="nav__link scroll-link">
+                    <Link to="/" className="nav__link scroll-link">
                       Sản phẩm
-                    </a>
+                    </Link>
                   </li>
-                  <li className="nav__item_seach">
+                  <li
+                    className="nav__item_seach"
+                    style={{
+                      padding: "4px 10px",
+                      fontSize: "20px",
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                      width: "300px",
+                    }}
+                  >
                     <input
                       className="input_seach"
                       id="input_seach"
                       type="text"
-                      placeholder="seach..."
+                      placeholder="Tìm kiếm tại đây"
                     />
                     <div className="nav__icons">
-                      {/* <a href="#" className="icon__item" id="icon__item_seach">
-                            <svg className="icon__search">
-                              <use xlink:href="./images/sprite.svg#icon-search"></use>
-                            </svg>
-                          </a> */}
+                      <Link to="/">
+                        <SearchIcon sx={{ fontSize: "20px" }} />
+                      </Link>
                     </div>
                   </li>
                   <li className="nav__item">
                     <div className="nav__item_hotro">
-                      <a href="#hotro" className="nav__link scroll-link">
+                      <Link to="/" className="nav__link scroll-link">
                         HOTLINE HỖ TRỢ
-                      </a>{" "}
+                      </Link>
                       <br />
-                      <a href="#hotro" className="nav__link scroll-link">
+                      <span className="nav__link scroll-link">
                         0999.999.999
-                      </a>
+                      </span>
                     </div>
                   </li>
                 </ul>
               </div>
 
               <div className="nav__icons">
-                <a href="/login.html" className="icon__item">
+                <Link
+                  to="/login"
+                  className="icon__item"
+                  style={{ marginRight: "-10px" }}
+                >
                   {/* <svg className="icon__user" xmlns={user}></svg> */}
                   <PersonIcon sx={{ color: "black" }} />
-                </a>
+                </Link>
                 <div className="nav__item_user" id="nav__item_user">
-                  <a href="#login" className="nav__link scroll-link">
+                  <Link to="/login" className="nav__link scroll-link">
                     Đăng Nhập /
-                  </a>
-                  <a href="#register" className="nav__link scroll-link">
+                  </Link>
+                  <Link to="/register" className="nav__link scroll-link">
                     Đăng Ký
-                  </a>
+                  </Link>
                   <br />
-                  <a href="#login" className="nav__link scroll-link">
+                  <span href="#login" className="nav__link scroll-link">
                     Thành Viên
-                  </a>
+                  </span>
                 </div>
               </div>
 
               <div className="nav__icons" id="nav__item_giohang">
-                <a href="/login.html" className="icon__item">
+                <Link to="/cart" className="icon__item">
                   <ShoppingCartCheckoutIcon sx={{ color: "black" }} />
                   <span id="cart__total">4</span>
-                </a>
+                </Link>
                 <Link to="/cart" className="nav__link_giohang">
                   Giỏ Hàng
                 </Link>
@@ -126,133 +138,133 @@ const Header = () => {
 
               <ul className="nav__list" id="nav__list_DANHMUC">
                 <div className="nav__icons_danhmuc">
-                  <a href="/indexseach.html" className="icon__item">
+                  <Link to="/" className="icon__item">
                     <img
                       className="icon__itemdanhmuc"
                       src={opLungImg}
                       alt="danh muc"
                     />
-                  </a>
+                  </Link>
                   <li className="nav__item">
-                    <a href="/indexseach.html" className="scroll-linkDANHMUC">
+                    <Link to="/" className="scroll-linkDANHMUC">
                       ỐP LƯNG
-                    </a>
+                    </Link>
                   </li>
                 </div>
 
                 <div className="nav__icons_danhmuc">
-                  <a href="/indexseach.html" className="icon__item">
+                  <Link to="/" className="icon__item">
                     <img
                       className="icon__itemdanhmuc"
                       src={sacDuPhongImg}
                       alt="danhmucs"
                     />
-                  </a>
+                  </Link>
                   <li className="nav__item">
-                    <a href="/indexseach.html" className="scroll-linkDANHMUC">
+                    <Link to="/" className="scroll-linkDANHMUC">
                       SẠC DỰ PHÒNG
-                    </a>
+                    </Link>
                   </li>
                 </div>
 
                 <div className="nav__icons_danhmuc">
-                  <a href="/indexseach.html" className="icon__item">
+                  <Link to="/" className="icon__item">
                     <img
                       className="icon__itemdanhmuc"
                       src={taingheImg}
                       alt=""
                     />
-                  </a>
+                  </Link>
                   <li className="nav__item">
-                    <a href="/indexseach.html" className="scroll-linkDANHMUC">
+                    <Link to="/" className="scroll-linkDANHMUC">
                       TAI NGHE
-                    </a>
+                    </Link>
                   </li>
                 </div>
 
                 <div className="nav__icons_danhmuc">
-                  <a href="/indexseach.html" className="icon__item">
+                  <Link to="/" className="icon__item">
                     <img className="icon__itemdanhmuc" src={cucsacImg} alt="" />
-                  </a>
+                  </Link>
                   <li className="nav__item">
-                    <a href="/indexseach.html" className="scroll-linkDANHMUC">
+                    <Link to="/" className="scroll-linkDANHMUC">
                       CỤC SẠC
-                    </a>
+                    </Link>
                   </li>
                 </div>
 
                 <div className="nav__icons_danhmuc">
-                  <a href="/indexseach.html" className="icon__item">
+                  <Link to="/" className="icon__item">
                     <img
                       className="icon__itemdanhmuc"
                       src={kinhcuonglucImg}
                       alt=""
                     />
-                  </a>
+                  </Link>
                   <li className="nav__item">
-                    <a href="/indexseach.html" className="scroll-linkDANHMUC">
+                    <Link to="/" className="scroll-linkDANHMUC">
                       KÍNH CƯỜNG LỰC
-                    </a>
+                    </Link>
                   </li>
                 </div>
 
                 <div className="nav__icons_danhmuc">
-                  <a href="/indexseach.html" className="icon__item">
+                  <Link to="/" className="icon__item">
                     <img
                       className="icon__itemdanhmuc"
                       src={phukienAppleImg}
                       alt=""
                     />
-                  </a>
+                  </Link>
                   <li className="nav__item">
-                    <a href="/indexseach.html" className="scroll-linkDANHMUC">
+                    <Link to="/" className="scroll-linkDANHMUC">
                       PHỤ KIỆN APPLE
-                    </a>
+                    </Link>
                   </li>
                 </div>
 
                 <div className="nav__icons_danhmuc">
-                  <a href="/indexseach.html" className="icon__item">
+                  <Link to="/" className="icon__item">
                     <img
                       className="icon__itemdanhmuc"
                       src={giadodienthoaiImg}
                       alt=""
                     />
-                  </a>
+                  </Link>
                   <li className="nav__item">
-                    <a href="/indexseach.html" className="scroll-linkDANHMUC">
+                    <Link to="/" className="scroll-linkDANHMUC">
                       GIÁ ĐỠ ĐIỆN THOẠI
-                    </a>
+                    </Link>
                   </li>
                 </div>
 
                 <div className="nav__icons_danhmuc">
-                  <a href="/indexseach.html" className="icon__item">
+                  <Link to="/" className="icon__item">
                     <img
                       className="icon__itemdanhmuc"
                       src={tuichongnuocImg}
                       alt=""
                     />
-                  </a>
+                  </Link>
                   <li className="nav__item">
-                    <a href="/indexseach.html" className="scroll-linkDANHMUC">
+                    <Link to="/" className="scroll-linkDANHMUC">
                       TÚI CHỐNG NƯỚC
-                    </a>
+                    </Link>
                   </li>
                 </div>
 
                 <div className="nav__icons_danhmuc">
-                  <a href="/indexseach.html" className="icon__item">
+                  <Link to="/" className="icon__item">
                     <img
                       className="icon__itemdanhmuc"
                       src={phukienkhacImg}
                       alt=""
                     />
-                  </a>
+                  </Link>
                   <li className="nav__item">
-                    <a href="/indexseach.html" className="scroll-linkDANHMUC">
+                    <Link to="/" className="scroll-linkDANHMUC">
                       PHỤ KIỆN KHÁC
-                    </a>
+                    </Link>
                   </li>
                 </div>
               </ul>

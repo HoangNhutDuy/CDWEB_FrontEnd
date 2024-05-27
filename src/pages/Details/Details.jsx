@@ -11,6 +11,7 @@ import FlightIcon from "@mui/icons-material/Flight"
 import CreditCardIcon from "@mui/icons-material/CreditCard"
 import LocalAtmIcon from "@mui/icons-material/LocalAtm"
 import HeadphonesIcon from "@mui/icons-material/Headphones"
+import { Link } from "react-router-dom"
 
 const Details = () => {
   return (
@@ -28,7 +29,7 @@ const Details = () => {
               <div className="container--image">
                 <img
                   src="
-                                https://cdn2.cellphones.com.vn/358x/media/catalog/product/p/i/pin-sac-du-phong-anker-powercore-iii-sense-slim-a1244-10000mah.jpg"
+                  https://cdn2.cellphones.com.vn/358x/media/catalog/product/p/i/pin-sac-du-phong-anker-powercore-iii-sense-slim-a1244-10000mah.jpg"
                   alt="img__product"
                   id="image__detail__product"
                 />
@@ -57,8 +58,8 @@ const Details = () => {
                 className="product__item"
                 style={{
                   display: "flex",
-
                   justifyContent: "flex-start",
+                  alignItems: "center",
                 }}
               >
                 <img
@@ -107,7 +108,7 @@ const Details = () => {
                   </li>
                   <li>
                     <span>Hãng:</span>
-                    <a href="/">Anker</a>
+                    <Link to="/">Anker</Link>
                   </li>
                   <li>
                     <span>Loại sản phẩm:</span>
@@ -121,32 +122,24 @@ const Details = () => {
                   </li>
                 </ul>
 
-                <div className="product-info__btn">
-                  <a href="#">
-                    <span>
-                      <svg>
-                        {/* <use xlink:href="./images/sprite.svg#icon-crop"></use> */}
-                      </svg>
+                <div
+                  className="product-info__btn"
+                  style={{ display: "flex", fontSize: "12px", color: "#555" }}
+                >
+                  <span>
+                    <span>&nbsp; HƯỚNG DẪN KÍCH THƯỚC</span>
+                  </span>
+                  <span>
+                    <span style={{ marginLeft: "3px" }}>
+                      &nbsp; VẬN CHUYỂN{" "}
                     </span>
-                    &nbsp; HƯỚNG DẪN KÍCH THƯỚC
-                  </a>
-                  <a href="#">
-                    <span>
-                      <svg>
-                        {/* <use xlink:href="./images/sprite.svg#icon-truck"></use> */}
-                      </svg>
+                  </span>
+                  <span>
+                    <span style={{ marginLeft: "5px" }}>
+                      {" "}
+                      HỎI VỀ SẢN PHẨM &nbsp;
                     </span>
-                    &nbsp; VẬN CHUYỂN
-                  </a>
-                  <a href="#">
-                    <span>
-                      <svg>
-                        {/* <use xlink:href="./images/sprite.svg#icon-envelope-o"></use> */}
-                      </svg>
-                      &nbsp;
-                    </span>
-                    HỎI VỀ SẢN PHẨM
-                  </a>
+                  </span>
                 </div>
 
                 <div className="product__bonus">
@@ -241,7 +234,11 @@ const Details = () => {
         </section>
         <div
           className="section__titles category__titles "
-          style={{ backgroundColor: "#ccc", padding: "10px 0" }}
+          style={{
+            backgroundColor: "#ccc",
+            padding: "10px 0",
+            marginTop: "40px",
+          }}
         >
           <div
             className="section__title filter-btn active"
@@ -278,29 +275,29 @@ const Details = () => {
                       </svg> */}
                   </div>
                   <div class="product__price">
-                    <h4>{product.price * 22000} VND</h4>
+                    <h4>{product.price * 23000} VND</h4>
                   </div>
-                  <a href="/">
+                  <Link to="/cart">
                     <button type="submit" class="product__btn">
                       THÊM VÀO GIỎ HÀNG
                     </button>
-                  </a>
+                  </Link>
                 </div>
                 <ul>
                   <li>
-                    <a data-tip="Quick View" data-place="left" href="/">
+                    <Link data-tip="Quick View" data-place="left" to="/detail">
                       <RemoveRedEyeIcon />
-                    </a>
+                    </Link>
                   </li>
                   <li>
-                    <a href="/">
+                    <Link to="/">
                       <FavoriteIcon />
-                    </a>
+                    </Link>
                   </li>
                   <li>
-                    <a href="/">
+                    <Link to="/">
                       <LoopIcon />
-                    </a>
+                    </Link>
                   </li>
                 </ul>
               </div>

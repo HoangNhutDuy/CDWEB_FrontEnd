@@ -5,6 +5,7 @@ import { products } from "../../data/products"
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye"
 import FavoriteIcon from "@mui/icons-material/Favorite"
 import LoopIcon from "@mui/icons-material/Loop"
+import { Link } from "react-router-dom"
 const HomePage = () => {
   // console.log(products.products)
   return (
@@ -85,31 +86,27 @@ const HomePage = () => {
                   <div class="product__price">
                     <h4>{product.price * 22000} VND</h4>
                   </div>
-                  <a href="#">
+                  <Link to="/cart">
                     <button type="submit" class="product__btn">
                       THÊM VÀO GIỎ HÀNG
                     </button>
-                  </a>
+                  </Link>
                 </div>
                 <ul>
                   <li>
-                    <a
-                      data-tip="Quick View"
-                      data-place="left"
-                      href="/phone_chuong/product.html"
-                    >
+                    <Link data-tip="Quick View" data-place="left" to="/detail">
                       <RemoveRedEyeIcon />
-                    </a>
+                    </Link>
                   </li>
                   <li>
-                    <a href="#">
+                    <Link to="/">
                       <FavoriteIcon />
-                    </a>
+                    </Link>
                   </li>
                   <li>
-                    <a href="#">
+                    <Link to="/">
                       <LoopIcon />
-                    </a>
+                    </Link>
                   </li>
                 </ul>
               </div>

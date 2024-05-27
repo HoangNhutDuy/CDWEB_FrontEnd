@@ -6,6 +6,9 @@ import CreditCardIcon from "@mui/icons-material/CreditCard"
 import LocalAtmIcon from "@mui/icons-material/LocalAtm"
 import HeadphonesIcon from "@mui/icons-material/Headphones"
 import DeleteIcon from "@mui/icons-material/Delete"
+import RemoveIcon from "@mui/icons-material/Remove"
+import AddIcon from "@mui/icons-material/Add"
+import { Link } from "react-router-dom"
 const Cart = () => {
   return (
     <>
@@ -29,18 +32,18 @@ const Cart = () => {
                     <tbody>
                       <tr>
                         <td class="product__thumbnail">
-                          <a href="/">
+                          <Link to="/detail">
                             <img
                               src="https://cdn-v2.didongviet.vn/files/media/catalog/product/p/i/pin-sac-du-phong-mazer-infinite-boost-super-mini-v2-0-20000mah-didongviet.jpg"
                               alt=""
                             />
-                          </a>
+                          </Link>
                         </td>
                         <td class="product__name">
-                          <a href="/">
+                          <Link to="/detail">
                             Pin sạc dự phòng Mazer Infinite.Boost SuperMINI
                             Pocket 8.0 V2 8000mAh
-                          </a>
+                          </Link>
                           <br />
                           <small>Xanh</small>
                         </td>
@@ -50,10 +53,10 @@ const Cart = () => {
                           </div>
                         </td>
                         <td class="product__quantity">
-                          <div class="input-counter">
+                          <div class="input-counter" style={{ marginTop: "0" }}>
                             <div>
                               <span class="minus-btn">
-                                <DeleteIcon />
+                                <RemoveIcon />
                               </span>
                               <input
                                 type="text"
@@ -63,7 +66,7 @@ const Cart = () => {
                                 class="counter-btn"
                               />
                               <span class="plus-btn">
-                                <DeleteIcon />
+                                <AddIcon />
                               </span>
                             </div>
                           </div>
@@ -72,25 +75,25 @@ const Cart = () => {
                           <div class="price">
                             <span class="new__price">550.000 VNĐ</span>
                           </div>
-                          <a href="/" class="remove__cart-item">
+                          <Link to="/" class="remove__cart-item">
                             <DeleteIcon />
-                          </a>
+                          </Link>
                         </td>
                       </tr>
                       <tr>
                         <td class="product__thumbnail">
-                          <a href="/">
+                          <Link to="/detail">
                             <img
                               src="https://cdn2.cellphones.com.vn/x/media/catalog/product/p/i/pin-sac-du-phong-magsafe-mophie-snap-plus-10000mah-1.jpg"
                               alt=""
                             />
-                          </a>
+                          </Link>
                         </td>
                         <td class="product__name">
-                          <a href="/">
+                          <Link to="/detail">
                             Pin sạc dự phòng Mophie Snap+ Powerstation Stand
                             10.000mAh
-                          </a>
+                          </Link>
                           <br />
                           <small>Đen</small>
                         </td>
@@ -100,10 +103,10 @@ const Cart = () => {
                           </div>
                         </td>
                         <td class="product__quantity">
-                          <div class="input-counter">
+                          <div class="input-counter" style={{ marginTop: "0" }}>
                             <div>
                               <span class="minus-btn">
-                                <DeleteIcon />
+                                <RemoveIcon />
                               </span>
                               <input
                                 type="text"
@@ -113,7 +116,7 @@ const Cart = () => {
                                 class="counter-btn"
                               />
                               <span class="plus-btn">
-                                <DeleteIcon />
+                                <AddIcon />
                               </span>
                             </div>
                           </div>
@@ -122,24 +125,24 @@ const Cart = () => {
                           <div class="price">
                             <span class="new__price">1.320.000 VNĐ</span>
                           </div>
-                          <a href="/" class="remove__cart-item">
+                          <Link to="/" class="remove__cart-item">
                             <DeleteIcon />
-                          </a>
+                          </Link>
                         </td>
                       </tr>
                       <tr>
                         <td class="product__thumbnail">
-                          <a href="/">
+                          <Link to="/detail">
                             <img
                               src="https://image.dienthoaivui.com.vn/300x300,webp,q100/https://dashboard.dienthoaivui.com.vn/uploads/wp-content/uploads/2022/09/Pin-sac-du-phong-Aukey-Basix-Slim-PB-N99-10000mAh.png"
                               alt=""
                             />
-                          </a>
+                          </Link>
                         </td>
                         <td class="product__name">
-                          <a href="/">
+                          <Link to="/detail">
                             Pin sạc dự phòng Aukey Basix Slim PB-N99 10.000mAh
-                          </a>
+                          </Link>
                           <br />
                           <small>Đen</small>
                         </td>
@@ -149,10 +152,10 @@ const Cart = () => {
                           </div>
                         </td>
                         <td class="product__quantity">
-                          <div class="input-counter">
+                          <div class="input-counter" style={{ marginTop: "0" }}>
                             <div>
                               <span class="minus-btn">
-                                <DeleteIcon />
+                                <RemoveIcon />
                               </span>
                               <input
                                 type="text"
@@ -162,7 +165,7 @@ const Cart = () => {
                                 class="counter-btn"
                               />
                               <span class="plus-btn">
-                                <DeleteIcon />
+                                <AddIcon sx={{ fontWeight: "bold" }} />
                               </span>
                             </div>
                           </div>
@@ -171,24 +174,24 @@ const Cart = () => {
                           <div class="price">
                             <span class="new__price">250.000 VNĐ</span>
                           </div>
-                          <a href="/" class="remove__cart-item">
+                          <Link to="/" class="remove__cart-item">
                             <DeleteIcon />
-                          </a>
+                          </Link>
                         </td>
                       </tr>
                       <tr>
                         <td class="product__thumbnail">
-                          <a href="/">
+                          <Link to="/detail">
                             <img
                               src="https://cdn-v2.didongviet.vn/files/products/2023/5/27/1/1687859330150_pin_sac_du_phong_aukey_10000mah_pb_n83s_mau_den_didongviet.jpg"
                               alt=""
                             />
-                          </a>
+                          </Link>
                         </td>
                         <td class="product__name">
-                          <a href="/">
+                          <Link to="/detail">
                             Pin sạc dự phòng Aukey 10.000mAh PB-N83S
-                          </a>
+                          </Link>
                           <br />
                           <small>Trắng/6.25</small>
                         </td>
@@ -198,10 +201,10 @@ const Cart = () => {
                           </div>
                         </td>
                         <td class="product__quantity">
-                          <div class="input-counter">
+                          <div class="input-counter" style={{ marginTop: "0" }}>
                             <div>
                               <span class="minus-btn">
-                                <DeleteIcon />
+                                <RemoveIcon />
                               </span>
                               <input
                                 type="text"
@@ -211,7 +214,7 @@ const Cart = () => {
                                 class="counter-btn"
                               />
                               <span class="plus-btn">
-                                <DeleteIcon />
+                                <AddIcon />
                               </span>
                             </div>
                           </div>
@@ -231,7 +234,7 @@ const Cart = () => {
 
                 <div class="cart-btns">
                   <div class="continue__shopping">
-                    <a href="/indexLogin.html">Tiếp tục mua sắm</a>
+                    <Link to="/">Tiếp tục mua sắm</Link>
                   </div>
                   <div class="check__shipping">
                     <input type="checkbox" />
@@ -255,7 +258,7 @@ const Cart = () => {
                       <span class="new__price untilPrice">23.430.768 VNĐ</span>
                     </li>
                   </ul>
-                  <a href="/pay.html">Tiến hành thanh toán</a>
+                  <Link to="/pay">Tiến hành thanh toán</Link>
                 </div>
               </form>
             </div>
