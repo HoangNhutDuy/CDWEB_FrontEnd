@@ -2,20 +2,29 @@ import React from "react"
 import back7 from "../../icon/back7.png"
 import jcphone from "../../images/jcphone.png"
 import { Link } from "react-router-dom"
-import FacebookIcon from '@mui/icons-material/Facebook';
-import GoogleIcon from '@mui/icons-material/Google';
-import TwitterIcon from '@mui/icons-material/Twitter';
-import "./cssLogIn.css";
+import FacebookIcon from "@mui/icons-material/Facebook"
+import GoogleIcon from "@mui/icons-material/Google"
+import TwitterIcon from "@mui/icons-material/Twitter"
+import "./cssLogIn.css"
 const LogIn = () => {
-    // console.log(products.products)
-    return (
-
-        <>
-  
+  // console.log(products.products)
+  return (
+    <>
+      <div
+        style={{
+          background: "linear-gradient(90deg, #dd5e89, #f7bb97)",
+          position: "relative",
+          width: "100%",
+          height: "100vh",
+          justifyContent: "center",
+          alignItems: "center",
+          fontFamily: "sans-serif",
+        }}
+      >
         <div className="container">
-         <Link to={'/'}>
+          <Link to={"/"}>
             <img className="homelogin" src={back7} alt="" />
-            </Link>
+          </Link>
         </div>
         {/* content */}
         <div className="total">
@@ -72,18 +81,22 @@ const LogIn = () => {
                       </label>
                       <i className="error error-icon fas fa-exclamation-circle" />
                     </div>
-                    <div className="error error-txt">Mật khẩu không thể để trống</div>
+                    <div className="error error-txt">
+                      Mật khẩu không thể để trống
+                    </div>
                   </div>
-                
-                  <input className="login1" type="submit" defaultValue="Đăng nhập" />
-            
+
+                  <input
+                    className="login1"
+                    type="submit"
+                    defaultValue="Đăng nhập"
+                  />
+
                   <div className="two-a">
                     <p className="left" href="">
-                       Chưa có Tài Khoản
+                      Chưa có Tài Khoản
                     </p>
-                    <Link to="/register" >
-                      Đăng Ký
-                   </Link>
+                    <Link to="/register">Đăng Ký</Link>
                   </div>
                 </form>
               </div>
@@ -96,23 +109,21 @@ const LogIn = () => {
               </div>
               <div className="icon">
                 <div className="item-icon">
-               <FacebookIcon  />
+                  <FacebookIcon />
                 </div>
                 <div className="item-icon">
-                <GoogleIcon />
+                  <GoogleIcon />
                 </div>
                 <div className="item-icon">
-              <TwitterIcon />
+                  <TwitterIcon />
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </>
-      
-    )
+      </div>
+    </>
+  )
 }
 
-
-
-        export default LogIn
+export default LogIn

@@ -73,8 +73,6 @@ h4 {
   max-width: 117rem;
   margin: 0 auto;
   padding: 0 1.6rem;
-
-
 }
 
 /*
@@ -86,7 +84,7 @@ h4 {
 .navigation {
   position: relative;
   height: 7rem;
-  background: #BE1E2D;
+  background: #be1e2d;
   color: white;
 }
 
@@ -106,7 +104,7 @@ h4 {
   width: 100%;
   background-color: var(--white);
   z-index: 1200;
-  background: #BE1E2D;
+  background: #be1e2d;
   color: white;
   transition: opacity 150ms ease, border 300ms ease-in-out;
   transform: translateY(0%);
@@ -141,7 +139,6 @@ h4 {
   display: flex;
   align-items: center;
   height: 100%;
-
 }
 
 .nav__item:not(:last-child) {
@@ -166,7 +163,7 @@ h4 {
 }
 
 .scroll-linkDANHMUC:hover {
-  color: #BE1E2D;
+  color: #be1e2d;
 }
 
 .scroll-link,
@@ -259,12 +256,6 @@ h4 {
   left: -1rem;
 }
 
-
-
-
-
-
-
 /*
   ======================
   Testimonial Media Query
@@ -341,7 +332,6 @@ h4 {
 
 #footer .container {
   margin: auto;
-  
 }
 
 .card__footer {
@@ -515,9 +505,6 @@ h4 {
   }
 }
 
-
-
-
 /*
   ======================
   Cart Area Media Query
@@ -525,7 +512,6 @@ h4 {
   */
 
 @media only screen and (max-width: 1200px) {
-
   .minus-btn,
   .plus-btn {
     padding: 0.6rem 0.8rem;
@@ -601,16 +587,13 @@ h4 {
   font-weight: 400;
 }
 
-header>li {
+header > li {
   color: white;
 }
 
 .icon__item {
   background: white;
 }
-
-
-
 
 .nav__icons_danhmuc {
   position: relative;
@@ -679,34 +662,29 @@ header>li {
 }
 
 .block-breadcrumbs {
-
   width: 100%;
 
   height: 30px;
-
 }
 
 .prefix {
-
   width: 1214.09px;
 
   height: 30px;
 
   margin: auto;
-
 }
 
-.prefix>ul>li {
-
+.prefix > ul > li {
   display: inline-block;
 
   margin-top: 5px;
 }
 
 .item::after {
-
-  content: '';
-  background: url(https://didongviet.vn/pub/static/frontend/ddv/default/vi_VN/images/arrow-right-line.png) no-repeat;
+  content: "";
+  background: url(https://didongviet.vn/pub/static/frontend/ddv/default/vi_VN/images/arrow-right-line.png)
+    no-repeat;
   margin: 0 5px;
   width: 10px;
   height: 14px;
@@ -718,18 +696,10 @@ header>li {
 main {
   width: 100%;
 
-
-
-
-  background-color: #F2F2F2;
-
-
-
+  background-color: #f2f2f2;
 }
 
-
 .section {
-
   width: 100%;
 
   height: 100%;
@@ -737,14 +707,10 @@ main {
   display: flex;
 
   align-items: center;
-
 }
-
 
 .cart__area {
   padding-bottom: 5rem;
-
-
 }
 
 main .container1 {
@@ -758,15 +724,12 @@ main .container1 {
 
   height: 700px;
 
-
   background-color: #f9f9f9;
 
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.164);
 
   border-radius: 4px;
-
 }
-
 
 .cart__form {
   display: block;
@@ -804,7 +767,6 @@ main .container1 {
 }
 
 .section__cart__pay {
-
   width: 100%;
 
   height: 618px;
@@ -820,68 +782,50 @@ main .container1 {
   position: relative;
 
   top: 30px;
-
 }
 
 .section__cart__pay__step1,
 .section__cart__pay__container,
 .section__cart__pay__step4 {
-
-
   width: 400px;
 
   height: 618px;
 
   padding: 15px;
 
-
   position: relative;
-
-
 }
 
 .section__cart__pay .section__cart__pay__container .section__cart__pay__step2 {
-
   width: 100%;
 
   height: 323px;
 
   position: relative;
-
 }
 
 .section__cart__pay .section__cart__pay__container .section__cart__pay__step3 {
-
-
   width: 100%;
   height: 266px;
-
 }
 
 .section__cart__pay__step1 .header__step1,
 .header__step2,
 .header__step3,
 .header__step4 {
-
-  Width: 100%;
+  width: 100%;
 
   height: 37.58px;
 
-  background-color: #BE1E2D;
+  background-color: #be1e2d;
 
   color: var(--white);
-
 
   display: flex;
   justify-content: start;
   align-items: center;
 
   padding-left: 8px;
-
-
-
-
-
 }
 
 .section__cart__pay__step1 .form {
@@ -890,34 +834,24 @@ main .container1 {
   padding: 20px;
   background-color: #f9f9f9;
   border-radius: 8px;
-
-
 }
 
-
 .section__cart__pay__step1 .form .dress__input {
-
   width: 100%;
   flex: 1;
   padding: 10px;
- 
+
   background: #ffffff;
 
   border: 1px solid #c2c2c2;
 
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   border-radius: 4px;
   box-sizing: border-box;
   font-size: 16px;
- 
-
- 
-
-
 }
 
-.container_input{
-  
+.container_input {
   display: flex;
   align-items: center;
   margin-bottom: 15px;
@@ -935,7 +869,7 @@ main .container1 {
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
-  background: url('data:image/svg+xml;base64,...') no-repeat right;
+  background: url("data:image/svg+xml;base64,...") no-repeat right;
   background-size: 12px;
 }
 .dress__input:focus {
@@ -964,24 +898,18 @@ main .container1 {
     width: 100%;
   }
 }
-.section__cart__pay__step2{
-
+.section__cart__pay__step2 {
   background-color: #f9f9f9;
 }
 .section__cart__pay__step2 table {
-
   margin-top: 20px;
-  
 }
 
 .section__cart__pay__step2 table tr td {
-
   height: 110.19px;
 }
 
-
 .section__cart__pay__step2 #hr {
-
   width: 100%;
 
   position: absolute;
@@ -989,43 +917,30 @@ main .container1 {
   top: 145px;
   margin-top: 20px;
 
-
   border-bottom: 1px solid #d1d0d0;
   display: block;
   height: 5px;
 }
 .section__cart__pay__step3 {
-  
   background-color: #f9f9f9;
 }
 .section__cart__pay__step3 table {
-
-
   margin: 20px 0 0 20px;
 }
 
-.section__cart__pay__step4{
-    
+.section__cart__pay__step4 {
   background-color: #f9f9f9;
 }
 .section__cart__pay__step4 table {
-
   margin-top: 20px;
-
-
 }
 
 .section__cart__pay__step4 table tr td {
-
   width: 204px;
   height: 121.19px;
 
   padding-left: 20px;
-
-
 }
-
-
 
 .section__cart__pay__step4 #hr2 {
   width: 100%;
@@ -1035,11 +950,9 @@ main .container1 {
   top: 90px;
   margin-top: 20px;
 
-
   border-bottom: 1px solid #d1d0d0;
   display: block;
   height: 5px;
-
 }
 
 .section__cart__pay__step4 #hr3 {
@@ -1050,52 +963,33 @@ main .container1 {
   top: 220px;
   margin-top: 20px;
 
-
   border-bottom: 1px solid #d1d0d0;
   display: block;
   height: 5px;
-
 }
 
 .section__cart__pay__step4 table:last-child tr th {
-
-
-
   float: left;
-
-
-
-
 }
 
 .section__cart__pay__step4 table:last-child tr td:last-child {
-
   width: 103px;
   height: 57px;
 
   font-size: 18px;
-
-
-
-
 }
 
 #section__cart__pay__step4__price {
-
   color: #be1e2d;
 }
 
 .section__cart__pay__step4__voucher {
-
   width: 370px;
 
   height: 36px;
-
 }
 
 .section__cart__pay__step4__voucher .input__voucher {
-
-
   width: 240px;
 
   height: 36px;
@@ -1107,12 +1001,9 @@ main .container1 {
   background-color: #f2f2f2;
 
   border: none;
-
-
 }
 
 .section__cart__pay__step4__voucher .button__apply {
-
   width: 92.5px;
 
   height: 36.46px;
@@ -1120,15 +1011,13 @@ main .container1 {
   background-color: #ffffff !important;
   border: 1px solid #e2e5e6;
   border-radius: 4px;
-  color: #373F41;
+  color: #373f41;
   margin-left: 8px;
 
   cursor: pointer;
-
 }
 
 .before__pay {
-
   width: 370px;
 
   float: right;
@@ -1136,16 +1025,12 @@ main .container1 {
   position: relative;
 
   bottom: 220px;
-
-
 }
 
 .button__order {
-
   width: 370px;
 
   height: 43.98px;
-
 
   margin-top: 40px;
 
@@ -1160,22 +1045,15 @@ main .container1 {
   border: none;
 
   cursor: pointer;
-
-
-
 }
 
 .responsive__cart-area,
 .cart__form,
 .cart__table,
 .section__cart__pay {
-
   height: 100%;
   overflow: hidden;
-
 }
-
-
 
 /*
   ======================
@@ -1432,19 +1310,15 @@ main .container1 {
   align-items: center;
 
   margin-top: 25px;
-
 }
 
 .title {
-
   margin-top: 20px;
 
   line-height: 1.7;
-  
 }
 
-.title>li {
-
+.title > li {
   list-style: none;
 }
 
@@ -1893,7 +1767,6 @@ main .container1 {
   */
 
 @media only screen and (max-width: 1200px) {
-
   .minus-btn,
   .plus-btn {
     padding: 0.6rem 0.8rem;

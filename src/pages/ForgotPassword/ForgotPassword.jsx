@@ -12,7 +12,6 @@ const ForgotPassword = () => {
           position: "relative",
           width: "100%",
           height: "100vh",
-          width: "100vw",
           justifyContent: "center",
           alignItems: "center",
           fontFamily: "sans-serif",

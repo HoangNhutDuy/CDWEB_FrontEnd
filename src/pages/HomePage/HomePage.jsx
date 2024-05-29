@@ -11,7 +11,7 @@ const HomePage = () => {
   return (
     <>
       <Header />
-      <section className="category__section section" id="category">
+      <section className="category__section" id="category">
         <div className="tab__list">
           <div
             className="title__container tabs"
