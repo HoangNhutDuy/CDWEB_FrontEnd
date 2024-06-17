@@ -48,7 +48,7 @@ const ModalProduct = () => {
             Thêm mới sản phẩm
           </Typography>
           <Box sx={{ display: "flex", flexDirection: "column" }}>
-            <Typography>Tên sản phẩm</Typography>
+            <Typography sx={{ fontSize: "16px" }}>Tên sản phẩm</Typography>
             <input
               type="text"
               style={{
@@ -60,7 +60,9 @@ const ModalProduct = () => {
             />
           </Box>
           <Box sx={{ display: "flex", flexDirection: "column" }}>
-            <Typography sx={{ marginTop: "20px" }}>Hình ảnh</Typography>
+            <Typography sx={{ marginTop: "20px", fontSize: "16px" }}>
+              Hình ảnh
+            </Typography>
             <input
               type="file"
               style={{
@@ -72,7 +74,9 @@ const ModalProduct = () => {
             />
           </Box>
           <Box sx={{ display: "flex", flexDirection: "column" }}>
-            <Typography sx={{ marginTop: "20px" }}>Brand</Typography>
+            <Typography sx={{ marginTop: "20px", fontSize: "16px" }}>
+              Brand
+            </Typography>
             <input
               type="text"
               style={{
@@ -84,7 +88,9 @@ const ModalProduct = () => {
             />
           </Box>
           <Box sx={{ display: "flex", flexDirection: "column" }}>
-            <Typography sx={{ marginTop: "20px" }}>Giá</Typography>
+            <Typography sx={{ marginTop: "20px", fontSize: "16px" }}>
+              Giá
+            </Typography>
             <input
               type="text"
               style={{
@@ -96,7 +102,9 @@ const ModalProduct = () => {
             />
           </Box>
           <Box sx={{ display: "flex", flexDirection: "column" }}>
-            <Typography sx={{ marginTop: "20px" }}>Mô tả</Typography>
+            <Typography sx={{ marginTop: "20px", fontSize: "16px" }}>
+              Mô tả
+            </Typography>
             <input
               type="text"
               style={{
@@ -108,7 +116,9 @@ const ModalProduct = () => {
             />
           </Box>
           <Box sx={{ display: "flex", flexDirection: "column" }}>
-            <Typography sx={{ marginTop: "20px" }}>Số lượng</Typography>
+            <Typography sx={{ marginTop: "20px", fontSize: "16px" }}>
+              Số lượng
+            </Typography>
             <input
               type="text"
               style={{
@@ -120,7 +130,9 @@ const ModalProduct = () => {
             />
           </Box>
           <Box sx={{ display: "flex", flexDirection: "column" }}>
-            <Typography sx={{ marginTop: "20px" }}>Model</Typography>
+            <Typography sx={{ marginTop: "20px", fontSize: "16px" }}>
+              Model
+            </Typography>
             <input
               type="text"
               style={{
@@ -133,11 +145,23 @@ const ModalProduct = () => {
           </Box>
           {/* Button container */}
           <Box sx={{ display: "flex", gap: 2 }}>
-            <Button sx={{ backgroundColor: "#feaf00", marginTop: "1rem" }}>
+            <Button
+              sx={{
+                backgroundColor: "#feaf00",
+                marginTop: "1rem",
+                fontSize: "16px",
+                color: "white",
+              }}
+            >
               Confirm
             </Button>
             <Button
-              sx={{ backgroundColor: "#feaf00", marginTop: "1rem" }}
+              sx={{
+                backgroundColor: "#feaf00",
+                marginTop: "1rem",
+                fontSize: "16px",
+                color: "white",
+              }}
               onClick={handleClose}
             >
               Cancel

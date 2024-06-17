@@ -44,11 +44,16 @@ const ModalCategories = () => {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            Thêm mới sản phẩm
+          <Typography
+            id="modal-modal-title"
+            variant="h6"
+            component="h2"
+            sx={{ fontSize: "20px" }}
+          >
+            Thêm mới danh mục
           </Typography>
           <Box sx={{ display: "flex", flexDirection: "column" }}>
-            <Typography>Tên danh mục</Typography>
+            <Typography sx={{ fontSize: "16px" }}>Tên danh mục</Typography>
             <input
               type="text"
               style={{
@@ -61,7 +66,9 @@ const ModalCategories = () => {
           </Box>
 
           <Box sx={{ display: "flex", flexDirection: "column" }}>
-            <Typography sx={{ marginTop: "20px" }}>Mô tả</Typography>
+            <Typography sx={{ marginTop: "20px", fontSize: "16px" }}>
+              Mô tả
+            </Typography>
             <input
               type="text"
               style={{
@@ -75,11 +82,23 @@ const ModalCategories = () => {
 
           {/* Button container */}
           <Box sx={{ display: "flex", gap: 2 }}>
-            <Button sx={{ backgroundColor: "#feaf00", marginTop: "1rem" }}>
+            <Button
+              sx={{
+                backgroundColor: "#feaf00",
+                marginTop: "1rem",
+                fontSize: "16px",
+                color: "white",
+              }}
+            >
               Confirm
             </Button>
             <Button
-              sx={{ backgroundColor: "#feaf00", marginTop: "1rem" }}
+              sx={{
+                backgroundColor: "#feaf00",
+                marginTop: "1rem",
+                fontSize: "16px",
+                color: "white",
+              }}
               onClick={handleClose}
             >
               Cancel

@@ -106,11 +106,16 @@ export default function BasicModal() {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
+          <Typography
+            id="modal-modal-title"
+            variant="h6"
+            component="h2"
+            sx={{ fontSize: "20px" }}
+          >
             Thêm mới người dùng
           </Typography>
           <Box sx={{ display: "flex", flexDirection: "column" }}>
-            <Typography>Họ và tên</Typography>
+            <Typography sx={{ fontSize: "16px" }}>Họ và tên</Typography>
             <input
               type="text"
               style={{
@@ -123,7 +128,9 @@ export default function BasicModal() {
             />
           </Box>
           <Box sx={{ display: "flex", flexDirection: "column" }}>
-            <Typography sx={{ marginTop: "20px" }}>Email</Typography>
+            <Typography sx={{ marginTop: "20px", fontSize: "16px" }}>
+              Email
+            </Typography>
             <input
               type="email"
               style={{
@@ -136,7 +143,9 @@ export default function BasicModal() {
             />
           </Box>
           <Box sx={{ display: "flex", flexDirection: "column" }}>
-            <Typography sx={{ marginTop: "20px" }}>Mật khẩu</Typography>
+            <Typography sx={{ marginTop: "20px", fontSize: "16px" }}>
+              Mật khẩu
+            </Typography>
             <input
               type="password"
               style={{
@@ -149,7 +158,9 @@ export default function BasicModal() {
             />
           </Box>
           <Box sx={{ display: "flex", flexDirection: "column" }}>
-            <Typography sx={{ marginTop: "20px" }}>Số điện thoại</Typography>
+            <Typography sx={{ marginTop: "20px", fontSize: "16px" }}>
+              Số điện thoại
+            </Typography>
             <input
               type="text"
               style={{
@@ -162,7 +173,9 @@ export default function BasicModal() {
             />
           </Box>
           <Box sx={{ display: "flex", flexDirection: "column" }}>
-            <Typography sx={{ marginTop: "20px" }}>Địa chỉ</Typography>
+            <Typography sx={{ marginTop: "20px", fontSize: "16px" }}>
+              Địa chỉ
+            </Typography>
             <input
               type="text"
               style={{
@@ -175,10 +188,17 @@ export default function BasicModal() {
             />
           </Box>
           <Box sx={{ display: "flex", flexDirection: "column" }}>
-            <Typography sx={{ marginTop: "20px" }}>Vai trò</Typography>
+            <Typography sx={{ marginTop: "20px", fontSize: "16px" }}>
+              Vai trò
+            </Typography>
             <Box sx={{ minWidth: 120 }}>
               <FormControl fullWidth>
-                <InputLabel id="demo-simple-select-label">Role</InputLabel>
+                <InputLabel
+                  id="demo-simple-select-label"
+                  sx={{ fontSize: "16px" }}
+                >
+                  Role
+                </InputLabel>
                 <Select
                   labelId="demo-simple-select-label"
                   id="demo-simple-select"
@@ -195,13 +215,23 @@ export default function BasicModal() {
           {/* Button container */}
           <Box sx={{ display: "flex", gap: 2 }}>
             <Button
-              sx={{ backgroundColor: "#feaf00", marginTop: "1rem" }}
+              sx={{
+                backgroundColor: "#feaf00",
+                marginTop: "1rem",
+                fontSize: "16px",
+                color: "white",
+              }}
               // onClick={() => handleAddNewStudent()}
             >
               Confirm
             </Button>
             <Button
-              sx={{ backgroundColor: "#feaf00", marginTop: "1rem" }}
+              sx={{
+                backgroundColor: "#feaf00",
+                marginTop: "1rem",
+                fontSize: "16px",
+                color: "white",
+              }}
               onClick={handleClose}
             >
               Cancel
