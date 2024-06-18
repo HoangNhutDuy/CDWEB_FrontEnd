@@ -1,13 +1,54 @@
-import React from "react"
+import React, { useEffect, useRef, useState } from "react"
 import back7 from "../../icon/back7.png"
 import jcphone from "../../images/jcphone.png"
 import { Link } from "react-router-dom"
 import FacebookIcon from "@mui/icons-material/Facebook"
 import GoogleIcon from "@mui/icons-material/Google"
 import TwitterIcon from "@mui/icons-material/Twitter"
+import { useNavigate } from "react-router-dom"
 import "./cssLogIn.css"
+import axios from "axios"
 const LogIn = () => {
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  const [error, setError] = useState("")
+  const navigate = useNavigate()
+  const ref = useRef()
+
   // console.log(products.products)
+  // useEffect(() => {
+
+  // },[])
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    let token = ""
+    console.log(1)
+    const payload = {
+      email,
+      password,
+    }
+    try {
+      axios
+        .post("http://localhost:8080/auth/login", payload)
+        .then((res) => {
+          token = res.data.token
+          localStorage.setItem("token", token)
+          navigate("/")
+        })
+        .catch((err) => {
+          setError("Sai tài khoản hoặc mật khẩu, vui lòng đăng nhập lại")
+          setEmail("")
+          setPassword("")
+          ref.current.focus()
+          navigate("/login")
+          console.log(err)
+        })
+    } catch (err) {
+      setError("Đã xảy ra lỗi không xác định")
+      navigate("/login")
+      console.log(err)
+    }
+  }
   return (
     <>
       <div
@@ -44,20 +85,22 @@ const LogIn = () => {
             <div className="login-contains">
               <h3>Đăng nhập</h3>
               <div className="form">
-                <form action="indexLogin.html">
+                <form onSubmit={(e) => handleSubmit(e)}>
                   <div className="field email">
                     <div className="form-text">
                       <input
                         type="text"
-                        name="name"
+                        ref={ref}
                         autoComplete="off"
                         placeholder=" "
                         className="form-input"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
                       />
                       {/* required */}
                       <label htmlFor="name" className="form-label">
                         {" "}
-                        Tên đăng nhập{" "}
+                        Email{" "}
                       </label>
                       <i className="error error-icon fas fa-exclamation-circle" />
                     </div>
@@ -73,6 +116,8 @@ const LogIn = () => {
                         autoComplete="off"
                         placeholder=" "
                         className="form-input"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
                       />
                       {/* required */}
                       <label htmlFor="name" className="form-label">
@@ -119,6 +164,7 @@ const LogIn = () => {
                 </div>
               </div>
             </div>
+            {error && <span style={{ color: "red" }}>{error}</span>}
           </div>
         </div>
       </div>

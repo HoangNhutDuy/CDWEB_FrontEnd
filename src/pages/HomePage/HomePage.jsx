@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import Header from "../../components/Header/Header"
 import Footer from "../../components/Footer/Footer"
 import { products } from "../../data/products"
@@ -6,8 +6,8 @@ import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye"
 import FavoriteIcon from "@mui/icons-material/Favorite"
 import LoopIcon from "@mui/icons-material/Loop"
 import { Link } from "react-router-dom"
+
 const HomePage = () => {
-  // console.log(products.products)
   return (
     <>
       <Header />

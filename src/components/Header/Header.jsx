@@ -8,14 +8,45 @@ import phukienAppleImg from "../../icon/apple1.png"
 import giadodienthoaiImg from "../../icon/gaydienthoai.png"
 import tuichongnuocImg from "../../icon/tuichongnuoc.png"
 import phukienkhacImg from "../../icon/khac.jpg"
-
+import { useState, useEffect } from "react"
 import PersonIcon from "@mui/icons-material/Person"
 import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout"
 import SearchIcon from "@mui/icons-material/Search"
 import sacDuphong1 from "../../images/sacduphong1.png"
 import taiNghe6 from "../../images/tainghe6.png"
+import axios from "axios"
+
 import { Link } from "react-router-dom"
 const Header = () => {
+  const [currentUser, setCurrentUser] = useState(false)
+  const [fullName, setFullName] = useState("")
+
+  const token = localStorage.getItem("token")
+    ? localStorage.getItem("token")
+    : ""
+  console.log(token)
+  useEffect(() => {
+    getInfoUser()
+  }, [])
+  const getInfoUser = () => {
+    axios
+      .get("http://localhost:8080/user/profile", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        setCurrentUser(true)
+        setFullName(res?.data?.fullName)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }
+  const handleLogout = () => {
+    localStorage.removeItem("token")
+    window.location.reload()
+  }
   return (
     <>
       <header id="header" className="header">
@@ -99,16 +130,31 @@ const Header = () => {
                   <PersonIcon sx={{ color: "black" }} />
                 </Link>
                 <div className="nav__item_user" id="nav__item_user">
-                  <Link to="/login" className="nav__link scroll-link">
-                    Đăng Nhập /
-                  </Link>
-                  <Link to="/register" className="nav__link scroll-link">
-                    Đăng Ký
-                  </Link>
+                  {currentUser ? (
+                    <div style={{ display: "flex", flexDirection: "column" }}>
+                      <span style={{ fontSize: "14px" }}>
+                        Xin chào {fullName}
+                      </span>
+                      <Link
+                        style={{ color: "white", marginTop: "5px" }}
+                        onClick={() => handleLogout()}
+                      >
+                        Đăng xuất
+                      </Link>
+                    </div>
+                  ) : (
+                    <>
+                      <Link to="/login" className="nav__link scroll-link">
+                        Đăng Nhập /
+                      </Link>
+                      <Link to="/register" className="nav__link scroll-link">
+                        Đăng Ký
+                      </Link>
+                      <span className="nav__link scroll-link">Thành Viên</span>
+                    </>
+                  )}
+
                   <br />
-                  <span href="#login" className="nav__link scroll-link">
-                    Thành Viên
-                  </span>
                 </div>
               </div>
 
