@@ -12,7 +12,7 @@ import categories from "../pages/admin/Categoires"
 const routes = [
   { path: "/", Component: HomePage },
   { path: "/cart", Component: Cart },
-  { path: "/detail", Component: Details },
+  { path: "/detail/product/:id", Component: Details },
   { path: "/forgotpassword", Component: ForgotPassword },
   { path: "/register", Component: Register },
   { path: "/pay", Component: Pay },

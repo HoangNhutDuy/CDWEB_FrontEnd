@@ -576,12 +576,12 @@ h4 {
 
 #nav__item_giohang {
   width: 120px;
-  ext-align: center;
+  text-align: center;
 }
 
 #nav__item_user {
   width: 160px;
-  ext-align: center;
+  text-align: center;
 }
 
 .nav__link_giohang {

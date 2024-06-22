@@ -9,7 +9,7 @@ function App() {
         <Routes>
           {routes.map((route) => {
             const Page = route.Component
-            return <Route path={route.path} element={<Page />} />
+            return <Route key={route.path} path={route.path} element={<Page />} />
           })}
         </Routes>
       </div>

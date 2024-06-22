@@ -6,6 +6,7 @@ import FlightIcon from "@mui/icons-material/Flight"
 import CreditCardIcon from "@mui/icons-material/CreditCard"
 import LocalAtmIcon from "@mui/icons-material/LocalAtm"
 import HeadphonesIcon from "@mui/icons-material/Headphones"
+import "./cssDone.css"
 
 const Done = () => {
     // console.log(products.products)
