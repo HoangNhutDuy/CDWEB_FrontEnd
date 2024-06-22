@@ -69,6 +69,7 @@ const ProductReview = ({productId, userId}) => {
         setReviews([...reviews, response?.data]);
         setNewReview({ ...newReview, rating: 0, comment: '' });
         setError('');
+        
       })
       .catch(error => {
         console.error("Failed to add review.", error);
@@ -113,10 +114,10 @@ const ProductReview = ({productId, userId}) => {
         reviews.map((review, index) => (
           <div key={index} className="review-card">
             <div className="review-header">
-              <div className="review-user">{review?.user?.username}</div>
+              <div className="review-user">{review?.fullName}</div>
               {/* {renderRatingStars(review?.rating)} */}
             </div>
-            <div className="review-date">{moment(review?.createdAt).format('MMMM Do YYYY, h:mm:ss a')}</div>
+            <div className="review-date">{review?.createdAt}</div>
             <div className="review-comment">{review?.comment}</div>
           </div>
         ))
