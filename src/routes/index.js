@@ -9,6 +9,7 @@ import LogIn from "../pages/LogIn/LogIn"
 import Admin from "../pages/admin/Admin"
 import Users from "../pages/admin/Users"
 import categories from "../pages/admin/Categoires"
+import ResetPassword from "../pages/ResetPassword/ResetPassword"
 const routes = [
   { path: "/", Component: HomePage },
   { path: "/cart", Component: Cart },
@@ -18,6 +19,7 @@ const routes = [
   { path: "/pay", Component: Pay },
   { path: "/done", Component: Done },
   { path: "/logIn", Component: LogIn },
+  { path: "/reset", Component: ResetPassword },
   { path: "/admin", Component: Admin },
   { path: "/admin/users", Component: Users },
   { path: "/admin/categories", Component: categories },

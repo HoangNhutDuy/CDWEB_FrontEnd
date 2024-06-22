@@ -138,9 +138,9 @@ const LogIn = () => {
                   />
 
                   <div className="two-a">
-                    <p className="left" href="">
-                      Chưa có Tài Khoản
-                    </p>
+                    <Link className="left" to="/forgotpassword">
+                      Quên mật khẩu
+                    </Link>
                     <Link to="/register">Đăng Ký</Link>
                   </div>
                 </form>
