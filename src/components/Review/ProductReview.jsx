@@ -88,21 +88,27 @@ const ProductReview = ({productId, userId}) => {
 
   //Hàm render các sao đánh giá
   const renderRatingStars = (rating) => {
+
+
+  
+  
+ 
     const filledStars = Math.floor(rating);
     const halfStar = rating - filledStars >= 0.5 ? 1 : 0;
     const emptyStars = 5 - filledStars - halfStar;
-
+    console.log(filledStars)
     return (
       <div className="review-rating">
-        {[...Array(filledStars)].map((_, i) => (
-          <StarIcon key={i} style={{ color: "#FFD700" }} />
-        ))}
-        {halfStar === 1 && <StarIcon style={{ color: "#FFD700" }} />}
-        {[...Array(emptyStars)].map((_, i) => (
-          <StarIcon key={i} style={{ color: "#CCCCCC" }} />
-        ))}
+         {[...Array(filledStars)].map((_, i) => (
+        <StarIcon key={`filled-${i}`} style={{ color: "#FFD700" }} />
+      ))}
+      {halfStar === 1 && <StarIcon key="half" style={{ color: "#FFD700" }} />}
+      {[...Array(emptyStars)].map((_, i) => (
+        <StarIcon key={`empty-${i}`} style={{ color: "#CCCCCC" }} />
+      ))}
       </div>
     );
+        
   };
 
 
@@ -117,7 +123,7 @@ const ProductReview = ({productId, userId}) => {
           <div key={index} className="review-card">
             <div className="review-header">
               <div className="review-user">{review?.fullName}</div>
-              {/* {renderRatingStars(review?.rating)} */}
+              {review?.rating && renderRatingStars(review?.rating)}
             </div>
             <div className="review-date">{review?.createdAt}</div>
             <div className="review-comment">{review?.comment}</div>
