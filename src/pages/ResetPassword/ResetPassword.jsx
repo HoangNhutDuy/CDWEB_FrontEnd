@@ -9,6 +9,7 @@ const ResetPassword = () => {
   const [otp, SetOtp] = useState("")
   const [newPassword, setNewPassWord] = useState("")
   const navigate = useNavigate()
+
   const handleSubmit = (e) => {
     e.preventDefault()
     try {

@@ -54,7 +54,6 @@ const categories = () => {
                   gap: 2,
                 }}
               >
-                <UnfoldMoreIcon sx={{ fontSize: "24px", color: "#FEAF00" }} />
                 <ModalCategories />
               </Box>
             </Box>
