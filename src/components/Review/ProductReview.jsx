@@ -3,6 +3,7 @@ import axios from 'axios';
 import './cssProductReview.css';
 import StarIcon from '@mui/icons-material/Star';
 import moment from 'moment';
+
 const ProductReview = ({productId, userId}) => {
   const [reviews, setReviews] = useState([]);
  
@@ -68,6 +69,7 @@ const ProductReview = ({productId, userId}) => {
         console.log("Response:", response?.data);
         setReviews([...reviews, response?.data]);
         setNewReview({ ...newReview, rating: 0, comment: '' });
+        fetchReviews();
         setError('');
         
       })
@@ -77,7 +79,7 @@ const ProductReview = ({productId, userId}) => {
       });
   };
  
- console.log(reviews)
+
   // Hàm xử lý thay đổi các trường trong form
   const handleChange = (e) => {
     const { name, value } = e.target;
