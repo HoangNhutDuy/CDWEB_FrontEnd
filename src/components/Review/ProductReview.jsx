@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react"
 import axios from "axios"
 import "./cssProductReview.css"
 import StarIcon from "@mui/icons-material/Star"
+import moment from "moment"
 
 const ProductReview = ({ productId, userId }) => {
   const [reviews, setReviews] = useState([])
@@ -88,15 +89,15 @@ const ProductReview = ({ productId, userId }) => {
     const filledStars = Math.floor(rating)
     const halfStar = rating - filledStars >= 0.5 ? 1 : 0
     const emptyStars = 5 - filledStars - halfStar
-
+    console.log(filledStars)
     return (
       <div className="review-rating">
         {[...Array(filledStars)].map((_, i) => (
-          <StarIcon key={i} style={{ color: "#FFD700" }} />
+          <StarIcon key={`filled-${i}`} style={{ color: "#FFD700" }} />
         ))}
-        {halfStar === 1 && <StarIcon style={{ color: "#FFD700" }} />}
+        {halfStar === 1 && <StarIcon key="half" style={{ color: "#FFD700" }} />}
         {[...Array(emptyStars)].map((_, i) => (
-          <StarIcon key={i} style={{ color: "#CCCCCC" }} />
+          <StarIcon key={`empty-${i}`} style={{ color: "#CCCCCC" }} />
         ))}
       </div>
     )
@@ -112,7 +113,7 @@ const ProductReview = ({ productId, userId }) => {
           <div key={index} className="review-card">
             <div className="review-header">
               <div className="review-user">{review?.fullName}</div>
-              {/* {renderRatingStars(review?.rating)} */}
+              {review?.rating && renderRatingStars(review?.rating)}
             </div>
             <div className="review-date">{review?.createdAt}</div>
             <div className="review-comment">{review?.comment}</div>
