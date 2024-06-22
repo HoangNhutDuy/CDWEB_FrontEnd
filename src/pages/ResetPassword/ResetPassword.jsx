@@ -1,34 +1,38 @@
 import React, { useState } from "react"
+import "./ResetPassword.css"
 import back7 from "../../icon/back7.png"
 import jcphone from "../../images/jcphone.png"
-import "./quenmatkhau.css"
 import { Link } from "react-router-dom"
-import { useNavigate } from "react-router-dom"
 import axios from "axios"
-const ForgotPassword = () => {
-  const [email, setEmail] = useState("")
-  const [error, setError] = useState("")
+import { useNavigate } from "react-router-dom"
+const ResetPassword = () => {
+  const [otp, SetOtp] = useState("")
+  const [newPassword, setNewPassWord] = useState("")
   const navigate = useNavigate()
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    if (email) {
-      try {
+    try {
+      if (otp && newPassword) {
         axios
-          .post(`http://localhost:8080/api/reset-password?email=${email}`)
+          .post(
+            `http://localhost:8080/api/reset-password/confirm?otp=${otp}&password=${newPassword}`
+          )
           .then((res) => {
-            const result = res?.data
-            if (result.status === 200) {
-              alert("Gửi mã OTP thành công")
+            if (res.status === 200) {
+              alert("Cập nhập mật khẩu thành công")
               setTimeout(() => {
-                navigate("/reset")
+                navigate("/login")
               }, 1000)
             }
           })
           .catch((err) => {
-            setError("Email không tồn tại trong hệ thống")
+            alert("Mã OTP không hợp lệ")
+            console.log(err)
           })
-      } catch (error) {}
+      }
+    } catch (error) {
+      console.log(error)
     }
   }
   return (
@@ -78,25 +82,31 @@ const ForgotPassword = () => {
                         autocomplete="off"
                         placeholder=" "
                         className="form-input"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
+                        value={otp}
+                        onChange={(e) => SetOtp(e.target.value)}
                       />
 
                       <label for="name" className="form-label">
                         {" "}
-                        Email{" "}
+                        Mã OTP{" "}
                       </label>
-                      {error && (
-                        <p
-                          style={{
-                            textAlign: "left",
-                            marginTop: "10px",
-                            color: "red",
-                          }}
-                        >
-                          {error}
-                        </p>
-                      )}
+                      <i className="error error-icon fas fa-exclamation-circle"></i>
+                    </div>
+                    <div className="form-text">
+                      <input
+                        type="password"
+                        name="name"
+                        autocomplete="off"
+                        placeholder=" "
+                        className="form-input"
+                        value={newPassword}
+                        onChange={(e) => setNewPassWord(e.target.value)}
+                      />
+
+                      <label for="name" className="form-label">
+                        {" "}
+                        Mật khẩu mới{" "}
+                      </label>
                       <i className="error error-icon fas fa-exclamation-circle"></i>
                     </div>
                     <div className="error error-txt">
@@ -122,4 +132,4 @@ const ForgotPassword = () => {
   )
 }
 
-export default ForgotPassword
+export default ResetPassword

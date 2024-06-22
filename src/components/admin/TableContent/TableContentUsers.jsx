@@ -10,6 +10,7 @@ import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutl
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined"
 import { ToastContainer, toast } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
+import ModalUpdateUser from "../Modal/ModalUpdateUser"
 // import axios from "axios"
 import { useState, useEffect } from "react"
 
@@ -213,8 +214,10 @@ const TableContent = () => {
                 }}
                 align="left"
               >
-                <ModeEditOutlineOutlinedIcon sx={{ fontSize: "20px" }} />
-                <ToastContainer />
+                <DeleteOutlineOutlinedIcon
+                  sx={{ fontSize: "20px" }}
+                  // onClick={() => handleDeleteStudent(row.id)}
+                />
               </TableCell>
               <TableCell
                 sx={{
@@ -226,10 +229,8 @@ const TableContent = () => {
                 }}
                 align="left"
               >
-                <DeleteOutlineOutlinedIcon
-                  sx={{ fontSize: "20px" }}
-                  // onClick={() => handleDeleteStudent(row.id)}
-                />
+                <ModalUpdateUser />
+                <ToastContainer />
               </TableCell>
             </TableRow>
           ))}

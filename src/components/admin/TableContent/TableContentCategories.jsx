@@ -10,6 +10,7 @@ import Avatar from "@mui/material/Avatar"
 import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined"
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined"
 import { ToastContainer, toast } from "react-toastify"
+import ModalUpdateCategories from "../Modal/ModalUpdateCategories"
 const TableContentCategories = () => {
   const categories = [
     {
@@ -121,7 +122,7 @@ const TableContentCategories = () => {
                 }}
                 align="left"
               >
-                <ModeEditOutlineOutlinedIcon sx={{ fontSize: "20px" }} />
+                <ModalUpdateCategories />
                 <ToastContainer />
               </TableCell>
             </TableRow>
