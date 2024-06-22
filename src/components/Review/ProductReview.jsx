@@ -1,94 +1,92 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import './cssProductReview.css';
-import StarIcon from '@mui/icons-material/Star';
-import moment from 'moment';
-const ProductReview = ({productId, userId}) => {
-  const [reviews, setReviews] = useState([]);
- 
-  const [rating, setRating] = useState(0);
-  const [comment, setComment] = useState('');
-  const [message, setMessage] = useState('');
-  const [error, setError] = useState('');
+import React, { useEffect, useState } from "react"
+import axios from "axios"
+import "./cssProductReview.css"
+import StarIcon from "@mui/icons-material/Star"
+const ProductReview = ({ productId, userId }) => {
+  const [reviews, setReviews] = useState([])
+
+  const [rating, setRating] = useState(0)
+  const [comment, setComment] = useState("")
+  const [message, setMessage] = useState("")
+  const [error, setError] = useState("")
   const [newReview, setNewReview] = useState({
     idProduct: productId,
     rating: 0,
-    comment: '',
+    comment: "",
     idUser: userId,
-  });
+  })
   if (userId) {
     // Truy cập thuộc tính userId của user ở đây
     // console.log(userId)
   } else {
-    console.error("User or userId is undefined");
+    console.error("User or userId is undefined")
   }
- 
 
   useEffect(() => {
-    fetchReviews(); // Gọi hàm fetchReviews khi productId thay đổi
-
-  }, [productId]);
+    fetchReviews() // Gọi hàm fetchReviews khi productId thay đổi
+  }, [productId])
 
   // Hàm để fetch danh sách reviews từ API
   const fetchReviews = () => {
-    const token = localStorage.getItem("token");
-      if (!token) {
-        setError("Token is missing");
-        return;
-      }
-    axios.get(`http://localhost:8080/review/product/${productId}`,{
-      headers: {
-        Authorization: `Bearer ${token}`,
-      }
-    })
-      .then(response => {
-        console.log(response);
-        setReviews(response.data);
-      })
-      .catch(error => {
-        console.error("There was an error fetching the reviews!", error);
-      });
-  };
-
-  // Hàm xử lý submit form đánh giá
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const token = localStorage.getItem("token");
-    console.log(localStorage.getItem("token")); 
+    const token = localStorage.getItem("token")
     if (!token) {
-      setError("Token is missing");
-      return;
+      setError("Token is missing")
+      return
     }
-    axios.post('http://localhost:8080/review/add', newReview, {
+    axios
+      .get(`http://localhost:8080/review/product/${productId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       })
-      .then(response => {
-        console.log("Response:", response?.data);
-        setReviews([...reviews, response?.data]);
-        setNewReview({ ...newReview, rating: 0, comment: '' });
-        setError('');
-        
+      .then((response) => {
+        console.log(response)
+        setReviews(response.data)
       })
-      .catch(error => {
-        console.error("Failed to add review.", error);
-        setError('Failed to add review. Please try again.');
-      });
-  };
- 
- console.log(reviews)
+      .catch((error) => {
+        console.error("There was an error fetching the reviews!", error)
+      })
+  }
+
+  // Hàm xử lý submit form đánh giá
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    const token = localStorage.getItem("token")
+    console.log(localStorage.getItem("token"))
+    if (!token) {
+      setError("Token is missing")
+      return
+    }
+    axios
+      .post("http://localhost:8080/review/add", newReview, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        console.log("Response:", response?.data)
+        setReviews([...reviews, response?.data])
+        setNewReview({ ...newReview, rating: 0, comment: "" })
+        setError("")
+      })
+      .catch((error) => {
+        console.error("Failed to add review.", error)
+        setError("Failed to add review. Please try again.")
+      })
+  }
+
+  console.log(reviews)
   // Hàm xử lý thay đổi các trường trong form
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setNewReview({ ...newReview, [name]: value });
-  };
+    const { name, value } = e.target
+    setNewReview({ ...newReview, [name]: value })
+  }
 
   //Hàm render các sao đánh giá
   const renderRatingStars = (rating) => {
-    const filledStars = Math.floor(rating);
-    const halfStar = rating - filledStars >= 0.5 ? 1 : 0;
-    const emptyStars = 5 - filledStars - halfStar;
+    const filledStars = Math.floor(rating)
+    const halfStar = rating - filledStars >= 0.5 ? 1 : 0
+    const emptyStars = 5 - filledStars - halfStar
 
     return (
       <div className="review-rating">
@@ -100,10 +98,8 @@ const ProductReview = ({productId, userId}) => {
           <StarIcon key={i} style={{ color: "#CCCCCC" }} />
         ))}
       </div>
-    );
-  };
-
-
+    )
+  }
 
   return (
     <div className="review-section">
@@ -129,7 +125,9 @@ const ProductReview = ({productId, userId}) => {
           name="rating"
           placeholder="Đánh giá (1-5)"
           value={newReview.rating}
-          onChange={(e) => setNewReview({ ...newReview, rating: e.target.value })}
+          onChange={(e) =>
+            setNewReview({ ...newReview, rating: e.target.value })
+          }
           min="1"
           max="5"
           required
@@ -138,13 +136,16 @@ const ProductReview = ({productId, userId}) => {
           name="comment"
           placeholder="Viết đánh giá của bạn"
           value={newReview.comment}
-          onChange={(e) => setNewReview({ ...newReview, comment: e.target.value })}
+          onChange={(e) =>
+            setNewReview({ ...newReview, comment: e.target.value })
+          }
           required
         />
-           <button type="submit" onClick={handleSubmit}>Gửi đánh giá</button>
-       
+        <button type="submit" onClick={handleSubmit}>
+          Gửi đánh giá
+        </button>
       </form>
     </div>
-  );
-};
-export default ProductReview;
+  )
+}
+export default ProductReview
