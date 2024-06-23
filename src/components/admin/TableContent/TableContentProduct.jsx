@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react"
 import Table from "@mui/material/Table"
 import TableBody from "@mui/material/TableBody"
 import TableCell from "@mui/material/TableCell"
@@ -11,7 +11,7 @@ import Button from "@mui/material/Button"
 import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined"
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined"
 import { ToastContainer, toast } from "react-toastify"
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css"
 import ModalUpdateProduct from "../Modal/ModalUpdateProduct"
 import ModalAddProduct from "../Modal/ModalAddProduct";
 import axios from "axios"; 
@@ -289,9 +289,9 @@ const TableContentProduct = () => {
                 </TableCell>
               </TableRow>
             )}
-        </TableBody>
-      </Table>
-    </TableContainer>
+          </TableBody>
+        </Table>
+      </TableContainer>
     </div>
   )
 }
