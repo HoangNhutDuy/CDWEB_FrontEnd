@@ -10,116 +10,147 @@ import Avatar from "@mui/material/Avatar"
 import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined"
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined"
 import { ToastContainer, toast } from "react-toastify"
+import 'react-toastify/dist/ReactToastify.css';
 import ModalUpdateProduct from "../Modal/ModalUpdateProduct"
-
+import ModalProduct from "../Modal/ModalProduct";
 import axios from "axios"; 
 const TableContentProduct = ({ productId ,productData ,fetchProducts}) => {
-  // const products = [
-  //   {
-  //     id: 1,
-  //     name: "iphone",
-  //     img: "https://store.storeimages.cdn-apple.com/8756/as-images.apple.com/is/iphone-card-40-iphone15prohero-202309_FMT_WHH?wid=508&hei=472&fmt=p-jpg&qlt=95&.v=1693086369818",
-  //     brand: "brand",
-  //     model: "model",
-  //     description:
-  //       "  Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dicta doloremque, culpa excepturi nesciunt error, quos corrupti tempore obcaecati aspernatur omnis est porro odit id non illum cupiditate eaque corporis nisi!",
-  //     stockQuantity: 123,
-  //   },
-  //   {
-  //     id: 2,
-  //     name: "iphone",
-  //     img: "https://store.storeimages.cdn-apple.com/8756/as-images.apple.com/is/iphone-card-40-iphone15prohero-202309_FMT_WHH?wid=508&hei=472&fmt=p-jpg&qlt=95&.v=1693086369818",
-  //     brand: "brand",
-  //     model: "model",
-  //     description:
-  //       "  Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dicta doloremque, quos corrupti tempore obcaecati aspernatur omnis est porro odit id non illum cupiditate eaque corporis nisi!",
-  //     stockQuantity: 123,
-  //   },
-  // ]
-  const [products, setProducts] = useState([]);
+
   const [open, setOpen] = React.useState(false)
+  
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
   const [error, setError] = useState('');
-  const [newProducts, setNewProducts] = useState({
-    idProduct: productId,
-    name: "",
-    img: "",
-    brand: "",
-    price: 0,
-    description: "",
-    stockQuantity: 0,
-    model: "",
-  });
+  const [products, setProducts] = useState([]);
+  // const [newProducts, setNewProducts] = useState({
+  //   idProduct: productId,
+  //   name: "",
+  //   img: "",
+  //   brand: "",
+  //   price: 0,
+  //   description: "",
+  //   stockQuantity: 0,
+  //   model: "",
+  // });
+  // const [newProducts, setNewProducts] = useState([]);
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setNewProducts((prevProduct) => ({
+    setProducts((prevProduct) => ({
       ...prevProduct,
       [name]: value,
     }));
   };
-  const fetchProductss = async (e) => {
+  useEffect(() => {
+
+    const storedProducts = JSON.parse(localStorage.getItem("products"));
+    if (storedProducts) {
+      setProducts(storedProducts);
+    } else {
+      fetchProductsFromDatabase();
+    }
+  }, []);
+
+
+  const fetchProductsFromDatabase = async () => {
     try {
       const response = await axios.get("http://localhost:8080/product/getAll");
-      setProducts(Array.isArray(response.data) ? response.data : []);
-  
-       
+
+       const fetchedProducts = response.data.slice(0, 10); 
+      setProducts(fetchedProducts);
+
+      localStorage.setItem("products", JSON.stringify(fetchedProducts));
     } catch (error) {
       console.error("Error fetching products:", error);
     }
   };
       
   useEffect(() => {
-    fetchProductss();
-  }, [products]);
+    fetchProductsFromDatabase();
+  }, []);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const response = await axios.post(
         "http://localhost:8080/product/add",
-        newProducts
+        products
       );
       console.log("Product added:", response?.data);
-      setProducts([response?.data, ...products]);
-      setNewProducts({ ...newProducts,   name: "",
-        img: "",
-        brand: "",
-        price: 0,
-        description: "",
-        stockQuantity: 0,
-        model: "", });
-        console.log("Updated products:", products); 
+      // setNewProducts([...newProducts, response.data]); // Cập nhật state cho sản phẩm mới
+      setProducts([...products,response.data]); 
+      
      
 
-      fetchProductss()
-      setError(''); // Fetch updated products after adding
       handleClose(); // Close modal after successful submission
+      setError(''); // Fetch updated products after adding
+
     } catch (error) {
       console.error("Error adding product:", error);
       // Handle error, show an error message, etc.
+    }
+  };
+  const showToastSuccess = (message) => {
+    if (!message) {
+      return
+    }
+    toast.success(message, {
+      position: "bottom-right",
+      autoClose: 500,
+    })
+  }
+  const showToastFail = (message) => {
+    if (!message) {
+      return
+    }
+    toast?.error(message, {
+      position: "bottom-right",
+    })
+  }
+  const handleAddProduct = async (newProduct) => {
+
+    
+    try {
+      const response = await axios.post("http://localhost:8080/product/add", newProduct);
+      const addedProduct = response.data;
+  
+   
+      setProducts((prevProducts) => [addedProduct, ...prevProducts]);
+  
+  
+      const updatedProducts = [addedProduct, ...products];
+      localStorage.setItem("products", JSON.stringify(updatedProducts));
+  
+      
+  
+    
+      toast.success("Product added successfully!");
+
+    
+    } catch (error) {
+      console.error("Error adding product:", error);
+      toast.error("Failed to add product. Please try again.");
     }
   };
   const handleDelete = (productId) => {
     axios.delete(`http://localhost:8080/product/${productId}`)
       .then((response) => {
         console.log("Product deleted successfully");
-        // Optionally update state or notify user
+        setProducts(products.filter(product => product.id !== productId));
+        const updatedProducts = products.filter(product => product.id !== productId);
+        localStorage.setItem("products", JSON.stringify(updatedProducts));
       })
       .catch((error) => {
         console.error("Error deleting product:", error);
       });
   };
 
-  const addProductToState = (products) => {
-    setProducts((prevProducts) => [...prevProducts, products]);
-  };
-  
    
   return (
-
-
-      
+<div>
+   
     <TableContainer component={Paper}>
+      
+    <ModalProduct onAddProduct={handleAddProduct} />
       <Table
         sx={{
           minWidth: 650,
@@ -179,6 +210,17 @@ const TableContentProduct = ({ productId ,productData ,fetchProducts}) => {
               Mô tả
             </TableCell>
             <TableCell
+              sx={{
+                color: "#ACACAC",
+                borderBottom: "none",
+                width: "350px",
+                fontSize: "14px",
+              }}
+              align="left"
+            >
+              Giá
+            </TableCell>
+            <TableCell
               sx={{ color: "#ACACAC", borderBottom: "none", fontSize: "14px" }}
               align="left"
             >
@@ -197,7 +239,7 @@ const TableContentProduct = ({ productId ,productData ,fetchProducts}) => {
               }}
             >
               <TableCell component="th" scope="row">
-                {row?.id}
+                {row?.productId}
               </TableCell>
               <TableCell
                 sx={{
@@ -266,6 +308,18 @@ const TableContentProduct = ({ productId ,productData ,fetchProducts}) => {
                 }}
                 align="left"
               >
+                {row?.price}
+              </TableCell>
+              <TableCell
+                sx={{
+                  borderBottom: "none",
+                  fontWeight: "600",
+                  color: "#FEAF00",
+                  cursor: "pointer",
+                  fontSize: "14px",
+                }}
+                align="left"
+              >
                 {row?.stockQuantity}
               </TableCell>
               <TableCell
@@ -278,7 +332,8 @@ const TableContentProduct = ({ productId ,productData ,fetchProducts}) => {
                 align="left"
               >
 
-                <DeleteOutlineOutlinedIcon sx={{ fontSize: "20px" }} onclick={() => handleDelete(row?.id)} />
+   
+                <DeleteOutlineOutlinedIcon sx={{ fontSize: "20px" }} onclick={() => handleDelete(row?.productId)} />
               </TableCell>
               <TableCell
                 sx={{
@@ -304,7 +359,7 @@ const TableContentProduct = ({ productId ,productData ,fetchProducts}) => {
         </TableBody>
       </Table>
     </TableContainer>
-    
+    </div>
   )
 }
 

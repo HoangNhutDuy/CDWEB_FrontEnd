@@ -16,7 +16,7 @@ function App() {
             )
           })}
         </Routes>
-        <ToastContainer />
+        <ToastContainer autoClose={500} />
       </div>
     </Router>
   )

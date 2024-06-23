@@ -7,7 +7,7 @@ import Modal from "@mui/material/Modal"
 import axios from "axios"
 // import { toast } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
-const ModalProduct = ({fetchProductData ,productId}) => {
+const ModalProduct = ({fetchProductsFromDatabase  ,productId , onAddProduct }) => {
   const style = {
     position: "absolute",
     top: "50%",
@@ -69,7 +69,7 @@ const ModalProduct = ({fetchProductData ,productId}) => {
       const response = await axios.post('http://localhost:8080/product/add', product);
       console.log('Product added:', response.data);
       // Handle success, show a success message, etc.
-      fetchProductData(); // Fetch updated products after adding
+      onAddProduct(response.data);  // Fetch updated products after adding
       handleClose(); // Close modal after successful submission
     } catch (error) {
       console.error('Error adding product:', error);
