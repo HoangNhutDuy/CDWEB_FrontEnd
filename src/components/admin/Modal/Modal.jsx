@@ -3,8 +3,8 @@ import Box from "@mui/material/Box"
 import Button from "@mui/material/Button"
 import Typography from "@mui/material/Typography"
 import Modal from "@mui/material/Modal"
-// import axios from "axios"
-// import { toast } from "react-toastify"
+import axios from "axios"
+import { ToastContainer, toast } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 import InputLabel from "@mui/material/InputLabel"
 import MenuItem from "@mui/material/MenuItem"
@@ -27,62 +27,73 @@ export default function BasicModal() {
   const [open, setOpen] = React.useState(false)
   const [fullName, setFullName] = React.useState("")
   const [email, setEmail] = React.useState("")
+  const [password, setPassword] = React.useState("")
   const [phoneNumber, setPhoneNumber] = React.useState("")
-  const [users, setUsers] = React.useState([])
+  const [address, setAddress] = React.useState("")
+  const [role, setRole] = React.useState("")
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
   const token = localStorage.getItem("token")
-  const [role, setRole] = React.useState("")
-  const handleChange = (event) => {
-    setRole(event.target.value)
-  }
 
-  // const showToastSuccess = (message) => {
-  //   if (!message) {
-  //     return
-  //   }
-  //   toast.success(message, {
-  //     position: "bottom-right",
-  //     autoClose: 500,
-  //   })
-  // }
-  // const handleAddNewStudent = async () => {
-  //   if (
-  //     fullName.length === 0 ||
-  //     email.length === 0 ||
-  //     phoneNumber.length === 0 ||
-  //     age.length === 0
-  //   ) {
-  //     return
-  //   }
-  //   const payload = {
-  //     name: fullName,
-  //     email: email,
-  //     phoneNumber: phoneNumber,
-  //     age: age,
-  //   }
-  //   try {
-  //     const response = await axios.post(
-  //       "http://localhost:8080/students/add",
-  //       payload,
-  //       {
-  //         headers: {
-  //           Authorization: `Bearer ${token}`,
-  //         },
-  //       }
-  //     )
-  //     if (response.status === 200) {
-  //       showToastSuccess("Add student successfully")
-  //       setTimeout(() => {
-  //         window.location.reload()
-  //       }, 1000)
-  //     } else {
-  //       console.log("Failed")
-  //     }
-  //   } catch (error) {
-  //     console.log("failed", error)
-  //   }
-  // }
+  const showToastSuccess = (message) => {
+    if (!message) {
+      return
+    }
+    toast.success(message, {
+      position: "bottom-right",
+      autoClose: 500,
+    })
+  }
+  const showToastFail = (message) => {
+    if (!message) {
+      return
+    }
+    toast?.error(message, {
+      position: "bottom-right",
+    })
+  }
+  const handleAddNewUser = () => {
+    if (
+      fullName.length === 0 ||
+      email.length === 0 ||
+      password.length === 0 ||
+      phoneNumber.length === 0 ||
+      address.length === 0 ||
+      role.length === 0
+    ) {
+      return
+    }
+    const payload = {
+      fullName: fullName,
+      email: email,
+      password: password,
+      phoneNumber: phoneNumber,
+      address: address,
+      role: role,
+    }
+    try {
+      axios
+        .post("http://localhost:8080/user/add", payload, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((res) => {
+          if (res.status === 201) {
+            setOpen(false)
+            showToastSuccess("Thêm user thành công")
+            setTimeout(() => {
+              window.location.reload()
+            }, 1000)
+          }
+        })
+        .catch((err) => {
+          showToastFail("Thêm user thất bại")
+        })
+    } catch (error) {
+      console.log("failed", error)
+    }
+  }
   return (
     <div>
       <Button
@@ -124,7 +135,8 @@ export default function BasicModal() {
                 padding: "10px 8px",
                 fontSize: "20px",
               }}
-              // onChange={(e) => setFullName(e.target.value)}
+              value={fullName}
+              onChange={(e) => setFullName(e.target.value)}
             />
           </Box>
           <Box sx={{ display: "flex", flexDirection: "column" }}>
@@ -139,7 +151,8 @@ export default function BasicModal() {
                 padding: "10px 8px",
                 fontSize: "20px",
               }}
-              // onChange={(e) => setEmail(e.target.value)}
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
           </Box>
           <Box sx={{ display: "flex", flexDirection: "column" }}>
@@ -154,7 +167,8 @@ export default function BasicModal() {
                 padding: "10px 8px",
                 fontSize: "20px",
               }}
-              // onChange={(e) => setAge(e.target.value)}
+              onChange={(e) => setPassword(e.target.value)}
+              value={password}
             />
           </Box>
           <Box sx={{ display: "flex", flexDirection: "column" }}>
@@ -169,7 +183,7 @@ export default function BasicModal() {
                 padding: "10px 8px",
                 fontSize: "20px",
               }}
-              // onChange={(e) => setPhoneNumber(e.target.value)}
+              onChange={(e) => setPhoneNumber(e.target.value)}
             />
           </Box>
           <Box sx={{ display: "flex", flexDirection: "column" }}>
@@ -184,7 +198,8 @@ export default function BasicModal() {
                 padding: "10px 8px",
                 fontSize: "20px",
               }}
-              // onChange={(e) => setAge(e.target.value)}
+              onChange={(e) => setAddress(e.target.value)}
+              value={address}
             />
           </Box>
           <Box sx={{ display: "flex", flexDirection: "column" }}>
@@ -204,10 +219,10 @@ export default function BasicModal() {
                   id="demo-simple-select"
                   value={role}
                   label="Role"
-                  onChange={handleChange}
+                  onChange={(e) => setRole(e.target.value)}
                 >
-                  <MenuItem value="user">USER</MenuItem>
-                  <MenuItem value="admin">ADMIN</MenuItem>
+                  <MenuItem value="USER">USER</MenuItem>
+                  <MenuItem value="ADMIN">ADMIN</MenuItem>
                 </Select>
               </FormControl>
             </Box>
@@ -221,7 +236,7 @@ export default function BasicModal() {
                 fontSize: "16px",
                 color: "white",
               }}
-              // onClick={() => handleAddNewStudent()}
+              onClick={() => handleAddNewUser()}
             >
               Confirm
             </Button>
@@ -238,6 +253,7 @@ export default function BasicModal() {
             </Button>
           </Box>
         </Box>
+        {/* <ToastContainer /> */}
       </Modal>
     </div>
   )

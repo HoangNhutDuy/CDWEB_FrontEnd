@@ -6,9 +6,8 @@ import TableHead from "@mui/material/TableHead"
 import TableRow from "@mui/material/TableRow"
 import Paper from "@mui/material/Paper"
 import Avatar from "@mui/material/Avatar"
-import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined"
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined"
-import { ToastContainer, toast } from "react-toastify"
+import { toast, ToastContainer } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 import ModalUpdateUser from "../Modal/ModalUpdateUser"
 import axios from "axios"
@@ -25,7 +24,7 @@ const TableContent = () => {
   }
   const [users, setUsers] = useState([{}])
   console.log(users)
-  const getAllUser = async () => {
+  const getAllUser = () => {
     try {
       axios
         .get("http://localhost:8080/user/getAll", {
@@ -47,16 +46,15 @@ const TableContent = () => {
     if (!message) {
       return
     }
-    toast.success(message, {
+    toast?.success(message, {
       position: "bottom-right",
-      autoClose: 500,
     })
   }
   const showToastFail = (message) => {
     if (!message) {
       return
     }
-    toast.error(message, {
+    toast?.error(message, {
       position: "bottom-right",
     })
   }
@@ -85,14 +83,15 @@ const TableContent = () => {
         },
       })
       .then((res) => {
-        showToastSuccess("Delete user successfully")
+        console.log(res)
+        showToastSuccess("Xoá user thành công")
         setTimeout(() => {
           getAllUser()
         }, 1000)
       })
       .catch((error) => {
         console.log(error)
-        showToastFail("Delete user failed")
+        showToastFail("Xoá user thất bại")
       })
   }
   return (
@@ -155,7 +154,7 @@ const TableContent = () => {
         <TableBody>
           {users?.map((row) => (
             <TableRow
-              key={row.id}
+              key={row.userId}
               sx={{
                 height: "65px",
                 fontSize: "14px",
@@ -244,13 +243,12 @@ const TableContent = () => {
                 }}
                 align="left"
               >
-                <ModalUpdateUser />
+                <ModalUpdateUser id={row?.userId} />
               </TableCell>
             </TableRow>
           ))}
         </TableBody>
       </Table>
-      <ToastContainer />
     </TableContainer>
   )
 }

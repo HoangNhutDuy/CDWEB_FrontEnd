@@ -4,10 +4,10 @@ import { Link, useNavigate } from "react-router-dom"
 
 const Item = ({ name, icon, isLast, to }) => {
   const navigate = useNavigate()
-  // const handleLogOut = () => {
-  //   localStorage.removeItem("token")
-  //   navigate("/signIn")
-  // }
+  const handleLogOut = () => {
+    localStorage.removeItem("token")
+    navigate("/login")
+  }
   return isLast ? (
     <Box
       sx={{
@@ -18,7 +18,7 @@ const Item = ({ name, icon, isLast, to }) => {
       }}
     >
       <Button
-        // onClick={() => handleLogOut()}
+        onClick={() => handleLogOut()}
         sx={{
           color: "#000",
           width: "100%",
