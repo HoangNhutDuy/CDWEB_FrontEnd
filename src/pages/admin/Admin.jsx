@@ -6,7 +6,7 @@ import ArrowBackIosNewOutlinedIcon from "@mui/icons-material/ArrowBackIosNewOutl
 import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNoneOutlined"
 import UnfoldMoreIcon from "@mui/icons-material/UnfoldMore"
 import TableContentProduct from "../../components/admin/TableContent/TableContentProduct"
-import ModalProduct from "../../components/admin/Modal/ModalProduct"
+import ModalAddProduct from "../../components/admin/Modal/ModalAddProduct"
 
 const Admin = () => {
   // const navigate = useNavigate()
@@ -62,7 +62,7 @@ const Admin = () => {
                 }}
               >
                 <UnfoldMoreIcon sx={{ fontSize: "24px", color: "#FEAF00" }} />
-                <ModalProduct />
+                <ModalAddProduct />
               </Box>
             </Box>
           </Box>

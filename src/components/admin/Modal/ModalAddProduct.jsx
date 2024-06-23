@@ -5,9 +5,10 @@ import Button from "@mui/material/Button"
 import Typography from "@mui/material/Typography"
 import Modal from "@mui/material/Modal"
 import axios from "axios"
-// import { toast } from "react-toastify"
+import { ToastContainer, toast } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
-const ModalProduct = ({fetchProductsFromDatabase  ,productId , onAddProduct }) => {
+
+const ModalAddProduct = () => {
   const style = {
     position: "absolute",
     top: "50%",
@@ -18,68 +19,89 @@ const ModalProduct = ({fetchProductsFromDatabase  ,productId , onAddProduct }) =
     boxShadow: 24,
     p: 4,
   }
-  const [open, setOpen] = React.useState(false)
+  const [open, setOpen] = useState(false)
+  const [name, setName] = useState("")
+  const [img, setImg] = useState(null)
+  const [brand, setBrand] = useState("")
+  const [price, setPrice] = useState("")
+  const [description, setDescription] = useState("")
+  const [stockQuantity, setStockQuantity] = useState("")
+  const [model, setModel] = useState("")
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
-  const [file, setFile] = useState(null);
-  const [product, setProduct] = useState({
-    name: '',
-    img: '',
-    brand: '',
-    price: 0,
-    description: '',
-    stockQuantity: 0,
-    model: '',
-   
-  });
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setProduct((prevProduct) => ({
-      ...prevProduct,
-      [name]: value,
-    }));
-  };
-  useEffect(() => {
-    // Gọi API để lấy dữ liệu sản phẩm
-    axios.get(`http://localhost:8080/product/${productId}`) // Thay thế đường dẫn và ID sản phẩm phù hợp với API của bạn
-      .then(response => {
-        const fetchedProduct = response.data;
-        setProduct({
-          name: fetchedProduct.name,
-          img: fetchedProduct.img,
-          brand: fetchedProduct.brand,
-          price: fetchedProduct.price,
-          description: fetchedProduct.description,
-          stockQuantity: fetchedProduct.stockQuantity,
-          model: fetchedProduct.model,
-        });
-        handleClose();
-      })
-      
-      .catch(error => {
-        console.error("Error fetching product:", error);
-      });
-  }, []);
 
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await axios.post('http://localhost:8080/product/add', product);
-      console.log('Product added:', response.data);
-      // Handle success, show a success message, etc.
-      onAddProduct(response.data);  // Fetch updated products after adding
-      handleClose(); // Close modal after successful submission
-    } catch (error) {
-      console.error('Error adding product:', error);
-      // Handle error, show an error message, etc.
-    }
-  };
+
   const handleFileChange = (e) => {
-    setFile(e.target.files[0]);
+    setImg(e.target.files[0]);
   };
+  const showToastSuccess = (message) => {
+    if (!message) {
+      return
+    }
+    toast.success(message, {
+      position: "bottom-right",
+      autoClose: 500,
+    })
+  }
+  const showToastFail = (message) => {
+    if (!message) {
+      return
+    }
+    toast?.error(message, {
+      position: "bottom-right",
+    })
+  }
 
+
+    const handleAddNewProduct = () => {
+      if (
+        name?.length === 0 ||
+        !img || 
+        brand?.length === 0 ||
+        price?.length === 0 ||
+        description?.length === 0 ||
+        stockQuantity?.length === 0 ||
+        model?.length === 0
+      ) {
+       
+        return
+      }
+      const payload = {
+        name: name,
+        img: img,
+        brand: brand,
+        price: price,
+        description: description,
+        stockQuantity: stockQuantity,
+        model: model,
+      }
+      
+      try {
+         
+        axios.post("http://localhost:8080/product/add", payload)
+          .then((res) => {
+          
+            if (res.status === 201) {
+              setOpen(false)
+              showToastSuccess("Thêm sản phẩm thành công")
+              setTimeout(() => {
+                window.location.reload()
+              }, 1000)
+            }
+          })
+          .catch((err) => {
+            showToastFail("Thêm sản phẩm thất bại")
+
+          })
+      } catch (error) {
+        console.log("failed", error)
+      }
+    }
+  
+
+  
+ 
   return (
     <div>
       <Button
@@ -107,7 +129,7 @@ const ModalProduct = ({fetchProductsFromDatabase  ,productId , onAddProduct }) =
           <Typography id="modal-modal-title" variant="h6" component="h2">
             Thêm mới sản phẩm
           </Typography>
-          <form onSubmit={handleSubmit}>
+        
           <Box sx={{ display: "flex", flexDirection: "column" }}>
             <Typography sx={{ fontSize: "16px" }}>Tên sản phẩm</Typography>
             <input
@@ -120,8 +142,8 @@ const ModalProduct = ({fetchProductsFromDatabase  ,productId , onAddProduct }) =
                 fontSize: "20px",
               }}
               
-              value={product.name}
-              onChange={handleChange}
+              value={name}
+              onChange={(e)=> setName(e.target.value)}
             />
           </Box>
           <Box sx={{ display: "flex", flexDirection: "column" }}>
@@ -138,7 +160,8 @@ const ModalProduct = ({fetchProductsFromDatabase  ,productId , onAddProduct }) =
                 fontSize: "20px",
               }}
            
-              onChange={handleFileChange}
+          
+        onChange={handleFileChange}
             />
           </Box>
           <Box sx={{ display: "flex", flexDirection: "column" }}>
@@ -154,8 +177,8 @@ const ModalProduct = ({fetchProductsFromDatabase  ,productId , onAddProduct }) =
                 padding: "10px 8px",
                 fontSize: "20px",
               }}
-              value={product.brand}
-              onChange={handleChange}
+              value={brand}
+               onChange ={(e)=> setBrand(e.target.value)}
             />
           </Box>
           <Box sx={{ display: "flex", flexDirection: "column" }}>
@@ -171,8 +194,8 @@ const ModalProduct = ({fetchProductsFromDatabase  ,productId , onAddProduct }) =
                 padding: "10px 8px",
                 fontSize: "20px",
               }}
-              value={product.price}
-              onChange={handleChange}
+              value={price}
+              onChange ={(e)=> setPrice(e.target.value)}
             />
           </Box>
           <Box sx={{ display: "flex", flexDirection: "column" }}>
@@ -188,8 +211,8 @@ const ModalProduct = ({fetchProductsFromDatabase  ,productId , onAddProduct }) =
                 padding: "10px 8px",
                 fontSize: "20px",
               }}
-              value={product.description}
-              onChange={handleChange}
+              value={description}
+              onChange ={(e)=> setDescription(e.target.value)}
             />
           </Box>
           <Box sx={{ display: "flex", flexDirection: "column" }}>
@@ -205,8 +228,8 @@ const ModalProduct = ({fetchProductsFromDatabase  ,productId , onAddProduct }) =
                 padding: "10px 8px",
                 fontSize: "20px",
               }}
-                  value={product.stockQuantity}
-              onChange={handleChange}
+                  value={stockQuantity}
+                  onChange ={(e)=> setStockQuantity(e.target.value)}
             />
           </Box>
           <Box sx={{ display: "flex", flexDirection: "column" }}>
@@ -222,8 +245,8 @@ const ModalProduct = ({fetchProductsFromDatabase  ,productId , onAddProduct }) =
                 padding: "10px 8px",
                 fontSize: "20px",
               }}
-              value={product.model}
-              onChange={handleChange}
+              value={model}
+              onChange ={(e)=> setModel(e.target.value)}
             />
           </Box>
           {/* Button container */}
@@ -235,7 +258,7 @@ const ModalProduct = ({fetchProductsFromDatabase  ,productId , onAddProduct }) =
                 fontSize: "16px",
                 color: "white",
               }}
-              onClick={handleSubmit}
+              onClick={() => handleAddNewProduct()}
             >
               Confirm
             </Button>
@@ -251,11 +274,12 @@ const ModalProduct = ({fetchProductsFromDatabase  ,productId , onAddProduct }) =
               Cancel
             </Button>
           </Box>
-          </form>
+        
         </Box>
+         {/* <ToastContainer /> */}
       </Modal>
     </div>
   )
 }
 
-export default ModalProduct
+export default ModalAddProduct
