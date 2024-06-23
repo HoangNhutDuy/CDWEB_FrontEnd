@@ -42,7 +42,7 @@ const ModalProduct = ({fetchProductData ,productId}) => {
   };
   useEffect(() => {
     // Gọi API để lấy dữ liệu sản phẩm
-    axios.get("http://localhost:8080/product/1") // Thay thế đường dẫn và ID sản phẩm phù hợp với API của bạn
+    axios.get(`http://localhost:8080/product/${productId}`) // Thay thế đường dẫn và ID sản phẩm phù hợp với API của bạn
       .then(response => {
         const fetchedProduct = response.data;
         setProduct({

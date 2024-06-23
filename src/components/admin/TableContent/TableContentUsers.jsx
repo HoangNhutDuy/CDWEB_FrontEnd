@@ -24,7 +24,7 @@ const TableContent = () => {
     navigate("/login")
   }
   const [users, setUsers] = useState([{}])
-  console.log(users)
+
   const getAllUser = async () => {
     try {
       axios
@@ -33,11 +33,12 @@ const TableContent = () => {
             Authorization: `Bearer ${token}`,
           },
         })
-        .then((res) => setUsers(res?.data))
+        .then((res) => setUsers(res?.data))   
         .catch((err) => console.log(err))
     } catch (error) {
       console.log(error)
     }
+   
   }
   useEffect(() => {
     getAllUser()
@@ -95,6 +96,7 @@ const TableContent = () => {
         showToastFail("Delete user failed")
       })
   }
+
   return (
     <TableContainer
       component={Paper}

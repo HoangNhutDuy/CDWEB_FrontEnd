@@ -135,6 +135,7 @@
     padding: 10px 20px;
     cursor: pointer;
     margin-left: 230px;
+    border-radius: 10px;
   }
   
   .review-form button:hover {

@@ -36,10 +36,13 @@ const TableContentProduct = ({ productId ,productData ,fetchProducts}) => {
   //     stockQuantity: 123,
   //   },
   // ]
+  const [products, setProducts] = useState([]);
   const [open, setOpen] = React.useState(false)
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
-  const [products, setProducts] = useState({
+  const [error, setError] = useState('');
+  const [newProducts, setNewProducts] = useState({
+    idProduct: productId,
     name: "",
     img: "",
     brand: "",
@@ -50,32 +53,46 @@ const TableContentProduct = ({ productId ,productData ,fetchProducts}) => {
   });
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setProducts((prevProduct) => ({
+    setNewProducts((prevProduct) => ({
       ...prevProduct,
       [name]: value,
     }));
   };
-  const fetchProductss = async () => {
+  const fetchProductss = async (e) => {
     try {
       const response = await axios.get("http://localhost:8080/product/getAll");
       setProducts(Array.isArray(response.data) ? response.data : []);
+  
+       
     } catch (error) {
       console.error("Error fetching products:", error);
     }
   };
-          console.log(products);
+      
   useEffect(() => {
     fetchProductss();
-  }, []);
+  }, [products]);
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const response = await axios.post(
         "http://localhost:8080/product/add",
-        products
+        newProducts
       );
-      console.log("Product added:", response.data);
-      fetchProducts(); // Fetch updated products after adding
+      console.log("Product added:", response?.data);
+      setProducts([response?.data, ...products]);
+      setNewProducts({ ...newProducts,   name: "",
+        img: "",
+        brand: "",
+        price: 0,
+        description: "",
+        stockQuantity: 0,
+        model: "", });
+        console.log("Updated products:", products); 
+     
+
+      fetchProductss()
+      setError(''); // Fetch updated products after adding
       handleClose(); // Close modal after successful submission
     } catch (error) {
       console.error("Error adding product:", error);
@@ -93,9 +110,11 @@ const TableContentProduct = ({ productId ,productData ,fetchProducts}) => {
       });
   };
 
-  const addProductToState = (product) => {
-    setProducts((prevProducts) => [...prevProducts, product]);
+  const addProductToState = (products) => {
+    setProducts((prevProducts) => [...prevProducts, products]);
   };
+  
+   
   return (
 
 
@@ -168,9 +187,10 @@ const TableContentProduct = ({ productId ,productData ,fetchProducts}) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {products.map((row) => (
+        {products?.length > 0 ? (
+          products?.map((row) => (
             <TableRow
-              key={row.id}
+              key={row?.id}
               sx={{
                 height: "65px",
                 fontSize: "14px",
@@ -257,7 +277,8 @@ const TableContentProduct = ({ productId ,productData ,fetchProducts}) => {
                 }}
                 align="left"
               >
-                <DeleteOutlineOutlinedIcon sx={{ fontSize: "20px" }}  onClick={() => handleDelete(products.id)}/>
+
+                <DeleteOutlineOutlinedIcon sx={{ fontSize: "20px" }} onclick={() => handleDelete(row?.id)} />
               </TableCell>
               <TableCell
                 sx={{
@@ -272,7 +293,14 @@ const TableContentProduct = ({ productId ,productData ,fetchProducts}) => {
                 <ToastContainer />
               </TableCell>
             </TableRow>
-          ))}
+            ))
+             ) : (
+              <TableRow>
+                <TableCell colSpan={6} align="center">
+                  No users found
+                </TableCell>
+              </TableRow>
+            )}
         </TableBody>
       </Table>
     </TableContainer>
