@@ -28,7 +28,7 @@ export default function BasicModal() {
   const [fullName, setFullName] = React.useState("")
   const [email, setEmail] = React.useState("")
   const [phoneNumber, setPhoneNumber] = React.useState("")
-
+  const [users, setUsers] = React.useState([])
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
   const token = localStorage.getItem("token")

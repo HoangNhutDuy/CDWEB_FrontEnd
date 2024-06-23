@@ -11,43 +11,55 @@ import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined
 import { ToastContainer, toast } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 import ModalUpdateUser from "../Modal/ModalUpdateUser"
+import axios from "axios"
 // import axios from "axios"
 import { useState, useEffect } from "react"
 
 import { useNavigate } from "react-router-dom"
+
 const TableContent = () => {
-  const [students, setStudents] = useState([])
-  const users = [
-    {
-      id: "1",
-      name: "Hoang Nhut Duy",
-      email: "nhutdny123@gmail.com",
-      phoneNumber: "0123456789",
-      address: "18",
-    },
-  ]
-  // const navigate = useNavigate()
-  // const token = localStorage.getItem("token")
-  // function createData(studentID, name, email, phoneNumber, age) {
-  //   return { studentID, name, email, phoneNumber, age }
-  // }
-  // const showToastSuccess = (message) => {
-  //   if (!message) {
-  //     return
-  //   }
-  //   toast.success(message, {
-  //     position: "bottom-right",
-  //     autoClose: 500,
-  //   })
-  // }
-  // const showToastFail = (message) => {
-  //   if (!message) {
-  //     return
-  //   }
-  //   toast.error(message, {
-  //     position: "bottom-right",
-  //   })
-  // }
+  const navigate = useNavigate()
+  const token = localStorage.getItem("token")
+  if (!token) {
+    navigate("/login")
+  }
+  const [users, setUsers] = useState([{}])
+  console.log(users)
+  const getAllUser = async () => {
+    try {
+      axios
+        .get("http://localhost:8080/user/getAll", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((res) => setUsers(res?.data))
+        .catch((err) => console.log(err))
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  useEffect(() => {
+    getAllUser()
+  }, [])
+
+  const showToastSuccess = (message) => {
+    if (!message) {
+      return
+    }
+    toast.success(message, {
+      position: "bottom-right",
+      autoClose: 500,
+    })
+  }
+  const showToastFail = (message) => {
+    if (!message) {
+      return
+    }
+    toast.error(message, {
+      position: "bottom-right",
+    })
+  }
   // useEffect(() => {
   //   if (!token) {
   //     navigate("/signIn")
@@ -61,33 +73,36 @@ const TableContent = () => {
   //     .then((res) => setStudents(res))
   //   // eslint-disable-next-line react-hooks/exhaustive-deps
   // }, [])
-  // const handleDeleteStudent = async (id) => {
-  //   if (!id) {
-  //     return
-  //   }
-  //   const response = await axios.delete(
-  //     `http://localhost:8080/students/delete/${id}`,
-  //     {
-  //       headers: {
-  //         Authorization: `Bearer ${token}`,
-  //       },
-  //     }
-  //   )
-  //   try {
-  //     if (response.status === 200) {
-  //       showToastSuccess("Delete student successfully")
-  //       setTimeout(() => {
-  //         window.location.reload()
-  //       }, 1000)
-  //     } else {
-  //       showToastFail("Delete student failed")
-  //     }
-  //   } catch (error) {
-  //     showToastFail(error)
-  //   }
-  // }
+  const handleDeleteUser = async (id) => {
+    console.log(id)
+    if (!id) {
+      return
+    }
+    axios
+      .delete(`http://localhost:8080/user/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        showToastSuccess("Delete user successfully")
+        setTimeout(() => {
+          getAllUser()
+        }, 1000)
+      })
+      .catch((error) => {
+        console.log(error)
+        showToastFail("Delete user failed")
+      })
+  }
   return (
-    <TableContainer component={Paper}>
+    <TableContainer
+      component={Paper}
+      sx={{
+        overflowX: "auto",
+        height: "800px",
+      }}
+    >
       <Table
         sx={{
           minWidth: 650,
@@ -161,7 +176,7 @@ const TableContent = () => {
                   alt="Remy Sharp"
                   sx={{ borderRadius: "8px", width: 50, fontSize: "14px" }}
                 />
-                {row?.id}
+                {row?.userId}
               </TableCell>
               <TableCell
                 sx={{
@@ -171,7 +186,7 @@ const TableContent = () => {
                   fontSize: "14px",
                 }}
               >
-                {row?.name}
+                {row?.fullName}
               </TableCell>
               <TableCell
                 sx={{
@@ -216,7 +231,7 @@ const TableContent = () => {
               >
                 <DeleteOutlineOutlinedIcon
                   sx={{ fontSize: "20px" }}
-                  // onClick={() => handleDeleteStudent(row.id)}
+                  onClick={() => handleDeleteUser(row?.userId)}
                 />
               </TableCell>
               <TableCell
@@ -230,12 +245,12 @@ const TableContent = () => {
                 align="left"
               >
                 <ModalUpdateUser />
-                <ToastContainer />
               </TableCell>
             </TableRow>
           ))}
         </TableBody>
       </Table>
+      <ToastContainer />
     </TableContainer>
   )
 }

@@ -17,7 +17,7 @@ const ProductReview = ({productId, userId}) => {
   const [newReview, setNewReview] = useState({
     idProduct: productId,
     rating: 0,
-    comment: '',
+    comment: "",
     idUser: userId,
     fullName:  localStorage.getItem('fullName') || '',
     
@@ -29,25 +29,26 @@ console.log(localStorage.getItem("fullName"))
     // Truy cập thuộc tính userId của user ở đây
     // console.log(userId)
   } else {
-    console.error("User or userId is undefined");
+    console.error("User or userId is undefined")
   }
  
 
   // Hàm để fetch danh sách reviews từ API
   const fetchReviews = () => {
-    const token = localStorage.getItem("token");
-      if (!token) {
-        setError("Token is missing");
-        return;
-      }
-    axios.get(`http://localhost:8080/review/product/${productId}`,{
-      headers: {
-        Authorization: `Bearer ${token}`,
-      }
-    })
-      .then(response => {
-        console.log(response);
-        setReviews(response.data);
+    const token = localStorage.getItem("token")
+    if (!token) {
+      setError("Token is missing")
+      return
+    }
+    axios
+      .get(`http://localhost:8080/review/product/${productId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        console.log(response)
+        setReviews(response.data)
       })
       .catch(error => {
         console.error("There was an error fetching the reviews!", error);
@@ -57,14 +58,15 @@ console.log(localStorage.getItem("fullName"))
 
   // Hàm xử lý submit form đánh giá
   const handleSubmit = (e) => {
-    e.preventDefault();
-    const token = localStorage.getItem("token");
-    console.log(localStorage.getItem("token")); 
+    e.preventDefault()
+    const token = localStorage.getItem("token")
+    console.log(localStorage.getItem("token"))
     if (!token) {
-      setError("Token is missing");
-      return;
+      setError("Token is missing")
+      return
     }
-    axios.post('http://localhost:8080/review/add', newReview, {
+    axios
+      .post("http://localhost:8080/review/add", newReview, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -78,12 +80,11 @@ console.log(localStorage.getItem("fullName"))
         setError('');
         
       })
-      .catch(error => {
-        console.error("Failed to add review.", error);
-        setError('Failed to add review. Please try again.');
-      });
-  };
- 
+      .catch((error) => {
+        console.error("Failed to add review.", error)
+        setError("Failed to add review. Please try again.")
+      })
+  }
 
   // Hàm xử lý thay đổi các trường trong form
   const handleChange = (e) => {
@@ -107,13 +108,13 @@ console.log(localStorage.getItem("fullName"))
   
     return (
       <div className="review-rating">
-         {[...Array(filledStars)].map((_, i) => (
-        <StarIcon key={`filled-${i}`} style={{ color: "#FFD700" }} />
-      ))}
-      {halfStar === 1 && <StarIcon key="half" style={{ color: "#FFD700" }} />}
-      {[...Array(emptyStars)].map((_, i) => (
-        <StarIcon key={`empty-${i}`} style={{ color: "#CCCCCC" }} />
-      ))}
+        {[...Array(filledStars)].map((_, i) => (
+          <StarIcon key={`filled-${i}`} style={{ color: "#FFD700" }} />
+        ))}
+        {halfStar === 1 && <StarIcon key="half" style={{ color: "#FFD700" }} />}
+        {[...Array(emptyStars)].map((_, i) => (
+          <StarIcon key={`empty-${i}`} style={{ color: "#CCCCCC" }} />
+        ))}
       </div>
     );
         
@@ -171,7 +172,9 @@ console.log(localStorage.getItem("fullName"))
           name="rating"
           placeholder="Đánh giá (1-5)"
           value={newReview.rating}
-          onChange={(e) => setNewReview({ ...newReview, rating: e.target.value })}
+          onChange={(e) =>
+            setNewReview({ ...newReview, rating: e.target.value })
+          }
           min="1"
           max="5"
           required
@@ -196,12 +199,15 @@ console.log(localStorage.getItem("fullName"))
           name="comment"
           placeholder="Xin chia sẻ một số cảm nhận của bạn về sản phẩm..."
           value={newReview.comment}
-          onChange={(e) => setNewReview({ ...newReview, comment: e.target.value })}
+          onChange={(e) =>
+            setNewReview({ ...newReview, comment: e.target.value })
+          }
           required
        
         />
-           <button type="submit" onClick={handleSubmit}>Gửi đánh giá</button>
-       
+        <button type="submit" onClick={handleSubmit}>
+          Gửi đánh giá
+        </button>
       </form>
 
        {/* <div>
@@ -209,6 +215,6 @@ console.log(localStorage.getItem("fullName"))
     </div> */}
 
     </div>
-  );
-};
-export default ProductReview;
+  )
+}
+export default ProductReview
