@@ -21,6 +21,7 @@ import SafetyCheckIcon from '@mui/icons-material/SafetyCheck';
 import InventoryIcon from '@mui/icons-material/Inventory';
 import ProductReview from "../../components/Review/ProductReview"
 import "../../components/Review/cssProductReview.css"
+import AddToCartButton from "../Cart/AddToCartButton"
 
 const Details = ({ match }) => {
  
@@ -338,11 +339,8 @@ const Details = ({ match }) => {
       </div>
 
       <div className="button">
-        <button className="button__pay" id="button__cart">
-          {" "}
-          THÊM VÀO <strong>GIỎ</strong> HÀNG
-        </button>
-
+        <AddToCartButton productId={id} quantity={quantity}/>
+       
         <button className="button__pay" id="button__buy">
           MUA NGAY
         </button>

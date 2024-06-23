@@ -1,25 +1,97 @@
-import React from "react"
-import Header from "../../components/Header/Header"
-import Footer from "../../components/Footer/Footer"
-import FlightIcon from "@mui/icons-material/Flight"
-import CreditCardIcon from "@mui/icons-material/CreditCard"
-import LocalAtmIcon from "@mui/icons-material/LocalAtm"
-import HeadphonesIcon from "@mui/icons-material/Headphones"
-import DeleteIcon from "@mui/icons-material/Delete"
-import RemoveIcon from "@mui/icons-material/Remove"
-import AddIcon from "@mui/icons-material/Add"
-import { Link } from "react-router-dom"
+import React, { useState, useEffect } from "react";
+import Header from "../../components/Header/Header";
+import Footer from "../../components/Footer/Footer";
+import { Link } from "react-router-dom";
+import {
+  Flight as FlightIcon,
+  CreditCard as CreditCardIcon,
+  LocalAtm as LocalAtmIcon,
+  Headphones as HeadphonesIcon,
+  Delete as DeleteIcon,
+  Remove as RemoveIcon,
+  Add as AddIcon,
+} from "@mui/icons-material";
+import { IconButton } from "@mui/material";
+import axios from "axios"; // Thêm axios để gọi API
+
 const Cart = () => {
+  const [cartItems, setCartItems] = useState([]);
+  const [shipping, setShipping] = useState(0);
+  const token = localStorage.getItem("token");
+
+  // Gọi API để lấy dữ liệu giỏ hàng khi component được render lần đầu tiên
+  useEffect(() => {
+    axios.get("http://localhost:8080/cart/get", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then(response => {
+        setCartItems(response.data.cartItems);
+      })
+      .catch(error => {
+        console.error("Error fetching cart data:", error);
+      });
+      
+  }, [token]);
+
+  const handleQuantityChange = (productId, amount) => {
+    const updatedCartItems = cartItems.map((item) =>
+      item.productId === productId ? { ...item, quantity: Math.min(100, Math.max(1, item.quantity + amount)) } : item
+    );
+    setCartItems(updatedCartItems);
+
+    // Gọi API để cập nhật số lượng sản phẩm
+    axios.put(`http://localhost:8080/cart/update`, null, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      params: {
+        productId: productId,
+        quantity: updatedCartItems.find(item => item.productId === productId).quantity,
+      }
+    })
+      .catch(error => {
+        console.error("Error updating cart item quantity:", error);
+      });
+  };
+
+  const handleRemoveItem = (productId) => {
+    setCartItems((prevItems) => prevItems.filter((item) => item.productId !== productId));
+
+    // Gọi API để xóa sản phẩm khỏi giỏ hàng
+    axios.delete(`http://localhost:8080/cart/remove`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      params: {
+        productId: productId,
+      }
+    })
+      .catch(error => {
+        console.error("Error removing cart item:", error);
+      });
+  };
+
+  const handleShippingChange = (e) => {
+    setShipping(e.target.checked ? 10000 : 0);
+  };
+
+  let totalAmount = cartItems.reduce(
+    (acc, item) => acc + item.price * item.quantity,
+    0
+  );
+
   return (
     <>
       <Header />
       <main>
-        <section class="section cart__area">
-          <div class="container">
-            <div class="responsive__cart-area">
-              <form class="cart__form">
-                <div class="cart__table table-responsive">
-                  <table width="100%" class="table">
+        <section className="section cart__area">
+          <div className="container">
+            <div className="responsive__cart-area">
+              <form className="cart__form">
+                <div className="cart__table table-responsive">
+                  <table width="100%" className="table">
                     <thead>
                       <tr>
                         <th>Sản phẩm</th>
@@ -30,232 +102,100 @@ const Cart = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        <td class="product__thumbnail">
-                          <Link to="/detail">
-                            <img
-                              src="https://cdn-v2.didongviet.vn/files/media/catalog/product/p/i/pin-sac-du-phong-mazer-infinite-boost-super-mini-v2-0-20000mah-didongviet.jpg"
-                              alt=""
-                            />
-                          </Link>
-                        </td>
-                        <td class="product__name">
-                          <Link to="/detail">
-                            Pin sạc dự phòng Mazer Infinite.Boost SuperMINI
-                            Pocket 8.0 V2 8000mAh
-                          </Link>
-                          <br />
-                          <small>Xanh</small>
-                        </td>
-                        <td class="product__price">
-                          <div class="price">
-                            <span class="new__price">550.000 VNĐ</span>
-                          </div>
-                        </td>
-                        <td class="product__quantity">
-                          <div class="input-counter" style={{ marginTop: "0" }}>
-                            <div>
-                              <span class="minus-btn">
-                                <RemoveIcon />
+                      {cartItems.map((item) => (
+                        <tr key={item.productId}>
+                          <td className="product__thumbnail">
+                            <Link to={`http://localhost:3000/detail/product/${item.productId}`}>
+                              <img src={item.img} alt={item.name} />
+                            </Link>
+                          </td>
+                          <td className="product__name">
+                            <Link to={`http://localhost:3000/detail/product/${item.productId}`}>{item.name}</Link>
+                            <br />
+                            <small>{item.color}</small>
+                          </td>
+                          <td className="product__price">
+                            <div className="price">
+                              <span className="new__price">
+                                {item.price.toLocaleString()} VNĐ
                               </span>
+                            </div>
+                          </td>
+                          <td className="product__quantity">
+                            <div className="input-counter" style={{ marginTop: "0" }}>
+                              <IconButton
+                                onClick={() => handleQuantityChange(item.productId, -1)}
+                                disabled={item.quantity === 1}
+                              >
+                                <RemoveIcon />
+                              </IconButton>
                               <input
                                 type="text"
                                 min="1"
-                                value="1"
-                                max="10"
-                                class="counter-btn"
+                                value={item.quantity}
+                                readOnly
+                                className="counter-btn"
                               />
-                              <span class="plus-btn">
+                              <IconButton
+                                onClick={() => handleQuantityChange(item.productId, 1)}
+                                disabled={item.quantity === 100}
+                              >
                                 <AddIcon />
+                              </IconButton>
+                            </div>
+                          </td>
+                          <td className="product__subtotal">
+                            <div className="price">
+                              <span className="new__price">
+                                {(item.price * item.quantity).toLocaleString()} VNĐ
                               </span>
                             </div>
-                          </div>
-                        </td>
-                        <td class="product__subtotal">
-                          <div class="price">
-                            <span class="new__price">550.000 VNĐ</span>
-                          </div>
-                          <Link to="/" class="remove__cart-item">
-                            <DeleteIcon />
-                          </Link>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td class="product__thumbnail">
-                          <Link to="/detail">
-                            <img
-                              src="https://cdn2.cellphones.com.vn/x/media/catalog/product/p/i/pin-sac-du-phong-magsafe-mophie-snap-plus-10000mah-1.jpg"
-                              alt=""
-                            />
-                          </Link>
-                        </td>
-                        <td class="product__name">
-                          <Link to="/detail">
-                            Pin sạc dự phòng Mophie Snap+ Powerstation Stand
-                            10.000mAh
-                          </Link>
-                          <br />
-                          <small>Đen</small>
-                        </td>
-                        <td class="product__price">
-                          <div class="price">
-                            <span class="new__price">1.320.000 VNĐ</span>
-                          </div>
-                        </td>
-                        <td class="product__quantity">
-                          <div class="input-counter" style={{ marginTop: "0" }}>
-                            <div>
-                              <span class="minus-btn">
-                                <RemoveIcon />
-                              </span>
-                              <input
-                                type="text"
-                                min="1"
-                                value="1"
-                                max="10"
-                                class="counter-btn"
-                              />
-                              <span class="plus-btn">
-                                <AddIcon />
-                              </span>
-                            </div>
-                          </div>
-                        </td>
-                        <td class="product__subtotal">
-                          <div class="price">
-                            <span class="new__price">1.320.000 VNĐ</span>
-                          </div>
-                          <Link to="/" class="remove__cart-item">
-                            <DeleteIcon />
-                          </Link>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td class="product__thumbnail">
-                          <Link to="/detail">
-                            <img
-                              src="https://image.dienthoaivui.com.vn/300x300,webp,q100/https://dashboard.dienthoaivui.com.vn/uploads/wp-content/uploads/2022/09/Pin-sac-du-phong-Aukey-Basix-Slim-PB-N99-10000mAh.png"
-                              alt=""
-                            />
-                          </Link>
-                        </td>
-                        <td class="product__name">
-                          <Link to="/detail">
-                            Pin sạc dự phòng Aukey Basix Slim PB-N99 10.000mAh
-                          </Link>
-                          <br />
-                          <small>Đen</small>
-                        </td>
-                        <td class="product__price">
-                          <div class="price">
-                            <span class="new__price">250.000 VNĐ</span>
-                          </div>
-                        </td>
-                        <td class="product__quantity">
-                          <div class="input-counter" style={{ marginTop: "0" }}>
-                            <div>
-                              <span class="minus-btn">
-                                <RemoveIcon />
-                              </span>
-                              <input
-                                type="text"
-                                min="1"
-                                value="1"
-                                max="10"
-                                class="counter-btn"
-                              />
-                              <span class="plus-btn">
-                                <AddIcon sx={{ fontWeight: "bold" }} />
-                              </span>
-                            </div>
-                          </div>
-                        </td>
-                        <td class="product__subtotal">
-                          <div class="price">
-                            <span class="new__price">250.000 VNĐ</span>
-                          </div>
-                          <Link to="/" class="remove__cart-item">
-                            <DeleteIcon />
-                          </Link>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td class="product__thumbnail">
-                          <Link to="/detail">
-                            <img
-                              src="https://cdn-v2.didongviet.vn/files/products/2023/5/27/1/1687859330150_pin_sac_du_phong_aukey_10000mah_pb_n83s_mau_den_didongviet.jpg"
-                              alt=""
-                            />
-                          </Link>
-                        </td>
-                        <td class="product__name">
-                          <Link to="/detail">
-                            Pin sạc dự phòng Aukey 10.000mAh PB-N83S
-                          </Link>
-                          <br />
-                          <small>Trắng/6.25</small>
-                        </td>
-                        <td class="product__price">
-                          <div class="price">
-                            <span class="new__price">550.000 VNĐ</span>
-                          </div>
-                        </td>
-                        <td class="product__quantity">
-                          <div class="input-counter" style={{ marginTop: "0" }}>
-                            <div>
-                              <span class="minus-btn">
-                                <RemoveIcon />
-                              </span>
-                              <input
-                                type="text"
-                                min="1"
-                                value="1"
-                                max="10"
-                                class="counter-btn"
-                              />
-                              <span class="plus-btn">
-                                <AddIcon />
-                              </span>
-                            </div>
-                          </div>
-                        </td>
-                        <td class="product__subtotal">
-                          <div class="price">
-                            <span class="new__price">550.000 VNĐ</span>
-                          </div>
-                          <a href="/" class="remove__cart-item">
-                            <DeleteIcon />
-                          </a>
-                        </td>
-                      </tr>
+                            <IconButton
+                              onClick={() => handleRemoveItem(item.productId)}
+                              className="remove__cart-item"
+                            >
+                              <DeleteIcon />
+                            </IconButton>
+                          </td>
+                        </tr>
+                      ))}
                     </tbody>
                   </table>
                 </div>
 
-                <div class="cart-btns">
-                  <div class="continue__shopping">
+                <div className="cart-btns">
+                  <div className="continue__shopping">
                     <Link to="/">Tiếp tục mua sắm</Link>
                   </div>
-                  <div class="check__shipping">
-                    <input type="checkbox" />
-                    <span>Vận chuyển(+10000 VNĐ)</span>
+                  <div className="check__shipping">
+                    <input
+                      type="checkbox"
+                      onChange={handleShippingChange}
+                    />
+                    <span>Vận chuyển (+10.000 VNĐ)</span>
                   </div>
                 </div>
 
-                <div class="cart__totals">
+                <div className="cart__totals">
                   <h3>Tổng sản phẩm</h3>
                   <ul>
                     <li>
                       Tổng tiền
-                      <span class="new__price">23.430.768 VNĐ</span>
+                      <span className="new__price">
+                        {totalAmount.toLocaleString()} VNĐ
+                      </span>
                     </li>
                     <li>
                       Vận chuyển
-                      <span class="shipPrice">$0</span>
+                      <span className="shipPrice">
+                        {shipping.toLocaleString()} VNĐ
+                      </span>
                     </li>
                     <li>
                       Tổng tiền
-                      <span class="new__price untilPrice">23.430.768 VNĐ</span>
+                      <span className="new__price untilPrice">
+                        {(totalAmount + shipping).toLocaleString()} VNĐ
+                      </span>
                     </li>
                   </ul>
                   <Link to="/pay">Tiến hành thanh toán</Link>
@@ -264,32 +204,29 @@ const Cart = () => {
             </div>
           </div>
         </section>
-        <section class="facility__section section" id="facility">
-          <div class="container">
-            <div class="facility__contianer">
-              <div class="facility__box">
-                <div class="facility-img__container">
+        <section className="facility__section section" id="facility">
+          <div className="container">
+            <div className="facility__container">
+              <div className="facility__box">
+                <div className="facility-img__container">
                   <FlightIcon />
                 </div>
                 <p>MIỄN PHÍ VẬN CHUYỂN TOÀN CẦU</p>
               </div>
-
-              <div class="facility__box">
-                <div class="facility-img__container">
+              <div className="facility__box">
+                <div className="facility-img__container">
                   <CreditCardIcon />
                 </div>
                 <p>ĐẢM BẢO HOÀN TIỀN 100%</p>
               </div>
-
-              <div class="facility__box">
-                <div class="facility-img__container">
+              <div className="facility__box">
+                <div className="facility-img__container">
                   <LocalAtmIcon />
                 </div>
                 <p>THANH TOÁN BẰNG THẺ</p>
               </div>
-
-              <div class="facility__box">
-                <div class="facility-img__container">
+              <div className="facility__box">
+                <div className="facility-img__container">
                   <HeadphonesIcon />
                 </div>
                 <p>HỖ TRỢ TRỰC TUYẾN 24/7</p>
@@ -300,7 +237,7 @@ const Cart = () => {
       </main>
       <Footer />
     </>
-  )
-}
+  );
+};
 
-export default Cart
+export default Cart;
