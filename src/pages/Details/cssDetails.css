@@ -54,7 +54,7 @@
     font-weight: 500;
   }
   #section-detailsProduct {
-    height: 1500px!important;
+    height: 1000px!important;
   }
   .section__container__product {
     width: 1200px !important;
@@ -178,6 +178,8 @@
   
   .product-detail__right {
     margin-top: 20px;
+
+    height: 400px!important;
   }
   
   .product-detail__right strong {

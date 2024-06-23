@@ -2,8 +2,11 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './cssProductReview.css';
 import StarIcon from '@mui/icons-material/Star';
-import moment from 'moment';
-
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import { format ,parseISO  } from "date-fns";
+import Rating from 'react-rating';
+import { Star, StarBorder } from '@mui/icons-material';
+// import ModalReview from '../ModalReview/ModalReview';
 const ProductReview = ({productId, userId}) => {
   const [reviews, setReviews] = useState([]);
  
@@ -16,7 +19,12 @@ const ProductReview = ({productId, userId}) => {
     rating: 0,
     comment: '',
     idUser: userId,
+    fullName:  localStorage.getItem('fullName') || '',
+    
   });
+
+
+console.log(localStorage.getItem("fullName"))
   if (userId) {
     // Truy cập thuộc tính userId của user ở đây
     // console.log(userId)
@@ -24,11 +32,6 @@ const ProductReview = ({productId, userId}) => {
     console.error("User or userId is undefined");
   }
  
-
-  useEffect(() => {
-    fetchReviews(); // Gọi hàm fetchReviews khi productId thay đổi
-
-  }, [productId]);
 
   // Hàm để fetch danh sách reviews từ API
   const fetchReviews = () => {
@@ -51,6 +54,7 @@ const ProductReview = ({productId, userId}) => {
       });
   };
 
+
   // Hàm xử lý submit form đánh giá
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -67,7 +71,8 @@ const ProductReview = ({productId, userId}) => {
       })
       .then(response => {
         console.log("Response:", response?.data);
-        setReviews([...reviews, response?.data]);
+        
+        setReviews([response?.data, ...reviews]);
         setNewReview({ ...newReview, rating: 0, comment: '' });
         fetchReviews();
         setError('');
@@ -85,18 +90,21 @@ const ProductReview = ({productId, userId}) => {
     const { name, value } = e.target;
     setNewReview({ ...newReview, [name]: value });
   };
+  
+  
+  const handleRatingChange = (value) => {
+    const updatedReview = { ...newReview, rating: value };
+    setNewReview(updatedReview);
 
+  };
   //Hàm render các sao đánh giá
   const renderRatingStars = (rating) => {
-
-
-  
-  
- 
+    
+    rating = Math.max(1, Math.min(rating, 5));
     const filledStars = Math.floor(rating);
     const halfStar = rating - filledStars >= 0.5 ? 1 : 0;
     const emptyStars = 5 - filledStars - halfStar;
-    console.log(filledStars)
+  
     return (
       <div className="review-rating">
          {[...Array(filledStars)].map((_, i) => (
@@ -110,7 +118,32 @@ const ProductReview = ({productId, userId}) => {
     );
         
   };
+  const formatDate = (dateString) => {
+    if (!dateString) {
+      return "Invalid date"; // Hoặc trả về giá trị mặc định
+    }
+    try {
+      const date = parseISO(dateString);
+      return format(date, "d/M/yyyy H:mm");
+    } catch (error) {
+      console.error("Invalid date:", dateString);
+      return "Invalid date";
+    }
+  };
+ 
+  // Effect to update fullName in newReview when it changes in localStorage
+  useEffect(() => {
+    const fullName = localStorage.getItem('fullName') || '';
+    setNewReview(prevState => ({
+      ...prevState,
+      fullName: fullName,
+    }));
+  }, [localStorage.getItem('fullName')]); // Update when fullName in localStorage changes
 
+  useEffect(() => {
+    // Fetch reviews when productId changes
+    fetchReviews();
+  }, [productId]);
 
 
   return (
@@ -123,16 +156,17 @@ const ProductReview = ({productId, userId}) => {
           <div key={index} className="review-card">
             <div className="review-header">
               <div className="review-user">{review?.fullName}</div>
-              {review?.rating && renderRatingStars(review?.rating)}
+              <AccessTimeIcon />
+              <div className="review-date">{formatDate(review?.createdAt)}</div>
             </div>
-            <div className="review-date">{review?.createdAt}</div>
+            {review?.rating && renderRatingStars(review?.rating)}
             <div className="review-comment">{review?.comment}</div>
           </div>
         ))
       )}
       <form onSubmit={handleSubmit} className="review-form">
         <h3>Thêm đánh giá của bạn</h3>
-        <input
+        {/* <input
           type="number"
           name="rating"
           placeholder="Đánh giá (1-5)"
@@ -141,17 +175,39 @@ const ProductReview = ({productId, userId}) => {
           min="1"
           max="5"
           required
-        />
+        /> */}
+          <span className="review_star">Đánh giá sao :</span>
+           <Rating
+              style={{alignSelf: 'start', marginLeft:'100px'}}
+              initialRating={newReview.rating}
+              emptySymbol={<StarBorder style={{ color: "#FFD700" ,fontSize: "50px"}} />}
+              fullSymbol={<Star style={{ color: "#FFD700" ,fontSize: "50px"  }} />}
+              onChange={handleRatingChange}
+           
+            /> 
+              <span className="review_star_1">Rất tệ</span>
+              <span className="review_star_2">Tệ</span>
+              <span className="review_star_3">Bình <br /> thường</span>
+              <span className="review_star_4">Tốt</span>
+              <span className="review_star_5">Tuyệt vời</span>
+             
+  <span className="review_product">Nhận xét :</span>
         <textarea
           name="comment"
-          placeholder="Viết đánh giá của bạn"
+          placeholder="Xin chia sẻ một số cảm nhận của bạn về sản phẩm..."
           value={newReview.comment}
           onChange={(e) => setNewReview({ ...newReview, comment: e.target.value })}
           required
+       
         />
            <button type="submit" onClick={handleSubmit}>Gửi đánh giá</button>
        
       </form>
+
+       {/* <div>
+      <ModalReview />
+    </div> */}
+
     </div>
   );
 };

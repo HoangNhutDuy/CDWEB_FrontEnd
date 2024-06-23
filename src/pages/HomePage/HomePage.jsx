@@ -7,7 +7,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite"
 import LoopIcon from "@mui/icons-material/Loop"
 import { Link } from "react-router-dom"
 
-const HomePage = () => {
+const HomePage = ({id}) => {
   return (
     <>
       <Header />
@@ -94,7 +94,7 @@ const HomePage = () => {
                 </div>
                 <ul>
                   <li>
-                    <Link data-tip="Quick View" data-place="left" to="/detail">
+                    <Link data-tip="Quick View" data-place="left" to={`/detail/product/${product.id}`}>
                       <RemoveRedEyeIcon />
                     </Link>
                   </li>

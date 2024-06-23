@@ -17,6 +17,8 @@ import axios from "axios";
 
 import "./cssDetails.css"
 import { Start } from "@mui/icons-material"
+import SafetyCheckIcon from '@mui/icons-material/SafetyCheck';
+import InventoryIcon from '@mui/icons-material/Inventory';
 import ProductReview from "../../components/Review/ProductReview"
 import "../../components/Review/cssProductReview.css"
 
@@ -348,24 +350,32 @@ const Details = ({ match }) => {
     </div>
 
     <div className="product-detail__right">
+    <strong>Thông tin sản phẩm</strong>
+    <br />
+   < InventoryIcon style={{ fontSize: "30px", position:"relative" ,top : "10px"}} />
       <strong>Bộ sản phẩm</strong>
 
       <p style={{ color: "#333333", fontSize: "14px" }}>
         Bộ sản phẩm bao gồm: {productData.packageContents}
+        <br />1. Điện thoại thông minh <br />
+2. Cáp truyền dữ liệu<br />
+3. Que lấy sim
       </p>
-
+      <SafetyCheckIcon style={{ fontSize: "40px", position:"relative" ,top : "10px"}}/>
       <strong>Bảo hành </strong>
 
       <p style={{ color: "#333333", fontSize: "14px" }}>
+     
         Bảo hành:<b>{productData.warrantyPeriod}</b> chính hãng {productData.warrantyBrand}
-
+        <br />
+         12 tháng tại trung tâm bảo hành Chính hãng. 1 đổi 1 trong 30 ngày nếu có lỗi phần cứng từ nhà sản xuất.
       </p>
       
     </div>
   </div>
 </div>
 </section>
-      )};
+      )}
       
       
         <ProductReview  productId={id} userId={user}/>
@@ -394,7 +404,7 @@ const Details = ({ match }) => {
                   {/* Đoạn mã để hiển thị rating */}
                   <div className="rating">
                     {/* Placeholder code for rating display */}
-                    <span>Rating: {relatestProduct?.reviews?.rating}</span>
+                    <span>Rating: {relatestProduct?.review?.rating}</span>
                   </div>
                   <div className="product__price">
                     <h4>{relatestProduct.price} VND</h4>

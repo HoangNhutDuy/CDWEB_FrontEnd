@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState, useEffect } from "react";
 import Table from "@mui/material/Table"
 import TableBody from "@mui/material/TableBody"
 import TableCell from "@mui/material/TableCell"
@@ -11,30 +11,95 @@ import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutl
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined"
 import { ToastContainer, toast } from "react-toastify"
 import ModalUpdateProduct from "../Modal/ModalUpdateProduct"
-const TableContentProduct = () => {
-  const products = [
-    {
-      id: 1,
-      name: "iphone",
-      img: "https://store.storeimages.cdn-apple.com/8756/as-images.apple.com/is/iphone-card-40-iphone15prohero-202309_FMT_WHH?wid=508&hei=472&fmt=p-jpg&qlt=95&.v=1693086369818",
-      brand: "brand",
-      model: "model",
-      description:
-        "  Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dicta doloremque, culpa excepturi nesciunt error, quos corrupti tempore obcaecati aspernatur omnis est porro odit id non illum cupiditate eaque corporis nisi!",
-      stockQuantity: 123,
-    },
-    {
-      id: 2,
-      name: "iphone",
-      img: "https://store.storeimages.cdn-apple.com/8756/as-images.apple.com/is/iphone-card-40-iphone15prohero-202309_FMT_WHH?wid=508&hei=472&fmt=p-jpg&qlt=95&.v=1693086369818",
-      brand: "brand",
-      model: "model",
-      description:
-        "  Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dicta doloremque, quos corrupti tempore obcaecati aspernatur omnis est porro odit id non illum cupiditate eaque corporis nisi!",
-      stockQuantity: 123,
-    },
-  ]
+
+import axios from "axios"; 
+const TableContentProduct = ({ productId ,productData ,fetchProducts}) => {
+  // const products = [
+  //   {
+  //     id: 1,
+  //     name: "iphone",
+  //     img: "https://store.storeimages.cdn-apple.com/8756/as-images.apple.com/is/iphone-card-40-iphone15prohero-202309_FMT_WHH?wid=508&hei=472&fmt=p-jpg&qlt=95&.v=1693086369818",
+  //     brand: "brand",
+  //     model: "model",
+  //     description:
+  //       "  Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dicta doloremque, culpa excepturi nesciunt error, quos corrupti tempore obcaecati aspernatur omnis est porro odit id non illum cupiditate eaque corporis nisi!",
+  //     stockQuantity: 123,
+  //   },
+  //   {
+  //     id: 2,
+  //     name: "iphone",
+  //     img: "https://store.storeimages.cdn-apple.com/8756/as-images.apple.com/is/iphone-card-40-iphone15prohero-202309_FMT_WHH?wid=508&hei=472&fmt=p-jpg&qlt=95&.v=1693086369818",
+  //     brand: "brand",
+  //     model: "model",
+  //     description:
+  //       "  Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dicta doloremque, quos corrupti tempore obcaecati aspernatur omnis est porro odit id non illum cupiditate eaque corporis nisi!",
+  //     stockQuantity: 123,
+  //   },
+  // ]
+  const [open, setOpen] = React.useState(false)
+  const handleOpen = () => setOpen(true)
+  const handleClose = () => setOpen(false)
+  const [products, setProducts] = useState({
+    name: "",
+    img: "",
+    brand: "",
+    price: 0,
+    description: "",
+    stockQuantity: 0,
+    model: "",
+  });
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setProducts((prevProduct) => ({
+      ...prevProduct,
+      [name]: value,
+    }));
+  };
+  const fetchProductss = async () => {
+    try {
+      const response = await axios.get("http://localhost:8080/product/getAll");
+      setProducts(Array.isArray(response.data) ? response.data : []);
+    } catch (error) {
+      console.error("Error fetching products:", error);
+    }
+  };
+          console.log(products);
+  useEffect(() => {
+    fetchProductss();
+  }, []);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post(
+        "http://localhost:8080/product/add",
+        products
+      );
+      console.log("Product added:", response.data);
+      fetchProducts(); // Fetch updated products after adding
+      handleClose(); // Close modal after successful submission
+    } catch (error) {
+      console.error("Error adding product:", error);
+      // Handle error, show an error message, etc.
+    }
+  };
+  const handleDelete = (productId) => {
+    axios.delete(`http://localhost:8080/product/${productId}`)
+      .then((response) => {
+        console.log("Product deleted successfully");
+        // Optionally update state or notify user
+      })
+      .catch((error) => {
+        console.error("Error deleting product:", error);
+      });
+  };
+
+  const addProductToState = (product) => {
+    setProducts((prevProducts) => [...prevProducts, product]);
+  };
   return (
+
+
+      
     <TableContainer component={Paper}>
       <Table
         sx={{
@@ -103,7 +168,7 @@ const TableContentProduct = () => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {products?.map((row) => (
+          {products.map((row) => (
             <TableRow
               key={row.id}
               sx={{
@@ -192,7 +257,7 @@ const TableContentProduct = () => {
                 }}
                 align="left"
               >
-                <DeleteOutlineOutlinedIcon sx={{ fontSize: "20px" }} />
+                <DeleteOutlineOutlinedIcon sx={{ fontSize: "20px" }}  onClick={() => handleDelete(products.id)}/>
               </TableCell>
               <TableCell
                 sx={{
@@ -211,6 +276,7 @@ const TableContentProduct = () => {
         </TableBody>
       </Table>
     </TableContainer>
+    
   )
 }
 

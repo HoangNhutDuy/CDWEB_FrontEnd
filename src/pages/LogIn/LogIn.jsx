@@ -19,35 +19,66 @@ const LogIn = () => {
   // useEffect(() => {
 
   // },[])
+
+
+  const fetchUserData = async () => { 
+    
+    const token = localStorage.getItem("token");
+      if (!token) {
+        setError("Token is missing");
+        return;
+      }
+      try {
+        const response = await axios.get(`http://localhost:8080/user/profile`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          
+      });
+      return response.data;
+
+      console.log(response);
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+      return null;
+    }
+       
+  };
   const handleSubmit = (e) => {
     e.preventDefault()
     let token = ""
+    let fullName = ""
     console.log(1)
     const payload = {
       email,
       password,
     }
-    try {
-      axios
-        .post("http://localhost:8080/auth/login", payload)
-        .then((res) => {
-          token = res.data.token
-          localStorage.setItem("token", token)
-          navigate("/")
-        })
-        .catch((err) => {
-          setError("Sai tài khoản hoặc mật khẩu, vui lòng đăng nhập lại")
-          setEmail("")
-          setPassword("")
-          ref.current.focus()
-          navigate("/login")
-          console.log(err)
-        })
-    } catch (err) {
-      setError("Đã xảy ra lỗi không xác định")
-      navigate("/login")
-      console.log(err)
-    }
+    axios.post("http://localhost:8080/auth/login", payload)
+    .then((res) => {
+      const token = res.data.token;
+      if (token) {
+        localStorage.setItem("token", token);
+        return fetchUserData(token);
+      } else {
+        throw new Error("Failed to obtain token.");
+      }
+    })
+    .then((userData) => {
+      if (userData && userData.fullName) {
+        localStorage.setItem("fullName", userData.fullName);
+        navigate("/");
+      } else {
+        setError("Failed to fetch user data.");
+      }
+    })
+    .catch((err) => {
+      setError("Sai tài khoản hoặc mật khẩu, vui lòng đăng nhập lại");
+      setEmail("");
+      setPassword("");
+      ref.current.focus();
+      navigate("/login");
+      console.log(err);
+    });
   }
   return (
     <>
