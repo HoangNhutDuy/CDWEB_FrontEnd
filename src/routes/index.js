@@ -10,6 +10,8 @@ import Admin from "../pages/admin/Admin"
 import Users from "../pages/admin/Users"
 import categories from "../pages/admin/Categoires"
 import ResetPassword from "../pages/ResetPassword/ResetPassword"
+import UserInfo from "../pages/UserInfo/UserInfo"
+import ChangePassword from "../pages/ChangePassword/ChangePassword"
 const routes = [
   { path: "/", Component: HomePage },
   { path: "/cart", Component: Cart },
@@ -20,6 +22,9 @@ const routes = [
   { path: "/done", Component: Done },
   { path: "/logIn", Component: LogIn },
   { path: "/reset", Component: ResetPassword },
+  { path: "/profile", Component: UserInfo },
+  { path: "/change-password", Component: ChangePassword },
+
   { path: "/admin", Component: Admin },
   { path: "/admin/users", Component: Users },
   { path: "/admin/categories", Component: categories },

@@ -121,14 +121,19 @@ const Header = () => {
               </div>
 
               <div className="nav__icons">
-                <Link
-                  to="/login"
-                  className="icon__item"
-                  style={{ marginRight: "-10px" }}
-                >
-                  {/* <svg className="icon__user" xmlns={user}></svg> */}
+                {token ? (
+                  <Link
+                    to="/profile"
+                    className="icon__item"
+                    style={{ marginRight: "-10px" }}
+                  >
+                    {/* <svg className="icon__user" xmlns={user}></svg> */}
+                    <PersonIcon sx={{ color: "black" }} />
+                  </Link>
+                ) : (
                   <PersonIcon sx={{ color: "black" }} />
-                </Link>
+                )}
+
                 <div className="nav__item_user" id="nav__item_user">
                   {currentUser ? (
                     <div style={{ display: "flex", flexDirection: "column" }}>
