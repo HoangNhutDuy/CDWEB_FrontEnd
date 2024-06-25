@@ -2,12 +2,17 @@ import React, { useState } from "react"
 import axios from "axios"
 import { Button } from "@mui/material"
 import "../Details/cssDetails.css" // Nhập tệp CSS
-
+import { useNavigate } from "react-router-dom"
 const AddToCartButton = ({ productId, quantity = 1, isHomePage }) => {
   const [isLoading, setIsLoading] = useState(false)
   const token = localStorage.getItem("token")
+  const navigate = useNavigate()
   console.log(isHomePage)
   const handleAddToCart = () => {
+    if (!token) {
+      navigate("/login")
+      return
+    }
     setIsLoading(true)
     axios
       .post("http://localhost:8080/cart/add", null, {
