@@ -3,13 +3,13 @@ import Box from "@mui/material/Box"
 import Button from "@mui/material/Button"
 import Typography from "@mui/material/Typography"
 import axios from "axios"
-import { toast , ToastContainer } from "react-toastify"
+import { toast, ToastContainer } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 import ModeEditIcon from "@mui/icons-material/ModeEdit"
 import Modal from "@mui/material/Modal"
 import { useState, useEffect } from "react"
 
-const ModalUpdateProduct = ({productId }) => {
+const ModalUpdateProduct = ({ productId }) => {
   const style = {
     position: "absolute",
     top: "50%",
@@ -24,17 +24,16 @@ const ModalUpdateProduct = ({productId }) => {
   const [name, setName] = useState("")
   const [img, setImg] = useState(null)
   const [brand, setBrand] = useState("")
-  const [price, setPrice] = useState("")
+  const [price, setPrice] = useState(0)
   const [description, setDescription] = useState("")
-  const [stockQuantity, setStockQuantity] = useState("")
+  const [stockQuantity, setStockQuantity] = useState(0)
   const [model, setModel] = useState("")
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
-
-
+  const token = localStorage.getItem("token")
   const handleFileChange = (e) => {
-    setImg(e.target.files[0]);
-  };
+    setImg(e.target.value)
+  }
   const showToastSuccess = (message) => {
     if (!message) {
       return
@@ -54,9 +53,11 @@ const ModalUpdateProduct = ({productId }) => {
   }
   const getProductDetail = async () => {
     try {
-      const response = await axios.get(`http://localhost:8080/product/${productId}`)
+      const response = await axios.get(
+        `http://localhost:8080/product/get/${productId}`
+      )
       const product = response?.data
-      
+
       setName(product?.name)
       setImg(product?.img)
       setBrand(product?.brand)
@@ -64,17 +65,12 @@ const ModalUpdateProduct = ({productId }) => {
       setDescription(product?.description)
       setStockQuantity(product?.stockQuantity)
       setModel(product?.modal)
-
-      
-        
     } catch (error) {
       console.log("Error fetching product details", error)
     }
   }
-        
-  
-  const handleUpdateProduct = async() => {
- 
+
+  const handleUpdateProduct = async () => {
     const payload = {
       name: name,
       img: img,
@@ -84,33 +80,37 @@ const ModalUpdateProduct = ({productId }) => {
       stockQuantity: stockQuantity,
       model: model,
     }
-    
+
     try {
       const response = await axios.put(
         `http://localhost:8080/product/${productId}`,
-        payload)
-      
-      
-        if (response.status === 200) {
-          setOpen(false)
-          showToastSuccess("Cập nhật sản phẩm thành công")
-  
-          setTimeout(() => {
-            window.location.reload()
-          }, 1000)
-        } else {
-          showToastFail("Cập nhật sản phẩm  thất bại")
+        payload,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
-      } catch (error) {
-        console.log("Error updating product", error)
-        // Show error toast here
+      )
+
+      if (response.status === 200) {
+        setOpen(false)
+        showToastSuccess("Cập nhật sản phẩm thành công")
+
+        setTimeout(() => {
+          window.location.reload()
+        }, 1000)
+      } else {
+        showToastFail("Cập nhật sản phẩm  thất bại")
       }
+    } catch (error) {
+      console.log("Error updating product", error)
+      // Show error toast here
+    }
   }
   useEffect(() => {
     getProductDetail()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
-
 
   return (
     <div>
@@ -123,7 +123,7 @@ const ModalUpdateProduct = ({productId }) => {
         }}
         onClick={handleOpen}
       >
-        <ModeEditIcon sx={{ fontSize: "20px" ,color:"#065ab8" }} />
+        <ModeEditIcon sx={{ fontSize: "20px", color: "#065ab8" }} />
       </Button>
       <Modal
         open={open}
@@ -133,12 +133,12 @@ const ModalUpdateProduct = ({productId }) => {
       >
         <Box sx={style}>
           <Typography id="modal-modal-title" variant="h6" component="h2">
-            Thêm mới sản phẩm
+            Chỉnh sửa sản phẩm
           </Typography>
           <Box sx={{ display: "flex", flexDirection: "column" }}>
             <Typography sx={{ fontSize: "16px" }}>Tên sản phẩm</Typography>
             <input
-             name="name"
+              name="name"
               type="text"
               style={{
                 flex: "1",
@@ -146,9 +146,8 @@ const ModalUpdateProduct = ({productId }) => {
                 padding: "10px 8px",
                 fontSize: "20px",
               }}
-              
               value={name}
-              onChange={(e)=> setName(e.target.value)}
+              onChange={(e) => setName(e.target.value)}
             />
           </Box>
           <Box sx={{ display: "flex", flexDirection: "column" }}>
@@ -156,15 +155,14 @@ const ModalUpdateProduct = ({productId }) => {
               Hình ảnh
             </Typography>
             <input
-             name="img"
-              type="file"
+              type="text"
               style={{
                 flex: "1",
                 outline: "none",
                 padding: "10px 8px",
                 fontSize: "20px",
               }}
-           
+              value={img}
               onChange={handleFileChange}
             />
           </Box>
@@ -173,7 +171,7 @@ const ModalUpdateProduct = ({productId }) => {
               Brand
             </Typography>
             <input
-               name="brand"
+              name="brand"
               type="text"
               style={{
                 flex: "1",
@@ -182,7 +180,7 @@ const ModalUpdateProduct = ({productId }) => {
                 fontSize: "20px",
               }}
               value={brand}
-               onChange ={(e)=> setBrand(e.target.value)}
+              onChange={(e) => setBrand(e.target.value)}
             />
           </Box>
           <Box sx={{ display: "flex", flexDirection: "column" }}>
@@ -190,7 +188,7 @@ const ModalUpdateProduct = ({productId }) => {
               Giá
             </Typography>
             <input
-             name="price"
+              name="price"
               type="text"
               style={{
                 flex: "1",
@@ -199,7 +197,7 @@ const ModalUpdateProduct = ({productId }) => {
                 fontSize: "20px",
               }}
               value={price}
-              onChange ={(e)=> setPrice(e.target.value)}
+              onChange={(e) => setPrice(e.target.value)}
             />
           </Box>
           <Box sx={{ display: "flex", flexDirection: "column" }}>
@@ -207,7 +205,7 @@ const ModalUpdateProduct = ({productId }) => {
               Mô tả
             </Typography>
             <input
-               name="description"
+              name="description"
               type="text"
               style={{
                 flex: "1",
@@ -216,7 +214,7 @@ const ModalUpdateProduct = ({productId }) => {
                 fontSize: "20px",
               }}
               value={description}
-              onChange ={(e)=> setDescription(e.target.value)}
+              onChange={(e) => setDescription(e.target.value)}
             />
           </Box>
           <Box sx={{ display: "flex", flexDirection: "column" }}>
@@ -224,7 +222,7 @@ const ModalUpdateProduct = ({productId }) => {
               Số lượng
             </Typography>
             <input
-               name="stockQuantity"
+              name="stockQuantity"
               type="text"
               style={{
                 flex: "1",
@@ -232,8 +230,8 @@ const ModalUpdateProduct = ({productId }) => {
                 padding: "10px 8px",
                 fontSize: "20px",
               }}
-                  value={stockQuantity}
-                  onChange ={(e)=> setStockQuantity(e.target.value)}
+              value={stockQuantity}
+              onChange={(e) => setStockQuantity(e.target.value)}
             />
           </Box>
           <Box sx={{ display: "flex", flexDirection: "column" }}>
@@ -250,7 +248,7 @@ const ModalUpdateProduct = ({productId }) => {
                 fontSize: "20px",
               }}
               value={model}
-              onChange ={(e)=> setModel(e.target.value)}
+              onChange={(e) => setModel(e.target.value)}
             />
           </Box>
           {/* Button container */}
@@ -262,7 +260,7 @@ const ModalUpdateProduct = ({productId }) => {
                 fontSize: "16px",
                 color: "#065AB8",
               }}
-                 onClick={()=> handleUpdateProduct()}
+              onClick={() => handleUpdateProduct()}
             >
               Confirm
             </Button>
