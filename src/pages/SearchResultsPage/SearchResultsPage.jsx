@@ -4,6 +4,10 @@ import Footer from "../../components/Footer/Footer";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import LoopIcon from "@mui/icons-material/Loop";
+import FlightIcon from "@mui/icons-material/Flight"
+import CreditCardIcon from "@mui/icons-material/CreditCard"
+import LocalAtmIcon from "@mui/icons-material/LocalAtm"
+import HeadphonesIcon from "@mui/icons-material/Headphones"
 import { Link, useLocation } from "react-router-dom";
 import AddToCartButton from "../Cart/AddToCartButton";
 
@@ -20,6 +24,8 @@ const SearchResultsPage = () => {
   return (
     <>
       <Header />
+
+                 <h1 style={{textAlign:"center", fontSize:"40px"}}>Kết quả Tìm kiếm : </h1>
       <section className="category__section" id="category">
         <div className="category__container">
           <div className="category__center">
@@ -30,7 +36,7 @@ const SearchResultsPage = () => {
                     <img src={product.image} alt="product" />
                   </div>
                   <div className="product__footer">
-                    <h3>{product.title}</h3>
+                    <h3>{product.name}</h3>
                     <div className="rating"></div>
                     <div className="product__price">
                       <h4>{product.price * 22000} VND</h4>
@@ -68,11 +74,48 @@ const SearchResultsPage = () => {
                 </div>
               ))
             ) : (
-              <p>No products found</p>
+              <p>Không tìm thấy sản phẩm</p>
             )}
           </div>
         </div>
       </section>
+      <section
+          className="facility__section section"
+          id="facility"
+          style={{ margin: "30px 0" }}
+        >
+          <div className="container">
+            <div className="facility__contianer">
+              <div className="facility__box">
+                <div className="facility-img__container">
+                  <FlightIcon />
+                </div>
+                <p>MIỄN PHÍ VẬN CHUYỂN TOÀN CẦU</p>
+              </div>
+
+              <div className="facility__box">
+                <div className="facility-img__container">
+                  <CreditCardIcon />
+                </div>
+                <p>ĐẢM BẢO HOÀN TIỀN 100%</p>
+              </div>
+
+              <div className="facility__box">
+                <div className="facility-img__container">
+                  <LocalAtmIcon />
+                </div>
+                <p>THANH TOÁN BẰNG THẺ</p>
+              </div>
+
+              <div className="facility__box">
+                <div className="facility-img__container">
+                  <HeadphonesIcon />
+                </div>
+                <p>HỖ TRỢ TRỰC TUYẾN 24/7</p>
+              </div>
+            </div>
+          </div>
+        </section>
       <Footer />
     </>
   );

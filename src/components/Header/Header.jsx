@@ -21,7 +21,7 @@ const Header = ({productId}) => {
   const [currentUser, setCurrentUser] = useState(false)
   const [fullName, setFullName] = useState("")
   const [searchQuery, setSearchQuery] = useState("");
-
+  const [suggestions, setSuggestions] = useState([]);
   const navigate = useNavigate();
 
   
@@ -60,16 +60,42 @@ const Header = ({productId}) => {
 
 
   const handleSearch = async () => {
+    
     try {
-    const response = await axios.get(`http://localhost:8080/product/search`, {
-      params: { query: searchQuery },
-    });
-    console.log(response.data);
-    navigate("/search", { state: { searchResults: response.data } });
-  } catch (error) {
-    console.error("Error searching for products", error);
-  }
+      const response = await axios.get("http://localhost:8080/product/search", {
+        params: { query: searchQuery, page: 0, size: 10, sort: "price,desc" }
+      });
+      console.log(response.data);
+      navigate("/search", { state: { searchResults: response.data } });
+    } catch (error) {
+      console.error("Error searching for products", error);
+    }
   };
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      handleSearch();
+    }
+  };
+
+  const handleInputChange = (e) => {
+    setSearchQuery(e.target.value);
+    fetchSuggestions(e.target.value);
+  };
+  const fetchSuggestions = async (query) => {
+    if (query.length === 0) {
+      setSuggestions([]);
+      return;
+    }
+    try {
+      const response = await axios.get("http://localhost:8080/product/search", {
+        params: { query, page: 0, size: 5 }
+      });
+      setSuggestions(response.data.content); // Assuming response data contains a list of product suggestions
+    } catch (error) {
+      console.error("Error fetching suggestions", error);
+    }
+  };
+  
   return (
     <>
       <header id="header" className="header">
@@ -123,14 +149,27 @@ const Header = ({productId}) => {
                       type="text"
                       placeholder="Tìm kiếm tại đây"
                       name="search"
-                      onChange={(e) => setSearch(e.target.value)}
+                      value={searchQuery}
+                      onChange={handleInputChange}
+                      onKeyPress={handleKeyPress}
                     />
-                    <div className="nav__icons">
+                    <div className="nav__icons" onClick={handleSearch}>
                       <Link to="/">
-                        <SearchIcon sx={{ fontSize: "20px" }} />
+                        <SearchIcon sx={{ fontSize: "20px" }}  />
                       </Link>
                     </div>
+                    {suggestions?.length > 0 && (
+                      <ul className="suggestions">
+                        {suggestions?.map((suggestion, index) => (
+                          <li key={index} onClick={() => setSearchQuery(suggestion.name)}>
+                            {suggestion.name}
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+
                   </li>
+
                   <li className="nav__item">
                     <div className="nav__item_hotro">
                       <Link to="/" className="nav__link scroll-link">
