@@ -13,8 +13,10 @@ import ResetPassword from "../pages/ResetPassword/ResetPassword"
 import UserInfo from "../pages/UserInfo/UserInfo"
 import ChangePassword from "../pages/ChangePassword/ChangePassword"
 import Orders from "../pages/admin/Orders"
+import SearchResultsPage from "../pages/SearchResultsPage/SearchResultsPage"
 const routes = [
   { path: "/", Component: HomePage },
+  { path: "/search", Component: SearchResultsPage },
   { path: "/cart", Component: Cart },
   { path: "/detail/product/:id", Component: Details },
   { path: "/forgotpassword", Component: ForgotPassword },
@@ -25,7 +27,7 @@ const routes = [
   { path: "/reset", Component: ResetPassword },
   { path: "/profile", Component: UserInfo },
   { path: "/change-password", Component: ChangePassword },
-
+ 
   { path: "/admin", Component: Admin },
   { path: "/admin/users", Component: Users },
   { path: "/admin/categories", Component: categories },

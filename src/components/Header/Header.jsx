@@ -16,28 +16,24 @@ import sacDuphong1 from "../../images/sacduphong1.png"
 import taiNghe6 from "../../images/tainghe6.png"
 import axios from "axios"
 
-import { Link ,useParams } from "react-router-dom"
+import { Link ,useParams, useNavigate  } from "react-router-dom"
 const Header = ({productId}) => {
   const [currentUser, setCurrentUser] = useState(false)
   const [fullName, setFullName] = useState("")
+  const [searchQuery, setSearchQuery] = useState("");
 
-  const { id } = useParams();
-  const [name, setName] = useState("")
-  const [img, setImg] = useState(null)
-  const [brand, setBrand] = useState("")
-  const [price, setPrice] = useState("")
-  const [description, setDescription] = useState("")
-  const [stockQuantity, setStockQuantity] = useState("")
-  const [model, setModel] = useState("")
-  const[query , setQuery] = useState("");
-  const [search , setSearch] = useState("");
+  const navigate = useNavigate();
 
+  
   const token = localStorage.getItem("token")
     ? localStorage.getItem("token")
     : ""
   console.log(token)
+
+
+
   useEffect(() => {
-    getProductDetail()
+
     getInfoUser()
   }, [])
   const getInfoUser = () => {
@@ -55,55 +51,25 @@ const Header = ({productId}) => {
         console.log(err)
       })
   }
-  const getProductDetail = async () => {
-    if (!productId) {
-      console.log("Khong tim thay id product")
-      return;
-    }
-    try {
-    
-      const response = await axios.get(`http://localhost:8080/product/${productId}`)
-      const product = response?.data
-      
-      setName(product?.name)
-      setImg(product?.img)
-      setBrand(product?.brand)
-      setPrice(product?.price)
-      setDescription(product?.description)
-      setStockQuantity(product?.stockQuantity)
-      setModel(product?.modal)
-
-      
-        
-    } catch (error) {
-      console.log("Error fetching product details", error)
-    }
-         
-  }
-  console.log(name)
-  const  searchProduct = () => {
-    const payload = {     
-        query : query
-    }
-
-
-    axios
-      .get("http://localhost:8080/product/search", payload, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((res) => {
-        getProductDetail()
-      })
-      .catch((err) => {
-        console.log(err)
-      })
-  }
+ 
+ 
   const handleLogout = () => {
     localStorage.removeItem("token")
     window.location.reload()
   }
+
+
+  const handleSearch = async () => {
+    try {
+    const response = await axios.get(`http://localhost:8080/product/search`, {
+      params: { query: searchQuery },
+    });
+    console.log(response.data);
+    navigate("/search", { state: { searchResults: response.data } });
+  } catch (error) {
+    console.error("Error searching for products", error);
+  }
+  };
   return (
     <>
       <header id="header" className="header">

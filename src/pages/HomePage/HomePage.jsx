@@ -5,12 +5,36 @@ import Footer from "../../components/Footer/Footer"
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye"
 import FavoriteIcon from "@mui/icons-material/Favorite"
 import LoopIcon from "@mui/icons-material/Loop"
-import { Link } from "react-router-dom"
+import { Link , useParams } from "react-router-dom"
 import AddToCartButton from "../Cart/AddToCartButton"
 import axios from "axios"
-const HomePage = ({ id }) => {
+const HomePage = ({  }) => {
   const [products, setProducts] = useState([])
+
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(true);
+  const { id } = useParams();
+
   useEffect(() => {
+    const fetchProductData = async () => {
+      if (!id) {
+        setError("Product ID is missing");
+        setLoading(false);
+        return;
+      }
+
+
+      try {
+        const response = await axios.get(`http://localhost:8080/product/get/${id}`)
+        
+        console.log(response);
+        setLoading(false);
+      } catch (err) {
+        setError("Data could not be loaded");
+        console.error(err);
+        setLoading(false);
+      }
+    };
     axios
       .get("http://localhost:8080/product/getAll")
       .then((res) => setProducts(res?.data))
