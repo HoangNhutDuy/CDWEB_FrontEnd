@@ -85,7 +85,7 @@ const Details = ({ match }) => {
 
 
       try {
-        const response = await axios.get(`http://localhost:8080/product/${id}`)
+        const response = await axios.get(`http://localhost:8080/product/get/${id}`)
         setProductData(response.data);
         setStockQuantity(response.data.stockQuantity);
 
@@ -133,7 +133,10 @@ const Details = ({ match }) => {
         setLoading(false);
       }
     };
-    fetchUserData();
+    if(localStorage.getItem("token")!= null){
+      console.log(localStorage.getItem("token"));
+      fetchUserData();
+    }
     fetchProductData();
     fetchLatestProducts();
   }, [id]); 
