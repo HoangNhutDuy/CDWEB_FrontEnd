@@ -1,49 +1,82 @@
-import React, { useState } from "react";
-import axios from "axios";
-import { Button } from "@mui/material";
-import '../Details/cssDetails.css'; // Nhập tệp CSS
+import React, { useState } from "react"
+import axios from "axios"
+import { Button } from "@mui/material"
+import "../Details/cssDetails.css" // Nhập tệp CSS
 
-const AddToCartButton = ({ productId, quantity = 1 }) => {
-    const [isLoading, setIsLoading] = useState(false);
-    const token = localStorage.getItem("token");
+const AddToCartButton = ({ productId, quantity = 1, isHomePage }) => {
+  const [isLoading, setIsLoading] = useState(false)
+  const token = localStorage.getItem("token")
+  console.log(isHomePage)
+  const handleAddToCart = () => {
+    setIsLoading(true)
+    axios
+      .post("http://localhost:8080/cart/add", null, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        params: {
+          productId: productId,
+          quantity: quantity,
+        },
+      })
+      .then((response) => {
+        alert("Sản phẩm đã được thêm vào giỏ hàng")
+      })
+      .catch((error) => {
+        console.error("Error adding product to cart:", error)
+        alert("Có lỗi xảy ra khi thêm sản phẩm vào giỏ hàng")
+      })
+      .finally(() => {
+        setIsLoading(false)
+      })
+  }
 
-    const handleAddToCart = () => {
-        setIsLoading(true);
-        axios.post("http://localhost:8080/cart/add", null, {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-            params: {
-                productId: productId,
-                quantity: quantity,
+  return (
+    <Button
+      id="button__cart"
+      variant="contained"
+      onClick={handleAddToCart}
+      disabled={isLoading}
+      sx={
+        isHomePage
+          ? {
+              display: "inline-block",
+              fontWeight: "700",
+              textTransform: "uppercase",
+              width: "100%",
+              padding: "1.4rem 0",
+              border: "1px solid #be1e2d",
+              color: "#be1e2d",
+              background: "white",
+              cursor: "pointer",
+              "&:hover": {
+                backgroundColor: "#be1e2d",
+                color: "#f1f1f1",
+              },
             }
-        })
-            .then(response => {
-                alert("Sản phẩm đã được thêm vào giỏ hàng");
-            })
-            .catch(error => {
-                console.error("Error adding product to cart:", error);
-                alert("Có lỗi xảy ra khi thêm sản phẩm vào giỏ hàng");
-            })
-            .finally(() => {
-                setIsLoading(false);
-            });
-    };
+          : {
+              minWidth: "220px",
+              height: "58px",
+              margin: "10px 0 0 10px",
+              backgroundColor: "white",
+              border: "0.5px solid #0f0f0fc4",
+              borderRadius: "4px",
+              cursor: "pointer",
+              fontSize: "16px",
+              fontWeight: "200",
+              color: "black",
+              fontFamily:
+                '"Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif',
+              "&:hover": {
+                backgroundColor: "#be1e2d",
+                color: "#f1f1f1",
+              },
+            }
+      }
+    >
+      {isLoading ? "Đang thêm..." : "Thêm vào giỏ hàng"}
+    </Button>
+  )
+}
 
-    return (
-        <Button
-            id="button__cart"
-            className="button__pay"
-            variant="contained"
-            onClick={handleAddToCart}
-            disabled={isLoading}
-            sx={{
-                color: "black",
-            }}
-        >   
-            {isLoading ? "Đang thêm..." : "Thêm vào giỏ hàng"}
-        </Button>
-    );
-};
-
-export default AddToCartButton;
+export default AddToCartButton

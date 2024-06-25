@@ -169,22 +169,7 @@ export default function ModalUpdateUser({ id }) {
               onChange={(e) => setEmail(e.target.value)}
             />
           </Box>
-          <Box sx={{ display: "flex", flexDirection: "column" }}>
-            <Typography sx={{ marginTop: "20px", fontSize: "16px" }}>
-              Mật khẩu
-            </Typography>
-            <input
-              type="password"
-              value={password}
-              style={{
-                flex: "1",
-                outline: "none",
-                padding: "10px 8px",
-                fontSize: "20px",
-              }}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </Box>
+
           <Box sx={{ display: "flex", flexDirection: "column" }}>
             <Typography sx={{ marginTop: "20px", fontSize: "16px" }}>
               Số điện thoại
