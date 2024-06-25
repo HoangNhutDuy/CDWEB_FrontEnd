@@ -77,7 +77,7 @@ const Cart = () => {
     setShipping(e.target.checked ? 10000 : 0);
   };
 
-  let totalAmount = cartItems.reduce(
+  const totalAmount = cartItems.reduce(
     (acc, item) => acc + item.price * item.quantity,
     0
   );
