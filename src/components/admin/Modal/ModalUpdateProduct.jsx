@@ -9,7 +9,7 @@ import ModeEditIcon from "@mui/icons-material/ModeEdit"
 import Modal from "@mui/material/Modal"
 import { useState, useEffect } from "react"
 
-const ModalUpdateProduct = ({productId}) => {
+const ModalUpdateProduct = ({productId }) => {
   const style = {
     position: "absolute",
     top: "50%",
@@ -56,7 +56,7 @@ const ModalUpdateProduct = ({productId}) => {
     try {
       const response = await axios.get(`http://localhost:8080/product/${productId}`)
       const product = response?.data
-    
+      
       setName(product?.name)
       setImg(product?.img)
       setBrand(product?.brand)
@@ -65,11 +65,14 @@ const ModalUpdateProduct = ({productId}) => {
       setStockQuantity(product?.stockQuantity)
       setModel(product?.modal)
 
+      
+        
     } catch (error) {
       console.log("Error fetching product details", error)
     }
   }
- 
+        
+  
   const handleUpdateProduct = async() => {
  
     const payload = {

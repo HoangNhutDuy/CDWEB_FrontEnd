@@ -36,7 +36,7 @@ const TableContentProduct = () => {
    
   }
   useEffect(() => {
-    getAllProduct()
+    getAllProduct();
   }, [])
   const showToastSuccess = (message) => {
     if (!message) {
@@ -67,7 +67,7 @@ const TableContentProduct = () => {
         console.log(res)
         showToastSuccess("Xoá sản phẩm thành công")
         setTimeout(() => {
-          getAllProduct();
+          getAllProduct()
         }, 1000)
       })
       .catch((error) => {
@@ -75,6 +75,7 @@ const TableContentProduct = () => {
         showToastFail("Xoá sản phẩm thất bại")
       })
   };
+
 
    
   return (

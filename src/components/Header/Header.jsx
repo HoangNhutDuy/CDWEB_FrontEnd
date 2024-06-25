@@ -8,7 +8,7 @@ import phukienAppleImg from "../../icon/apple1.png"
 import giadodienthoaiImg from "../../icon/gaydienthoai.png"
 import tuichongnuocImg from "../../icon/tuichongnuoc.png"
 import phukienkhacImg from "../../icon/khac.jpg"
-import { useState, useEffect } from "react"
+import { useState, useEffect} from "react"
 import PersonIcon from "@mui/icons-material/Person"
 import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout"
 import SearchIcon from "@mui/icons-material/Search"
@@ -16,16 +16,28 @@ import sacDuphong1 from "../../images/sacduphong1.png"
 import taiNghe6 from "../../images/tainghe6.png"
 import axios from "axios"
 
-import { Link } from "react-router-dom"
-const Header = () => {
+import { Link ,useParams } from "react-router-dom"
+const Header = ({productId}) => {
   const [currentUser, setCurrentUser] = useState(false)
   const [fullName, setFullName] = useState("")
+
+  const { id } = useParams();
+  const [name, setName] = useState("")
+  const [img, setImg] = useState(null)
+  const [brand, setBrand] = useState("")
+  const [price, setPrice] = useState("")
+  const [description, setDescription] = useState("")
+  const [stockQuantity, setStockQuantity] = useState("")
+  const [model, setModel] = useState("")
+  const[query , setQuery] = useState("");
+  const [search , setSearch] = useState("");
 
   const token = localStorage.getItem("token")
     ? localStorage.getItem("token")
     : ""
   console.log(token)
   useEffect(() => {
+    getProductDetail()
     getInfoUser()
   }, [])
   const getInfoUser = () => {
@@ -38,6 +50,51 @@ const Header = () => {
       .then((res) => {
         setCurrentUser(true)
         setFullName(res?.data?.fullName)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }
+  const getProductDetail = async () => {
+    if (!productId) {
+      console.log("Khong tim thay id product")
+      return;
+    }
+    try {
+    
+      const response = await axios.get(`http://localhost:8080/product/${productId}`)
+      const product = response?.data
+      
+      setName(product?.name)
+      setImg(product?.img)
+      setBrand(product?.brand)
+      setPrice(product?.price)
+      setDescription(product?.description)
+      setStockQuantity(product?.stockQuantity)
+      setModel(product?.modal)
+
+      
+        
+    } catch (error) {
+      console.log("Error fetching product details", error)
+    }
+         
+  }
+  console.log(name)
+  const  searchProduct = () => {
+    const payload = {     
+        query : query
+    }
+
+
+    axios
+      .get("http://localhost:8080/product/search", payload, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        getProductDetail()
       })
       .catch((err) => {
         console.log(err)
@@ -99,6 +156,8 @@ const Header = () => {
                       id="input_seach"
                       type="text"
                       placeholder="Tìm kiếm tại đây"
+                      name="search"
+                      onChange={(e) => setSearch(e.target.value)}
                     />
                     <div className="nav__icons">
                       <Link to="/">
@@ -177,152 +236,7 @@ const Header = () => {
         </div>
       </header>
 
-      <header id="Header_danhmuc" className="Header_danhmuc">
-        <div className="navigation_danhmuc">
-          <div className="container">
-            <nav className="nav">
-              {/* <div className="nav__hamburger">
-                    <svg>
-                      <use xlink:href="./images/sprite.svg#icon-menu"></use>
-                    </svg>
-                  </div> */}
-
-              <ul className="nav__list" id="nav__list_DANHMUC">
-                <div className="nav__icons_danhmuc">
-                  <Link to="/" className="icon__item">
-                    <img
-                      className="icon__itemdanhmuc"
-                      src={opLungImg}
-                      alt="danh muc"
-                    />
-                  </Link>
-                  <li className="nav__item">
-                    <Link to="/" className="scroll-linkDANHMUC">
-                      ỐP LƯNG
-                    </Link>
-                  </li>
-                </div>
-
-                <div className="nav__icons_danhmuc">
-                  <Link to="/" className="icon__item">
-                    <img
-                      className="icon__itemdanhmuc"
-                      src={sacDuPhongImg}
-                      alt="danhmucs"
-                    />
-                  </Link>
-                  <li className="nav__item">
-                    <Link to="/" className="scroll-linkDANHMUC">
-                      SẠC DỰ PHÒNG
-                    </Link>
-                  </li>
-                </div>
-
-                <div className="nav__icons_danhmuc">
-                  <Link to="/" className="icon__item">
-                    <img
-                      className="icon__itemdanhmuc"
-                      src={taingheImg}
-                      alt=""
-                    />
-                  </Link>
-                  <li className="nav__item">
-                    <Link to="/" className="scroll-linkDANHMUC">
-                      TAI NGHE
-                    </Link>
-                  </li>
-                </div>
-
-                <div className="nav__icons_danhmuc">
-                  <Link to="/" className="icon__item">
-                    <img className="icon__itemdanhmuc" src={cucsacImg} alt="" />
-                  </Link>
-                  <li className="nav__item">
-                    <Link to="/" className="scroll-linkDANHMUC">
-                      CỤC SẠC
-                    </Link>
-                  </li>
-                </div>
-
-                <div className="nav__icons_danhmuc">
-                  <Link to="/" className="icon__item">
-                    <img
-                      className="icon__itemdanhmuc"
-                      src={kinhcuonglucImg}
-                      alt=""
-                    />
-                  </Link>
-                  <li className="nav__item">
-                    <Link to="/" className="scroll-linkDANHMUC">
-                      KÍNH CƯỜNG LỰC
-                    </Link>
-                  </li>
-                </div>
-
-                <div className="nav__icons_danhmuc">
-                  <Link to="/" className="icon__item">
-                    <img
-                      className="icon__itemdanhmuc"
-                      src={phukienAppleImg}
-                      alt=""
-                    />
-                  </Link>
-                  <li className="nav__item">
-                    <Link to="/" className="scroll-linkDANHMUC">
-                      PHỤ KIỆN APPLE
-                    </Link>
-                  </li>
-                </div>
-
-                <div className="nav__icons_danhmuc">
-                  <Link to="/" className="icon__item">
-                    <img
-                      className="icon__itemdanhmuc"
-                      src={giadodienthoaiImg}
-                      alt=""
-                    />
-                  </Link>
-                  <li className="nav__item">
-                    <Link to="/" className="scroll-linkDANHMUC">
-                      GIÁ ĐỠ ĐIỆN THOẠI
-                    </Link>
-                  </li>
-                </div>
-
-                <div className="nav__icons_danhmuc">
-                  <Link to="/" className="icon__item">
-                    <img
-                      className="icon__itemdanhmuc"
-                      src={tuichongnuocImg}
-                      alt=""
-                    />
-                  </Link>
-                  <li className="nav__item">
-                    <Link to="/" className="scroll-linkDANHMUC">
-                      TÚI CHỐNG NƯỚC
-                    </Link>
-                  </li>
-                </div>
-
-                <div className="nav__icons_danhmuc">
-                  <Link to="/" className="icon__item">
-                    <img
-                      className="icon__itemdanhmuc"
-                      src={phukienkhacImg}
-                      alt=""
-                    />
-                  </Link>
-                  <li className="nav__item">
-                    <Link to="/" className="scroll-linkDANHMUC">
-                      PHỤ KIỆN KHÁC
-                    </Link>
-                  </li>
-                </div>
-              </ul>
-            </nav>
-          </div>
-        </div>
-      </header>
+    
     </>
   )
 }

@@ -7,7 +7,8 @@ import FavoriteIcon from "@mui/icons-material/Favorite"
 import LoopIcon from "@mui/icons-material/Loop"
 import { Link } from "react-router-dom"
 
-const HomePage = ({ id }) => {
+const HomePage = () => {
+  
   return (
     <>
       <Header />

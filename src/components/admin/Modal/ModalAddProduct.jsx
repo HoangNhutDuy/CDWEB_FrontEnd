@@ -68,13 +68,13 @@ const ModalAddProduct = () => {
         return
       }
       const payload = {
-        name: name,
-        img: img,
-        brand: brand,
         price: price,
-        description: description,
         stockQuantity: stockQuantity,
+        brand: brand,
+        description: description,
+        img: img,
         model: model,
+        name: name
       }
       
       try {
@@ -82,7 +82,7 @@ const ModalAddProduct = () => {
         axios.post("http://localhost:8080/product/add", payload)
           .then((res) => {
           
-            if (res.status === 201) {
+            if (res.status === 201  ) {
               setOpen(false)
               showToastSuccess("Thêm sản phẩm thành công")
               setTimeout(() => {
