@@ -64,7 +64,6 @@ h4 {
   Header
   ======================
   */
-
 .header {
   position: relative;
 }
@@ -80,7 +79,6 @@ h4 {
   Navigation
   ======================
   */
-
 .navigation {
   position: relative;
   height: 7rem;
@@ -315,7 +313,6 @@ h4 {
   News Section
   ======================
   */
-
 .news {
   padding-bottom: 8rem;
 }
@@ -383,7 +380,6 @@ h4 {
   NewsLetter
   ======================
   */
-
 .newsletter {
   padding: 6rem 0;
   border-top: 1px solid var(--primaryColor);
@@ -439,13 +435,11 @@ h4 {
   Newsletter Media Query
   ======================
   */
-
 /*
   ======================
   Footer
   ======================
   */
-
 .footer {
   background-color: var(--black3);
   padding: 6rem 1rem;
@@ -510,8 +504,8 @@ h4 {
   Cart Area Media Query
   ======================
   */
-
 @media only screen and (max-width: 1200px) {
+
   .minus-btn,
   .plus-btn {
     padding: 0.6rem 0.8rem;
@@ -587,7 +581,7 @@ h4 {
   font-weight: 400;
 }
 
-header > li {
+header>li {
   color: white;
 }
 
@@ -623,7 +617,6 @@ header > li {
     background-color: var(--orange);
     border: 1px solid var(--black);
   } */
-
 .nav__icons_danhmuc .icon__item:not(:last-child) {
   margin-right: 1rem;
 }
@@ -663,28 +656,23 @@ header > li {
 
 .block-breadcrumbs {
   width: 100%;
-
   height: 30px;
 }
 
 .prefix {
   width: 1214.09px;
-
   height: 30px;
-
   margin: auto;
 }
 
-.prefix > ul > li {
+.prefix>ul>li {
   display: inline-block;
-
   margin-top: 5px;
 }
 
 .item::after {
   content: "";
-  background: url(https://didongviet.vn/pub/static/frontend/ddv/default/vi_VN/images/arrow-right-line.png)
-    no-repeat;
+  background: url(https://didongviet.vn/pub/static/frontend/ddv/default/vi_VN/images/arrow-right-line.png) no-repeat;
   margin: 0 5px;
   width: 10px;
   height: 14px;
@@ -695,17 +683,13 @@ header > li {
 
 main {
   width: 100%;
-
   background-color: #f2f2f2;
 }
 
 .section {
   width: 100%;
-
   height: 100%;
-
   display: flex;
-
   align-items: center;
 }
 
@@ -715,19 +699,13 @@ main {
 
 main .container1 {
   max-width: 117rem;
-
   width: 1170px;
   margin: 0 auto;
   padding: 0 1.6rem;
-
   margin-top: 20px;
-
-  height: 700px;
-
+  /* height: 700px; */
   background-color: #f9f9f9;
-
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.164);
-
   border-radius: 4px;
 }
 
@@ -768,19 +746,13 @@ main .container1 {
 
 .section__cart__pay {
   width: 100%;
-
   height: 618px;
-
   display: flex;
   justify-content: center;
   align-items: start;
-
   font-size: 14px;
-
   margin-top: 10px;
-
   position: relative;
-
   top: 30px;
 }
 
@@ -788,25 +760,18 @@ main .container1 {
 .section__cart__pay__container,
 .section__cart__pay__step4 {
   width: 400px;
-
-  height: 618px;
-
   padding: 15px;
-
   position: relative;
 }
 
 .section__cart__pay .section__cart__pay__container .section__cart__pay__step2 {
   width: 100%;
-
   height: 323px;
-
   position: relative;
 }
 
 .section__cart__pay .section__cart__pay__container .section__cart__pay__step3 {
   width: 100%;
-  height: 266px;
 }
 
 .section__cart__pay__step1 .header__step1,
@@ -814,17 +779,12 @@ main .container1 {
 .header__step3,
 .header__step4 {
   width: 100%;
-
   height: 37.58px;
-
   background-color: #be1e2d;
-
   color: var(--white);
-
   display: flex;
   justify-content: start;
   align-items: center;
-
   padding-left: 8px;
 }
 
@@ -840,11 +800,8 @@ main .container1 {
   width: 100%;
   flex: 1;
   padding: 10px;
-
   background: #ffffff;
-
   border: 1px solid #c2c2c2;
-
   font-family: "Roboto", sans-serif;
   border-radius: 4px;
   box-sizing: border-box;
@@ -856,15 +813,18 @@ main .container1 {
   align-items: center;
   margin-bottom: 15px;
 }
+
 .container_input label {
   flex: 0 0 20%;
   font-weight: bold;
   margin-right: 10px;
 }
+
 .container_input p {
   margin: 5px 0 0;
   color: #d9534f;
 }
+
 .dress__input select {
   appearance: none;
   -webkit-appearance: none;
@@ -872,14 +832,17 @@ main .container1 {
   background: url("data:image/svg+xml;base64,...") no-repeat right;
   background-size: 12px;
 }
+
 .dress__input:focus {
   border-color: #5cb85c;
   box-shadow: 0 0 8px rgba(92, 184, 92, 0.2);
 }
+
 /* Add some spacing between the select elements */
-.dress__input + label {
+.dress__input+label {
   margin-top: 15px;
 }
+
 @media (max-width: 768px) {
   .form {
     padding: 15px;
@@ -898,9 +861,11 @@ main .container1 {
     width: 100%;
   }
 }
+
 .section__cart__pay__step2 {
   background-color: #f9f9f9;
 }
+
 .section__cart__pay__step2 table {
   margin-top: 20px;
 }
@@ -911,19 +876,18 @@ main .container1 {
 
 .section__cart__pay__step2 #hr {
   width: 100%;
-
   position: absolute;
-
   top: 145px;
   margin-top: 20px;
-
   border-bottom: 1px solid #d1d0d0;
   display: block;
   height: 5px;
 }
+
 .section__cart__pay__step3 {
   background-color: #f9f9f9;
 }
+
 .section__cart__pay__step3 table {
   margin: 20px 0 0 20px;
 }
@@ -931,25 +895,20 @@ main .container1 {
 .section__cart__pay__step4 {
   background-color: #f9f9f9;
 }
+
 .section__cart__pay__step4 table {
   margin-top: 20px;
 }
 
 .section__cart__pay__step4 table tr td {
   width: 204px;
-  height: 121.19px;
-
   padding-left: 20px;
 }
 
 .section__cart__pay__step4 #hr2 {
   width: 100%;
-
   position: absolute;
-
   top: 90px;
-  margin-top: 20px;
-
   border-bottom: 1px solid #d1d0d0;
   display: block;
   height: 5px;
@@ -957,25 +916,22 @@ main .container1 {
 
 .section__cart__pay__step4 #hr3 {
   width: 100%;
-
   position: absolute;
-
   top: 220px;
   margin-top: 20px;
-
   border-bottom: 1px solid #d1d0d0;
   display: block;
   height: 5px;
 }
 
 .section__cart__pay__step4 table:last-child tr th {
-  float: left;
+  float: none;
+  width: 65%;
 }
 
 .section__cart__pay__step4 table:last-child tr td:last-child {
-  width: 103px;
+  width: 35%;
   height: 57px;
-
   font-size: 18px;
 }
 
@@ -985,65 +941,45 @@ main .container1 {
 
 .section__cart__pay__step4__voucher {
   width: 370px;
-
   height: 36px;
 }
 
 .section__cart__pay__step4__voucher .input__voucher {
   width: 240px;
-
   height: 36px;
-
   border-radius: 4px;
-
   padding-left: 10px;
-
   background-color: #f2f2f2;
-
   border: none;
 }
 
 .section__cart__pay__step4__voucher .button__apply {
   width: 92.5px;
-
   height: 36.46px;
-
   background-color: #ffffff !important;
   border: 1px solid #e2e5e6;
   border-radius: 4px;
   color: #373f41;
   margin-left: 8px;
-
   cursor: pointer;
 }
 
 .before__pay {
   width: 370px;
-
   float: right;
-
-  position: relative;
-
+  position: static;
   bottom: 220px;
 }
 
 .button__order {
   width: 370px;
-
   height: 43.98px;
-
   margin-top: 40px;
-
   border-radius: 4px;
-
   color: var(--white);
-
   font-weight: 400;
-
   font-family: "Archivo", sans-serif;
-
   border: none;
-
   cursor: pointer;
 }
 
@@ -1060,7 +996,6 @@ main .container1 {
   Footer
   ======================
   */
-
 .footer {
   background-color: var(--black3);
   padding: 6rem 1rem;
@@ -1125,7 +1060,6 @@ main .container1 {
   Product Details
   ======================
   */
-
 .details__container--left,
 .product-detail__container {
   display: flex;
@@ -1308,17 +1242,15 @@ main .container1 {
 .input-counter {
   display: flex;
   align-items: center;
-
   margin-top: 25px;
 }
 
 .title {
   margin-top: 20px;
-
   line-height: 1.7;
 }
 
-.title > li {
+.title>li {
   list-style: none;
 }
 
@@ -1397,7 +1329,6 @@ main .container1 {
 }
 
 /* Product Details Bottom */
-
 .detail__content {
   position: relative;
   height: 55rem;
@@ -1457,7 +1388,6 @@ main .container1 {
 }
 
 /* Product Details Bottom Media Query*/
-
 @media only screen and (max-width: 1200px) {
   .detail__content {
     height: 65rem;
@@ -1765,8 +1695,8 @@ main .container1 {
   Cart Area Media Query
   ======================
   */
-
 @media only screen and (max-width: 1200px) {
+
   .minus-btn,
   .plus-btn {
     padding: 0.6rem 0.8rem;
