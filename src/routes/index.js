@@ -12,6 +12,7 @@ import categories from "../pages/admin/Categoires"
 import ResetPassword from "../pages/ResetPassword/ResetPassword"
 import UserInfo from "../pages/UserInfo/UserInfo"
 import ChangePassword from "../pages/ChangePassword/ChangePassword"
+import Orders from "../pages/admin/Orders"
 const routes = [
   { path: "/", Component: HomePage },
   { path: "/cart", Component: Cart },
@@ -28,5 +29,6 @@ const routes = [
   { path: "/admin", Component: Admin },
   { path: "/admin/users", Component: Users },
   { path: "/admin/categories", Component: categories },
+  { path: "/admin/orders", Component: Orders },
 ]
 export default routes

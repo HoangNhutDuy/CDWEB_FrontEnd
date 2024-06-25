@@ -3,11 +3,10 @@ import { Box } from "@mui/material"
 import HomeIcon from "@mui/icons-material/Home"
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder"
 import SchoolIcon from "@mui/icons-material/School"
-import LocalAtmIcon from "@mui/icons-material/LocalAtm"
-import AssessmentIcon from "@mui/icons-material/Assessment"
-import SettingsIcon from "@mui/icons-material/Settings"
+import GradeIcon from "@mui/icons-material/Grade"
 import LogoutIcon from "@mui/icons-material/Logout"
 import Typography from "@mui/material/Typography"
+
 import Item from "../../Item"
 const Sidebar = () => {
   const categories = [
@@ -18,6 +17,7 @@ const Sidebar = () => {
       name: "Quản lý danh mục",
       to: "/admin/categories",
     },
+    { icon: <GradeIcon />, name: "Quản lý đơn hàng", to: "/admin/orders" },
     { icon: <LogoutIcon />, name: "Logout", isLast: true },
   ]
   return (

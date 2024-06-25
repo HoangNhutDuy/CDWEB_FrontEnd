@@ -112,52 +112,6 @@ export default function ModalUpdateUser({ id }) {
     getUserDetails()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
-  // const showToastSuccess = (message) => {
-  //   if (!message) {
-  //     return
-  //   }
-  //   toast.success(message, {
-  //     position: "bottom-right",
-  //     autoClose: 500,
-  //   })
-  // }
-  // const handleAddNewStudent = async () => {
-  //   if (
-  //     fullName.length === 0 ||
-  //     email.length === 0 ||
-  //     phoneNumber.length === 0 ||
-  //     age.length === 0
-  //   ) {
-  //     return
-  //   }
-  //   const payload = {
-  //     name: fullName,
-  //     email: email,
-  //     phoneNumber: phoneNumber,
-  //     age: age,
-  //   }
-  //   try {
-  //     const response = await axios.post(
-  //       "http://localhost:8080/students/add",
-  //       payload,
-  //       {
-  //         headers: {
-  //           Authorization: `Bearer ${token}`,
-  //         },
-  //       }
-  //     )
-  //     if (response.status === 200) {
-  //       showToastSuccess("Add student successfully")
-  //       setTimeout(() => {
-  //         window.location.reload()
-  //       }, 1000)
-  //     } else {
-  //       console.log("Failed")
-  //     }
-  //   } catch (error) {
-  //     console.log("failed", error)
-  //   }
-  // }
   return (
     <div>
       <Button
