@@ -235,8 +235,6 @@ const Header = ({productId}) => {
           </div>
         </div>
       </header>
-
-    
     </>
   )
 }

@@ -1,66 +1,27 @@
 import React, { useEffect, useState } from "react"
 import Header from "../../components/Header/Header"
 import Footer from "../../components/Footer/Footer"
-import { products } from "../../data/products"
+// import { products } from "../../data/products"
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye"
 import FavoriteIcon from "@mui/icons-material/Favorite"
 import LoopIcon from "@mui/icons-material/Loop"
 import { Link } from "react-router-dom"
-
-const HomePage = () => {
-  
+import AddToCartButton from "../Cart/AddToCartButton"
+import axios from "axios"
+const HomePage = ({ id }) => {
+  const [products, setProducts] = useState([])
+  useEffect(() => {
+    axios
+      .get("http://localhost:8080/product/getAll")
+      .then((res) => setProducts(res?.data))
+  }, [])
   return (
     <>
       <Header />
       <section className="category__section" id="category">
-        <div className="tab__list">
-          <div
-            className="title__container tabs"
-            style={{ backgroundColor: "red" }}
-          >
-            <div className="section__titles category__titles ">
-              <div
-                className="section__title filter-btn active"
-                data-id="All Products"
-              >
-                <span className="dot"></span>
-                <h1 className="primary__title">Tất cả</h1>
-              </div>
-            </div>
-            <div className="section__titles">
-              <div
-                className="section__title filter-btn"
-                data-id="Trending Products"
-              >
-                <span className="dot"></span>
-                <h1 className="primary__title">Xu hướng</h1>
-              </div>
-            </div>
-
-            <div className="section__titles">
-              <div
-                className="section__title filter-btn"
-                data-id="Special Products"
-              >
-                <span className="dot"></span>
-                <h1 className="primary__title">Đặc biệt</h1>
-              </div>
-            </div>
-
-            <div className="section__titles">
-              <div
-                className="section__title filter-btn"
-                data-id="Featured Products"
-              >
-                <span className="dot"></span>
-                <h1 className="primary__title">Bán chạy</h1>
-              </div>
-            </div>
-          </div>
-        </div>
         <div className="category__container">
           <div className="category__center">
-            {products.products.map((product, index) => (
+            {products.map((product, index) => (
               <div class="product category__products">
                 <div class="product__header">
                   <img src={product.image} alt="product" />
@@ -88,9 +49,12 @@ const HomePage = () => {
                     <h4>{product.price * 22000} VND</h4>
                   </div>
                   <Link to="/cart">
-                    <button type="submit" class="product__btn">
-                      THÊM VÀO GIỎ HÀNG
-                    </button>
+                    <AddToCartButton
+                      productId={product.productId}
+                      quantity="1"
+                      class="product__btn"
+                      isHomePage="true"
+                    />
                   </Link>
                 </div>
                 <ul>
@@ -98,7 +62,7 @@ const HomePage = () => {
                     <Link
                       data-tip="Quick View"
                       data-place="left"
-                      to={`/detail/product/${product.id}`}
+                      to={`/detail/product/${product.productId}`}
                     >
                       <RemoveRedEyeIcon />
                     </Link>
