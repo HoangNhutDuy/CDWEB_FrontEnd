@@ -26,9 +26,9 @@ const SearchResultsPage = () => {
       <Header />
 
                  <h1 style={{textAlign:"center", fontSize:"40px"}}>Kết quả Tìm kiếm : </h1>
-      <section className="category__section" id="category">
-        <div className="category__container">
-          <div className="category__center">
+      <section className="category__section" id="category" >
+        <div className="category__container" >
+          <div className="category__center"  style={{display: 'flex', justifyContent: 'center',fontSize:"20px"}}>
             {products?.length > 0 ? (
               products?.map((product, index) => (
                 <div className="product category__products" key={index}>
@@ -74,7 +74,7 @@ const SearchResultsPage = () => {
                 </div>
               ))
             ) : (
-              <p>Không tìm thấy sản phẩm</p>
+              <p>Không tìm thấy sản phẩm !</p>
             )}
           </div>
         </div>

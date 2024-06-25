@@ -90,7 +90,7 @@ const Header = ({productId}) => {
       const response = await axios.get("http://localhost:8080/product/search", {
         params: { query, page: 0, size: 5 }
       });
-      setSuggestions(response.data.content); // Assuming response data contains a list of product suggestions
+      setSuggestions(response.data.content); 
     } catch (error) {
       console.error("Error fetching suggestions", error);
     }
@@ -141,6 +141,7 @@ const Header = ({productId}) => {
                       justifyContent: "space-between",
                       alignItems: "center",
                       width: "300px",
+
                     }}
                   >
                     <input
@@ -158,15 +159,15 @@ const Header = ({productId}) => {
                         <SearchIcon sx={{ fontSize: "20px" }}  />
                       </Link>
                     </div>
-                    {suggestions?.length > 0 && (
-                      <ul className="suggestions">
-                        {suggestions?.map((suggestion, index) => (
-                          <li key={index} onClick={() => setSearchQuery(suggestion.name)}>
-                            {suggestion.name}
-                          </li>
-                        ))}
-                      </ul>
-                    )}
+                    {/* {searchQuery?.length > 0 && suggestions?.length > 0 && (
+                          <ul className="suggestions">
+                         {suggestions.map((suggestion, index) => (
+                         <li key={index} onClick={() => setSearchQuery(suggestion.name)}>
+                              {suggestion.name}
+                             </li>
+                              ))}
+                         </ul>
+                         )} */}
 
                   </li>
 

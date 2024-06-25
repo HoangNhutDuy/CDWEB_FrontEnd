@@ -631,31 +631,51 @@ header > li {
 .navigation_danhmuc {
   padding-bottom: 15px;
 }
+.search-container {
+  position: relative;
+}
 .input_search {
   width: 100%;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 4px;
   font-size: 16px;
+  box-sizing: border-box; 
 }
 
 .suggestions {
   position: absolute;
-  top: 40px;
+  top: calc(100% + 5px); 
+  left: 0;
   width: 100%;
   background-color: white;
   border: 1px solid #ccc;
-  border-radius: 4px;
+  border-top: none;
+  border-radius: 0 0 4px 4px;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
   max-height: 200px;
   overflow-y: auto;
   z-index: 1000;
+  transition: top 0.3s ease; /* Hiệu ứng dịch chuyển */
 }
+.suggestions ul {
+  position: absolute;
+  top:30px;
 
+  transition: background-color 0.3s ease;
+  z-index: 1000;
+}
 .suggestions li {
   padding: 10px;
   cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 .suggestions li:hover {
   background-color: #f0f0f0;
+}
+
+
+.product {
+  margin-top: 20px; /* Đảm bảo các sản phẩm không chồng lên danh sách gợi ý */
 }
