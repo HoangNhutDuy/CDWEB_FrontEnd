@@ -90,7 +90,7 @@ const Details = ({ match }) => {
       } catch (err) {
         setError("Data could not be loaded")
         console.error(err)
-        setLoading(false)
+        setLoading(true)
       }
     }
     const fetchLatestProducts = async () => {
@@ -100,9 +100,11 @@ const Details = ({ match }) => {
         )
 
         setRelatestProducts(response.data)
-        console.log(response.data)
+       
+     
       } catch (err) {
         setError("Latest products data could not be loaded")
+        setLoading(true)
         console.error(err)
       }
     }
@@ -112,6 +114,7 @@ const Details = ({ match }) => {
     }
     fetchProductData();
     fetchLatestProducts();
+    
   }, [id])
 
 
@@ -175,8 +178,13 @@ const Details = ({ match }) => {
   
     return formatter.format(amount);
   }
+ 
+  function loadings() {
 
-
+    setTimeout(() => {
+      window.location.reload()
+    }, 100)
+  }
   return (
     <>
       <Header />
@@ -449,7 +457,7 @@ const Details = ({ match }) => {
                   </div>
 
                   <Link to={`/detail/product/${relatestProduct.productId}`}>
-                    <button className="product__btn">Xem chi tiết</button>
+                    <button className="product__btn" onClick={loadings}  >Xem chi tiết</button>
                   </Link>
                 </div>
                 <ul>
@@ -458,6 +466,7 @@ const Details = ({ match }) => {
                       data-tip="Quick View"
                       data-place="left"
                       to={`/detail/product/${relatestProduct.productId}`}
+                      onClick={loadings}
                     >
                       <RemoveRedEyeIcon />
                     </Link>

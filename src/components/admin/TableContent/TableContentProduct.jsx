@@ -75,6 +75,15 @@ const TableContentProduct = () => {
       })
   }
 
+  function formatCurrency(amount) {
+    const formatter = new Intl.NumberFormat('vi-VN', {
+      style: 'currency',
+      currency: 'VND'
+    });
+  
+    return formatter.format(amount);
+  }
+ 
   return (
     <div>
       <TableContainer
@@ -159,7 +168,7 @@ const TableContentProduct = () => {
                 sx={{
                   color: "#ACACAC",
                   borderBottom: "none",
-                  width: "350px",
+                  width: "150px",
                   fontSize: "14px",
                 }}
                 align="left"
@@ -262,7 +271,7 @@ const TableContentProduct = () => {
                     }}
                     align="left"
                   >
-                    {row?.price}
+                  {formatCurrency(row?.price)}
                   </TableCell>
                   <TableCell
                     sx={{

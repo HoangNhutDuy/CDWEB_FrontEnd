@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   Flight as FlightIcon,
   CreditCard as CreditCardIcon,
@@ -19,8 +19,16 @@ const Cart = () => {
   const [shipping, setShipping] = useState(0);
   const token = localStorage.getItem("token");
 
+
+     const navigate = useNavigate();
   // Gọi API để lấy dữ liệu giỏ hàng khi component được render lần đầu tiên
   useEffect(() => {
+
+     
+    if(!token){
+      navigate('/login')
+
+    }
     axios.get("http://localhost:8080/cart/get", {
       headers: {
         Authorization: `Bearer ${token}`,

@@ -26,6 +26,11 @@ const Pay = () => {
 
   useEffect(() => {
     // Fetch cart items from backend
+     
+      if(!token){
+        navigate('/login')
+
+      }
     const fetchCartItems = async () => {
       try {
         const response = await axios.get("http://localhost:8080/cart/get", {

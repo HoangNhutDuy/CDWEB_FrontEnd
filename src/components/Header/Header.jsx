@@ -231,7 +231,7 @@ const Header = ({productId}) => {
               <div className="nav__icons" id="nav__item_giohang">
                 <Link to="/cart" className="icon__item">
                   <ShoppingCartCheckoutIcon sx={{ color: "black" }} />
-                  <span id="cart__total">4</span>
+                
                 </Link>
                 <Link to="/cart" className="nav__link_giohang">
                   Giỏ Hàng
