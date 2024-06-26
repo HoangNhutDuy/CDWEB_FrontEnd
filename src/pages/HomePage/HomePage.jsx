@@ -40,6 +40,15 @@ const HomePage = ({}) => {
       .get("http://localhost:8080/product/getAll")
       .then((res) => setProducts(res?.data))
   }, [])
+
+  function formatCurrency(amount) {
+    const formatter = new Intl.NumberFormat('vi-VN', {
+      style: 'currency',
+      currency: 'VND'
+    });
+  
+    return formatter.format(amount);
+  }
   return (
     <>
       <Header />
@@ -71,7 +80,7 @@ const HomePage = ({}) => {
                       </svg> */}
                   </div>
                   <div class="product__price">
-                    <h4>{product.price * 22000} VND</h4>
+                  <h4>{formatCurrency(product.price)}</h4>
                   </div>
 
                   <AddToCartButton

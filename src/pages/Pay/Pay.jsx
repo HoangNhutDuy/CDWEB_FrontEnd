@@ -74,6 +74,14 @@ const Pay = () => {
     0
   )
 
+  function formatCurrency(amount) {
+    const formatter = new Intl.NumberFormat('vi-VN', {
+      style: 'currency',
+      currency: 'VND'
+    });
+  
+    return formatter.format(amount);
+  }
   return (
     <>
       <Header />
@@ -247,7 +255,7 @@ const Pay = () => {
                               <td style={{ textAlign: "start" }}>
                                 <img
                                   style={{ width: 80, height: 80 }}
-                                  src={item.imageUrl}
+                                  src={item.img}
                                   alt={item.name}
                                 />
                                 <span>{item.name}</span>
@@ -258,7 +266,7 @@ const Pay = () => {
                                 {item.quantity}
                               </td>
                               <td style={{ textAlign: "center" }}>
-                                {item.price * item.quantity} <u>đ</u>
+                                {formatCurrency(item.price * item.quantity)}
                               </td>
                             </tr>
                           ))}
@@ -271,7 +279,7 @@ const Pay = () => {
                               Thành tiền tạm tính
                             </th>
                             <td style={{ textAlign: "right" }}>
-                              {totalAmount} <u>đ</u>
+                              {formatCurrency(totalAmount)}
                             </td>
                           </tr>
                           <tr>
@@ -294,7 +302,7 @@ const Pay = () => {
                               }}
                             >
                               <span id="section__cart__pay__step4__price">
-                                {totalAmount} <u>đ</u>
+                                {formatCurrency(totalAmount)}
                               </span>
                             </td>
                           </tr>

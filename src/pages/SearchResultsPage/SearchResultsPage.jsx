@@ -21,6 +21,15 @@ const SearchResultsPage = () => {
     }
   }, [location.state]);
 
+  
+  function formatCurrency(amount) {
+    const formatter = new Intl.NumberFormat('vi-VN', {
+      style: 'currency',
+      currency: 'VND'
+    });
+  
+    return formatter.format(amount);
+  }
   return (
     <>
       <Header />
@@ -33,13 +42,13 @@ const SearchResultsPage = () => {
               products?.map((product, index) => (
                 <div className="product category__products" key={index}>
                   <div className="product__header">
-                    <img src={product.image} alt="product" />
+                    <img src={product.img} alt="product" />
                   </div>
                   <div className="product__footer">
                     <h3>{product.name}</h3>
                     <div className="rating"></div>
                     <div className="product__price">
-                      <h4>{product.price * 22000} VND</h4>
+                      <h4>{formatCurrency(product.price)}</h4>
                     </div>
                     <Link to="/cart">
                       <AddToCartButton
