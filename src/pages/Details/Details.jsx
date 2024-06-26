@@ -106,12 +106,15 @@ const Details = ({ match }) => {
         console.error(err)
       }
     }
-    if (token) {
-      fetchUserData()
+    if(localStorage.getItem("token")!= null){
+      console.log(localStorage.getItem("token"));
+      fetchUserData();
     }
-    fetchProductData()
-    fetchLatestProducts()
+    fetchProductData();
+    fetchLatestProducts();
   }, [id])
+
+
   const fetchUserData = async () => {
     const token = localStorage.getItem("token")
     if (!token) {
