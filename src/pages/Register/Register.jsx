@@ -27,10 +27,7 @@ const Register = () => {
   const navigate = useNavigate()
   const handleSubmit = (e) => {
     e.preventDefault()
-    if (!username) {
-      setUsernameError("Không được để trống trường này")
-      return
-    } else if (!fullName) {
+    if (!fullName) {
       setUsernameError("")
       setFullNameError("Không được để trống trường này")
       return
@@ -111,34 +108,6 @@ const Register = () => {
                   action="indexLogin.html"
                   onSubmit={(e) => handleSubmit(e)}
                 >
-                  <div className="field email">
-                    <div className="form-text">
-                      <input
-                        type="text"
-                        autoComplete="off"
-                        placeholder=" "
-                        className="form-input"
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
-                      />
-                      {/* required */}
-                      <label htmlFor="name" className="form-label">
-                        {" "}
-                        Tên đăng nhập{" "}
-                      </label>
-                      {usernameError && (
-                        <p
-                          style={{
-                            color: "red",
-                            textAlign: "left",
-                            marginTop: "10px",
-                          }}
-                        >
-                          {usernameError}
-                        </p>
-                      )}
-                    </div>
-                  </div>
                   <div className="field email">
                     <div className="form-text">
                       <input

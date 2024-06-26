@@ -348,10 +348,6 @@ const Details = ({ match }) => {
 
                   <div className="button">
                     <AddToCartButton productId={id} quantity={quantity} />
-
-                    <button className="button__pay" id="button__buy">
-                      MUA NGAY
-                    </button>
                   </div>
                 </div>
 
