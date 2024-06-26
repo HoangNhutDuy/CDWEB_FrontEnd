@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import axios from 'axios';
-import { Link } from "react-router-dom";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 import FlightIcon from "@mui/icons-material/Flight";
@@ -15,11 +14,9 @@ const Pay = () => {
     email: "",
     firstName: "",
     lastName: "",
-    phone: "",
-    address: "",
+    phoneNumber: "",
+    shippingAddress: "",
     country: "VN",
-    city: "",
-    district: "",
     shippingMethod: "storePickup",
     paymentMethod: "cod",
   });
@@ -64,6 +61,7 @@ const Pay = () => {
           },
         }
       );
+      console.log(formData);
       alert("Order placed successfully!");
     } catch (error) {
       console.error("There was an error placing the order!", error);
@@ -128,8 +126,8 @@ const Pay = () => {
                           <input
                             type="tel"
                             className="dress__input"
-                            id="phone"
-                            value={formData.phone}
+                            id="phoneNumber"
+                            value={formData.phoneNumber}
                             onChange={handleInputChange}
                           />
                         </div>
@@ -138,8 +136,8 @@ const Pay = () => {
                           <input
                             type="text"
                             className="dress__input"
-                            id="address"
-                            value={formData.address}
+                            id="shippingAddress"
+                            value={formData.shippingAddress}
                             onChange={handleInputChange}
                           />
                         </div>
@@ -153,31 +151,6 @@ const Pay = () => {
                           >
                             <option value="VN">Việt Nam</option>
                           </select>
-                        </div>
-                        <div className="container_input">
-                          <label htmlFor="city">Tỉnh/Thành Phố</label>
-                          <select
-                            id="city"
-                            className="dress__input"
-                            value={formData.city}
-                            onChange={handleInputChange}
-                          >
-                            {/* Add all other city options here */}
-                            <option value="An Giang">An Giang</option>
-                            <option value="Bà Rịa-Vũng Tàu">Bà Rịa-Vũng Tàu</option>
-                            {/* ... */}
-                            <option value="Yên Bái">Yên Bái</option>
-                          </select>
-                        </div>
-                        <div className="container_input">
-                          <label htmlFor="district">Quận/huyện</label>
-                          <input
-                            type="text"
-                            className="dress__input"
-                            id="district"
-                            value={formData.district}
-                            onChange={handleInputChange}
-                          />
                         </div>
                       </div>
                     </div>
