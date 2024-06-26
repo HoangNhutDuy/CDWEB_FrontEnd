@@ -41,7 +41,7 @@ const ProductReview = ({ productId, userId }) => {
 
   // Hàm xử lý submit form đánh giá
   const handleSubmit = (e) => {
-    e.preventDefault()
+  
     const token = localStorage.getItem("token")
     console.log(localStorage.getItem("token"))
     if (!token) {
@@ -111,7 +111,11 @@ const ProductReview = ({ productId, userId }) => {
       return "Invalid date"
     }
   }
-
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      handleSubmit()
+    }
+  };
   // Effect to update fullName in newReview when it changes in localStorage
   // useEffect(() => {
   //   const fullName = localStorage.getItem("fullName") || ""
@@ -145,7 +149,7 @@ const ProductReview = ({ productId, userId }) => {
           </div>
         ))
       )}
-      <form onSubmit={handleSubmit} className="review-form">
+      <form onSubmit={handleSubmit} onKeyPress={handleKeyPress} className="review-form">
         <h3>Thêm đánh giá của bạn</h3>
         {/* <input
           type="number"

@@ -175,6 +175,8 @@ const Details = ({ match }) => {
   
     return formatter.format(amount);
   }
+
+
   return (
     <>
       <Header />
