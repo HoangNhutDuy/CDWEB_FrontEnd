@@ -22,8 +22,7 @@ const TableContent = () => {
   if (!token) {
     navigate("/login")
   }
-  const [users, setUsers] = useState([{}])
-  console.log(users)
+  const [users, setUsers] = useState([])
   const getAllUser = () => {
     try {
       axios
@@ -32,12 +31,11 @@ const TableContent = () => {
             Authorization: `Bearer ${token}`,
           },
         })
-        .then((res) => setUsers(res?.data))   
+        .then((res) => setUsers(res?.data))
         .catch((err) => console.log(err))
     } catch (error) {
       console.log(error)
     }
-   
   }
   useEffect(() => {
     getAllUser()
@@ -156,7 +154,7 @@ const TableContent = () => {
         <TableBody>
           {users?.map((row) => (
             <TableRow
-              key={row.userId}
+              key={row.id}
               sx={{
                 height: "65px",
                 fontSize: "14px",
@@ -177,7 +175,7 @@ const TableContent = () => {
                   alt="Remy Sharp"
                   sx={{ borderRadius: "8px", width: 50, fontSize: "14px" }}
                 />
-                {row?.userId}
+                {row?.id}
               </TableCell>
               <TableCell
                 sx={{
@@ -232,7 +230,7 @@ const TableContent = () => {
               >
                 <DeleteOutlineOutlinedIcon
                   sx={{ fontSize: "20px" }}
-                  onClick={() => handleDeleteUser(row?.userId)}
+                  onClick={() => handleDeleteUser(row?.id)}
                 />
               </TableCell>
               <TableCell
@@ -245,7 +243,7 @@ const TableContent = () => {
                 }}
                 align="left"
               >
-                <ModalUpdateUser id={row?.userId} />
+                <ModalUpdateUser id={row?.id} />
               </TableCell>
             </TableRow>
           ))}

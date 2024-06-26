@@ -82,6 +82,14 @@ const Cart = () => {
     0
   );
 
+  function formatCurrency(amount) {
+    const formatter = new Intl.NumberFormat('vi-VN', {
+      style: 'currency',
+      currency: 'VND'
+    });
+  
+    return formatter.format(amount);
+  }
   return (
     <>
       <Header />
@@ -167,13 +175,6 @@ const Cart = () => {
                   <div className="continue__shopping">
                     <Link to="/">Tiếp tục mua sắm</Link>
                   </div>
-                  <div className="check__shipping">
-                    <input
-                      type="checkbox"
-                      onChange={handleShippingChange}
-                    />
-                    <span>Vận chuyển (+10.000 VNĐ)</span>
-                  </div>
                 </div>
 
                 <div className="cart__totals">
@@ -183,18 +184,6 @@ const Cart = () => {
                       Tổng tiền
                       <span className="new__price">
                         {totalAmount.toLocaleString()} VNĐ
-                      </span>
-                    </li>
-                    <li>
-                      Vận chuyển
-                      <span className="shipPrice">
-                        {shipping.toLocaleString()} VNĐ
-                      </span>
-                    </li>
-                    <li>
-                      Tổng tiền
-                      <span className="new__price untilPrice">
-                        {(totalAmount + shipping).toLocaleString()} VNĐ
                       </span>
                     </li>
                   </ul>

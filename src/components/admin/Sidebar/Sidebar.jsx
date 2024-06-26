@@ -6,17 +6,32 @@ import SchoolIcon from "@mui/icons-material/School"
 import GradeIcon from "@mui/icons-material/Grade"
 import LogoutIcon from "@mui/icons-material/Logout"
 import Typography from "@mui/material/Typography"
-
+import axios from "axios"
 import Item from "../../Item"
+import { useEffect, useState } from "react"
 const Sidebar = () => {
+  const [fullName, setFullName] = useState("")
+  const token = localStorage.getItem("token")
+  useEffect(() => {
+    getInfoUser()
+  }, [])
+  const getInfoUser = () => {
+    axios
+      .get("http://localhost:8080/user/profile", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        setFullName(res?.data?.fullName)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }
   const categories = [
     { icon: <SchoolIcon />, name: "Quản lý người dùng", to: "/admin/users" },
     { icon: <HomeIcon />, name: "Quản lý sản phẩm", to: "/admin" },
-    {
-      icon: <BookmarkBorderIcon />,
-      name: "Quản lý danh mục",
-      to: "/admin/categories",
-    },
     { icon: <GradeIcon />, name: "Quản lý đơn hàng", to: "/admin/orders" },
     { icon: <LogoutIcon />, name: "Logout", isLast: true },
   ]
@@ -57,7 +72,7 @@ const Sidebar = () => {
           alt="Karthi Madesh"
         />
         <Typography sx={{ fontWeight: "bold", fontSize: "16px" }}>
-          Karthi Madesh
+          {fullName}
         </Typography>
         <Typography sx={{ color: "#FEAF00", fontSize: "16px" }}>
           Admin

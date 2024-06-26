@@ -166,6 +166,15 @@ const Details = ({ match }) => {
   }
 
   console.log(relatestProducts.productId)
+
+  function formatCurrency(amount) {
+    const formatter = new Intl.NumberFormat('vi-VN', {
+      style: 'currency',
+      currency: 'VND'
+    });
+  
+    return formatter.format(amount);
+  }
   return (
     <>
       <Header />
@@ -212,8 +221,7 @@ const Details = ({ match }) => {
                     <strong>{productData.color}</strong>
                     <br />
                     <span>
-                      {productData.price}
-                      <u>đ</u>
+                      {formatCurrency(productData.price)}
                     </span>
                   </div>
                 </div>
@@ -247,7 +255,7 @@ const Details = ({ match }) => {
                     <li>
                       <span>Giá:</span>
                       <span className="new__price">
-                        {productData.price} VNĐ
+                        {formatCurrency(productData.price)}
                       </span>
                     </li>
                     <li>
@@ -351,10 +359,6 @@ const Details = ({ match }) => {
 
                   <div className="button">
                     <AddToCartButton productId={id} quantity={quantity} />
-
-                    <button className="button__pay" id="button__buy">
-                      MUA NGAY
-                    </button>
                   </div>
                 </div>
 
@@ -439,7 +443,7 @@ const Details = ({ match }) => {
                     <span>Rating: {relatestProduct?.review?.rating}</span>
                   </div>
                   <div className="product__price">
-                    <h4>{relatestProduct.price} VND</h4>
+                    <h4>{formatCurrency(relatestProduct.price)}</h4>
                   </div>
 
                   <Link to={`/detail/product/${relatestProduct.productId}`}>

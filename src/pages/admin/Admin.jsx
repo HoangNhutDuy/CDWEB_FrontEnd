@@ -7,8 +7,28 @@ import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNone
 import UnfoldMoreIcon from "@mui/icons-material/UnfoldMore"
 import TableContentProduct from "../../components/admin/TableContent/TableContentProduct"
 import ModalAddProduct from "../../components/admin/Modal/ModalAddProduct"
-
+import axios from "axios"
 const Admin = () => {
+  const token = localStorage.getItem("token")
+  const navigate = useNavigate()
+  useEffect(() => {
+    if (!token) {
+      navigate("/login")
+    }
+    axios
+      .get("http://localhost:8080/user/profile", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        const role = res?.data?.role
+        if (role !== "ADMIN") {
+          navigate("/")
+        }
+      })
+      .catch((err) => console.log(err))
+  }, [])
   // const navigate = useNavigate()
   // useEffect(() => {
   //   const token = localStorage.getItem("token")

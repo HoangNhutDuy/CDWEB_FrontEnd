@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import Table from "@mui/material/Table"
 import TableBody from "@mui/material/TableBody"
 import TableCell from "@mui/material/TableCell"
@@ -12,16 +12,30 @@ import { toast, ToastContainer } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 import ModalUpdateUser from "../Modal/ModalUpdateUser"
 import ModalUpdateOrders from "../Modal/ModalUpdateOrders"
+import axios from "axios"
 const TableContentOrders = () => {
-  const users = [
-    {
-      userId: "1",
-      email: "nhutdny123@gmail.com",
-      fullName: "Hoang Nhut Duy",
-      phoneNumber: "0775869195",
-      address: "a",
-    },
-  ]
+  const token = localStorage.getItem("token")
+  const [orders, setOrders] = useState([])
+  useEffect(() => {
+    axios
+      .get("http://localhost:8080/order/getAll", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => setOrders(res?.data))
+      .catch((err) => console.log(err))
+  }, [])
+
+  // const orders = [
+  //   {
+  //     userId: "1",
+  //     email: "nhutdny123@gmail.com",
+  //     fullName: "Hoang Nhut Duy",
+  //     phoneNumber: "0775869195",
+  //     address: "a",
+  //   },
+  // ]
   return (
     <>
       <TableContainer
@@ -52,7 +66,7 @@ const TableContentOrders = () => {
                   fontSize: "14px",
                 }}
               >
-                ID
+                Mã đơn hàng
               </TableCell>
               <TableCell
                 sx={{
@@ -92,14 +106,24 @@ const TableContentOrders = () => {
                 }}
                 align="left"
               >
+                Tổng tiền
+              </TableCell>
+              <TableCell
+                sx={{
+                  color: "#ACACAC",
+                  borderBottom: "none",
+                  fontSize: "14px",
+                }}
+                align="left"
+              >
                 Địa chỉ
               </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {users?.map((row) => (
+            {orders?.map((row) => (
               <TableRow
-                key={row.userId}
+                key={row.orderId}
                 sx={{
                   height: "65px",
                   fontSize: "14px",
@@ -120,7 +144,7 @@ const TableContentOrders = () => {
                     alt="Remy Sharp"
                     sx={{ borderRadius: "8px", width: 50, fontSize: "14px" }}
                   />
-                  {row?.userId}
+                  {row?.orderId}
                 </TableCell>
                 <TableCell
                   sx={{
@@ -130,7 +154,7 @@ const TableContentOrders = () => {
                     fontSize: "14px",
                   }}
                 >
-                  {row?.fullName}
+                  {row?.firstName + " " + row?.lastName}
                 </TableCell>
                 <TableCell
                   sx={{
@@ -160,35 +184,17 @@ const TableContentOrders = () => {
                   }}
                   align="left"
                 >
-                  {row?.address}
-                </TableCell>
-
-                <TableCell
-                  sx={{
-                    borderBottom: "none",
-                    fontWeight: "600",
-                    color: "#FEAF00",
-                    cursor: "pointer",
-                    fontSize: "14px",
-                  }}
-                  align="left"
-                >
-                  <DeleteOutlineOutlinedIcon
-                    sx={{ fontSize: "20px" }}
-                    // onClick={() => handleDeleteUser(row?.userId)}
-                  />
+                  {row?.totalAmount + " " + "VND"}
                 </TableCell>
                 <TableCell
                   sx={{
                     borderBottom: "none",
                     fontWeight: "600",
-                    color: "#FEAF00",
-                    cursor: "pointer",
                     fontSize: "14px",
                   }}
                   align="left"
                 >
-                  <ModalUpdateOrders />
+                  {row?.shippingAddress}
                 </TableCell>
               </TableRow>
             ))}
